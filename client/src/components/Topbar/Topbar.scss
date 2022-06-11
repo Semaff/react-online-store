@@ -1,0 +1,25 @@
+.topbar {
+    background: #333333;
+    padding: 15px 0;
+}
+
+.topbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topbar__left,
+.topbar__right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 13px;
+    font-weight: 300;
+    color: #fff;
+
+    svg {
+        fill: #fff;
+    }
+}
