@@ -7,15 +7,15 @@ const Topbar = () => {
         <div className="topbar">
             <div className="container">
                 <div className="topbar__inner">
-                    <div className="topbar__left">
+                    <span className="topbar__left">
                         <Tag />
                         Wants to explore Upcoming Deals on Weekends?
-                    </div>
+                    </span>
 
-                    <div className="topbar__right">
+                    <span className="topbar__right">
                         <Mail />
                         demo.store@gmail.com
-                    </div>
+                    </span>
                 </div>
             </div>
         </div>
