@@ -29,7 +29,7 @@ const Middlebar = () => {
 
                         <div className="middlebar__phone">
                             <Phone />
-                            095587-55680
+                            <a href="tel:+095587-55680">095587-55680</a>
                         </div>
                     </span>
 

@@ -9,6 +9,30 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 3rem;
+}
+
+.middlebar__logo {
+    justify-content: center;
+}
+
+.middlebar__left {
+    justify-content: flex-start;
+
+    @media screen and (max-width: 450px) {
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .middlebar__select {
+            padding-right: 0;
+            margin-right: 0;
+            border: 0;
+        }
+    }
+}
+
+.middlebar__right {
+    gap: 30px;
+    justify-content: flex-end;
 
     svg {
         cursor: pointer;
@@ -27,27 +51,6 @@
     @media screen and (max-width: 1200px) {
         justify-content: center;
         width: 100%;
-    }
-}
-
-.middlebar__logo {
-    justify-content: center;
-}
-
-.middlebar__left {
-    justify-content: flex-start;
-
-    @media screen and (max-width: 1200px) {
-        justify-content: center;
-    }
-}
-
-.middlebar__right {
-    gap: 30px;
-    justify-content: flex-end;
-
-    @media screen and (max-width: 1200px) {
-        justify-content: center;
     }
 }
 
@@ -122,4 +125,13 @@
     color: #000;
     letter-spacing: 0.025em;
     flex-shrink: 0;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

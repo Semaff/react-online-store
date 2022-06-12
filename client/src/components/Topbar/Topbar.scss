@@ -7,6 +7,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media screen and (max-width: 676px) {
+        justify-content: center;
+    }
 }
 
 .topbar__left,
@@ -20,6 +26,15 @@
     letter-spacing: 0.025em;
     font-weight: 300;
     color: #fff;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 
     svg {
         fill: #fff;

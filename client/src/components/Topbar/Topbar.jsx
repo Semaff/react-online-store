@@ -14,7 +14,7 @@ const Topbar = () => {
 
                     <span className="topbar__right">
                         <Mail />
-                        demo.store@gmail.com
+                        <a href="mailto:demo.store@gmail.com">demo.store@gmail.com</a>
                     </span>
                 </div>
             </div>
