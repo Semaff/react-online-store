@@ -1,7 +1,4 @@
-import Cart from "../svg/Cart";
-import Phone from "../svg/Phone";
-import Profile from "../svg/Profile";
-import Search from "../svg/Search";
+import { Phone, Search, Profile, Cart } from "../_SVG";
 import "./Middlebar.scss";
 
 const Middlebar = () => {

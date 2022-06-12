@@ -1,5 +1,4 @@
-import Mail from "../../components/svg/Mail";
-import Tag from "../../components/svg/Tag";
+import { Mail, Tag } from "../_SVG";
 import "./Topbar.scss"
 
 const Topbar = () => {
