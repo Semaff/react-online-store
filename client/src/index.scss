@@ -21,9 +21,73 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
 .container {
     width: 100%;
     max-width: 1600px;
     padding: 0 15px;
     margin: 0 auto;
+}
+
+/*
+  Btn
+*/
+.btn {
+    cursor: pointer;
+    border: none;
+    background: #fff;
+    border-radius: 2rem;
+
+    font-size: 14px;
+    color: #000;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+
+    padding: 15px 35px;
+
+    transition: background-color 0.2s linear;
+
+    &:hover {
+        background: darken(#fff, 5%);
+    }
+
+    &.--black {
+        background: #000;
+        color: #fff;
+
+        &:hover {
+            background-color: lighten(#000, 5%);
+        }
+    }
+
+    &.--poppins {
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        text-transform: none;
+    }
+
+    &.--small {
+        padding: 1rem 2rem;
+    }
+}
+
+/*
+  Section
+*/
+.section {
+    padding-top: 7rem;
 }

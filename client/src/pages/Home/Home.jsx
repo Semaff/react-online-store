@@ -1,4 +1,4 @@
-import { Middlebar, Navbar, Topbar } from "../../components";
+import { About, Intro, Middlebar, Navbar, Topbar } from "../../components";
 import "./home.scss"
 
 const Home = () => {
@@ -7,6 +7,8 @@ const Home = () => {
             <Topbar />
             <Middlebar />
             <Navbar />
+            <Intro />
+            <About />
         </>
     )
 }
