@@ -1,5 +1,4 @@
-import Middlebar from "../../components/Middlebar/Middlebar";
-import Topbar from "../../components/Topbar/Topbar";
+import { Middlebar, Navbar, Topbar } from "../../components";
 import "./home.scss"
 
 const Home = () => {
@@ -7,6 +6,7 @@ const Home = () => {
         <>
             <Topbar />
             <Middlebar />
+            <Navbar />
         </>
     )
 }
