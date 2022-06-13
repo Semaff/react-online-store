@@ -6,7 +6,7 @@ const About = () => {
         <section className="about">
             <div className="container">
 
-                <div className="about__inner" style={{ background: "url('./images/about-bg.jpg') center no-repeat", backgroundSize: 'cover' }}>
+                <div className="about__inner" style={{ background: "url('./images/about-bg.jpg') center no-repeat" }}>
 
                     <div className="about__item" style={{ marginBottom: '10px' }}>
                         <div className="about__img"></div>
@@ -23,7 +23,7 @@ const About = () => {
                     <div className="about__item" style={{ marginTop: '10px' }}>
                         <Banner
                             addMarginBottom
-                            title="Women's"
+                            title="Men's"
                             subTitle="Collection"
                             text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
                             btnText="Shop Now"
