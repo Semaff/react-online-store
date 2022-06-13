@@ -1,0 +1,80 @@
+.product {
+    width: 100%;
+    padding: 3rem;
+    max-width: 35rem;
+    min-width: 35rem;
+    height: 50rem;
+    background-color: #f7f7f7;
+
+    &:hover {
+        .product__content {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.product__content {
+    opacity: 0;
+    visibility: hidden;
+
+    text-align: center;
+    height: 100%;
+    padding: 5rem;
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: all 0.2s linear;
+}
+
+.product__header,
+.product__actions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.product__rating {
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgb(255, 204, 0);
+}
+
+.product__name {
+    font-size: 1.8rem;
+    letter-spacing: 0.025em;
+    color: #000;
+    font-family: "Playfair Display", sans-serif;
+}
+
+.product__price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    font-size: 1.8rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: 0.025em;
+
+    &-old {
+        font-size: 1.4rem;
+        text-decoration: line-through;
+        color: #666666;
+    }
+}
+
+.product__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}

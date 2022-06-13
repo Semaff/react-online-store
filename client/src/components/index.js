@@ -4,6 +4,8 @@ import Navbar from "./Navbar/Navbar";
 import Intro from "./Intro/Intro";
 import About from "./About/About";
 import Banner from "./Banner/Banner";
+import Slider from "./Slider/Slider";
+import Product from "./Product/Product";
 
 export {
     Topbar,
@@ -11,5 +13,7 @@ export {
     Navbar,
     Intro,
     About,
-    Banner
+    Banner,
+    Slider,
+    Product
 }
