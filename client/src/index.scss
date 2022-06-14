@@ -137,6 +137,24 @@ p {
             height: 20px;
         }
     }
+
+    &.--dot {
+        cursor: pointer;
+        appearance: none;
+        margin: 0;
+        padding: 0;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid #000;
+        background-color: #fff;
+
+        transition: background-color .2s linear;
+
+        &:checked {
+            background-color: #000;
+        }
+    }
 }
 
 /*
@@ -144,6 +162,18 @@ p {
 */
 .section {
     padding-top: 7rem;
+
+    &.--addMargin {
+        margin-top: 7rem;
+    }
+
+    &.--extraPadding {
+        padding: 13rem 0;
+    }
+
+    &.--lowOpacity {
+        opacity: 0.4;
+    }
 }
 
 .section__title {

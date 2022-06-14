@@ -1,0 +1,24 @@
+.carousel__inner {
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    margin-bottom: 2rem;
+}
+
+.carousel__item {
+    text-align: center;
+    position: relative;
+
+    width: 100%;
+    flex-shrink: 0;
+    transition: transform 0.7s ease-in-out;
+}
+
+.carousel__dots {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}

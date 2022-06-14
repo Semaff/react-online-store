@@ -1,0 +1,37 @@
+.testimonial {
+    width: 100%;
+    max-width: 55rem;
+    margin: 0 auto;
+}
+
+.testimonial__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    margin-bottom: 5rem;
+}
+
+.testimonial__text {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    p {
+        font-size: 1.6rem;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.025em;
+        color: #fff;
+    }
+}
+
+.testimonial__desc {
+    h3 {
+        font-size: 1.6rem;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.025em;
+        color: #fff;
+        text-transform: uppercase;
+
+        margin: 0.5rem 0;
+    }
+}
