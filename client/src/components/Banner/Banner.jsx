@@ -1,18 +1,31 @@
 import "./Banner.scss";
 
-const Banner = ({ title, subTitle, text, btnText, addMarginTop, addMarginBottom }) => {
-    console.log(addMarginTop)
-
+const Banner = ({ title, subTitle, text, btnText, priceText, isMini }) => {
     return (
-        <div className="banner" style={(addMarginTop && { marginTop: '-90px' }) || (addMarginBottom && {marginBottom: '-90px'})}>
-            <h4 className="banner__title">{title}</h4>
-            <h5 className="banner__subtitle">{subTitle}</h5>
+        <div className="banner" style={{padding: `${isMini && "5rem"}`}}>
+            {title && (
+                <h4 className="banner__title">{title}</h4>
+            )}
 
-            <div className="banner__text">
-                <p>{text}</p>
-            </div>
+            {(subTitle) && (
+                <h5 className="banner__subtitle" style={{ fontSize: `${isMini && "3rem"} ` }}>
+                    {subTitle}
+                </h5>
+            )}
 
-            <button className="btn --black --poppins --small" type="btn">{btnText}</button>
+            {priceText && (
+                <h6 className="banner__price">{priceText}</h6>
+            )}
+
+            {text && (
+                <div className="banner__text">
+                    <p>{text}</p>
+                </div>
+            )}
+
+            {btnText && (
+                <button className="btn --black --poppins --small" type="btn">{btnText}</button>
+            )}
         </div>
     )
 }

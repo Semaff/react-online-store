@@ -5,35 +5,35 @@ const About = () => {
     return (
         <section className="about">
             <div className="container">
-
                 <div className="about__inner" style={{ background: "url('./images/about-bg.jpg') center no-repeat" }}>
 
-                    <div className="about__item" style={{ marginBottom: '10px' }}>
-                        <div className="about__img"></div>
+                    <div className="about__item" style={{ marginBottom: '1rem' }}>
+                        <img src="https://placehold.jp/1000x1000.png" alt="about1" className="about__img" />
 
-                        <Banner
-                            addMarginTop
-                            title="Women's"
-                            subTitle="Collection"
-                            text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
-                            btnText="Shop Now"
-                        />
+                        <div className="about__banner" style={{ marginTop: '-9rem' }}>
+                            <Banner
+                                title="Women's"
+                                subTitle="Collection"
+                                text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
+                                btnText="Shop Now"
+                            />
+                        </div>
                     </div>
 
-                    <div className="about__item" style={{ marginTop: '10px' }}>
-                        <Banner
-                            addMarginBottom
-                            title="Men's"
-                            subTitle="Collection"
-                            text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
-                            btnText="Shop Now"
-                        />
+                    <div className="about__item" style={{ marginTop: '1rem' }}>
+                        <div className="about__banner" style={{ marginBottom: '-9rem' }}>
+                            <Banner
+                                title="Women's"
+                                subTitle="Collection"
+                                text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
+                                btnText="Shop Now"
+                            />
+                        </div>
 
-                        <div className="about__img"></div>
+                        <img src="https://placehold.jp/1000x1000.png" alt="about2" className="about__img" />
                     </div>
 
                 </div>
-
             </div>
         </section>
     )

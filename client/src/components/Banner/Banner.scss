@@ -4,13 +4,12 @@
 
     border: 10px solid #f7f7f7;
     background: #fff;
-    width: 81%;
-    margin: 0 auto;
+    min-width: 46rem;
 
-    padding: 8rem 7rem;
+    padding: 7rem;
     text-align: center;
 
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
@@ -36,7 +35,20 @@
     color: #232323;
 }
 
+.banner__price {
+    font-size: 1.8rem;
+    font-family: "Playfair Display", serif;
+    letter-spacing: 0.025em;
+    line-height: 1.8;
+    text-transform: uppercase;
+    color: #000;
+}
+
 .banner__text {
+    width: 100%;
+    max-width: 34rem;
+    margin: 0 auto;
+
     p {
         font-size: 1.4rem;
         font-family: "Poppins", sans-serif;

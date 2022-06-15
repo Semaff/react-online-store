@@ -1,0 +1,114 @@
+/*
+  Btn
+*/
+.btn {
+    cursor: pointer;
+    border: none;
+    background: #fff;
+    border-radius: 2rem;
+
+    font-size: 14px;
+    color: #000;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+
+    padding: 15px 35px;
+
+    transition: background-color 0.2s linear;
+
+    &:hover {
+        background: darken(#fff, 5%);
+    }
+
+    &.--black {
+        background: #000;
+        fill: #fff;
+        color: #fff;
+
+        &:hover {
+            background-color: lighten(#000, 5%);
+        }
+    }
+
+    &.--poppins {
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        text-transform: none;
+    }
+
+    &.--small {
+        padding: 1rem 2rem;
+    }
+
+    &.--rounded {
+        border-radius: 50%;
+        padding: 1.2rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.--grey {
+        background-color: #f5f5f5;
+
+        &:hover {
+            background: darken(#f5f5f5, 5%);
+        }
+    }
+
+    &.--pseudo-elem {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            left: 100%;
+            z-index: 1;
+
+            content: "";
+            display: block;
+            width: 100%;
+            max-width: 4rem;
+            height: 1px;
+            background-color: #e8e8e8;
+        }
+    }
+
+    &.--border {
+        border: 1px solid #e8e8e8;
+    }
+
+    &.--reversed {
+        transform: rotate(180deg);
+    }
+
+    &.--slider {
+        padding: 0.8rem;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.dot {
+    cursor: pointer;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    background-color: #fff;
+
+    transition: background-color 0.2s linear;
+
+    &:checked {
+        background-color: #000;
+    }
+}

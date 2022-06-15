@@ -1,4 +1,4 @@
-import { About, Carousel, Intro, Middlebar, Navbar, Product, Slider, Testimonial, Topbar } from "../../components";
+import { About, About2, Carousel, Intro, Middlebar, Navbar, Product, Slider, Testimonial, Topbar } from "../../components";
 import "./home.scss"
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
         for (let i = 0; i < 10; i++) {
             data.push(<Testimonial key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
         }
-        
+
         return data;
     }
 
@@ -59,6 +59,8 @@ const Home = () => {
 
                 </div>
             </section>
+
+            <About2 />
         </>
     )
 }

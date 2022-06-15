@@ -33,7 +33,7 @@ const Carousel = ({ children }) => {
                         checked={index === currentSlide ? true : false}
                         onChange={() => setCurrentSlide(index)}
                         type="radio"
-                        className="btn --dot"
+                        className="dot"
                         name="dotBtn"
                     />
                 ))}

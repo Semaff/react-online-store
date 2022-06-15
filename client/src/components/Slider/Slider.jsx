@@ -1,5 +1,4 @@
-import React from 'react';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Arrow } from '../_SVG';
 import "./Slider.scss";
 

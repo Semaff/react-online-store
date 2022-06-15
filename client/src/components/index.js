@@ -8,6 +8,7 @@ import Slider from "./Slider/Slider";
 import Product from "./Product/Product";
 import Carousel from "./Carousel/Carousel";
 import Testimonial from "./Testimonial/Testimonial";
+import About2 from "./About2/About2";
 
 export {
     Topbar,
@@ -19,5 +20,6 @@ export {
     Slider,
     Product,
     Carousel,
-    Testimonial
+    Testimonial,
+    About2
 }
