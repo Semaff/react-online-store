@@ -42,6 +42,10 @@ p {
     max-width: 1600px;
     padding: 0 15px;
     margin: 0 auto;
+
+    &.--shrinked {
+        max-width: 129rem;
+    }
 }
 
 /*
@@ -49,6 +53,10 @@ p {
 */
 .section {
     padding-top: 7rem;
+
+    &.--fullPadding {
+        padding: 7rem 0;
+    }
 
     &.--addMargin {
         margin-top: 7rem;

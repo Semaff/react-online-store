@@ -1,4 +1,4 @@
-import { About, About2, Carousel, Intro, Middlebar, Navbar, Product, Slider, Testimonial, Topbar } from "../../components";
+import { About, About2, Carousel, Footer, Intro, Logos, Middlebar, Navbar, Product, Slider, Tabs, Testimonial, Topbar } from "../../components";
 import "./home.scss"
 
 const Home = () => {
@@ -35,6 +35,8 @@ const Home = () => {
 
                     <h2 className="section__title">Trending products</h2>
 
+                    <Tabs />
+
                     <Slider>
                         {getProducts()}
                     </Slider>
@@ -61,6 +63,21 @@ const Home = () => {
             </section>
 
             <About2 />
+
+            <section className="section">
+                <div className="container">
+
+                    <h2 className="section__title">Special products</h2>
+
+                    <Slider>
+                        {getProducts()}
+                    </Slider>
+
+                </div>
+            </section>
+
+            <Logos />
+            <Footer />
         </>
     )
 }

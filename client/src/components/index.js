@@ -9,6 +9,9 @@ import Product from "./Product/Product";
 import Carousel from "./Carousel/Carousel";
 import Testimonial from "./Testimonial/Testimonial";
 import About2 from "./About2/About2";
+import Tabs from "./Tabs/Tabs";
+import Logos from "./Logos/Logos";
+import Footer from "./Footer/Footer";
 
 export {
     Topbar,
@@ -21,5 +24,8 @@ export {
     Product,
     Carousel,
     Testimonial,
-    About2
+    About2,
+    Tabs,
+    Logos,
+    Footer
 }

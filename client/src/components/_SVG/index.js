@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import Refresh from "./Refresh";
 import Search from "./Search";
 import Tag from "./Tag";
+import Map from "./Map";
 
 export {
     Arrow,
@@ -19,5 +20,6 @@ export {
     Profile,
     Refresh,
     Search,
-    Tag
+    Tag,
+    Map
 }

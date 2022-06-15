@@ -19,12 +19,6 @@ const Slider = ({ children }) => {
 
     return (
         <div className="slider">
-            <div className="slider__tabs">
-                <button className="slider__tab" type="button">Featured</button>
-                <button className="slider__tab" type="button">Latest</button>
-                <button className="slider__tab" type="button">Bestseller</button>
-            </div>
-
             <div className="slider__wrapper" ref={sliderRef}>
                 <div className="slider__inner">
                     {children}
