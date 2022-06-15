@@ -5,8 +5,9 @@ const Home = () => {
     const getProducts = () => {
         let data = [];
 
-        for (let i = 0; i < 10; i++) {
-            data.push(<Product key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+        for (let i = 0; i < 5; i++) {
+            let img = `./images/product-${i + 1}.jpg`
+            data.push(<Product key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
         }
 
         return data;

@@ -8,6 +8,12 @@
 
     max-width: 129rem;
     margin: 0 auto;
+
+    @media screen and (max-width: 676px) {
+        .about__img {
+            height: 40rem;
+        }
+    }
 }
 
 .about__item {
@@ -25,4 +31,5 @@
     width: 100%;
     height: 60rem;
     background: #5e5751;
+    object-fit: cover;
 }

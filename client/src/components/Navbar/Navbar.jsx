@@ -26,6 +26,10 @@ const Navbar = () => {
                     </li>
                 </ul>
 
+                <div className="navbar__burger">
+                    <span className="navbar__burger-line">Menu</span>
+                </div>
+
             </div>
         </nav>
     )

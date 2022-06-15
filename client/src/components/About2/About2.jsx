@@ -6,7 +6,7 @@ const About2 = () => {
         <section className="section">
             <div className="container">
                 <div className="about2">
-                    <div className="about2__img" style={{ backgroundImage: "url('https://placehold.jp/3d4070/ffffff/400x600.png')" }}>
+                    <div className="about2__img" style={{ background: "url('./images/about-3.jpg') center no-repeat" }}>
                         <div className="about2__banner  --reversed">
                             <Banner
                                 isMini
@@ -17,7 +17,7 @@ const About2 = () => {
                         </div>
                     </div>
 
-                    <div className="about2__img" style={{ backgroundImage: "url('https://placehold.jp/3d4070/ffffff/400x600.png')" }}>
+                    <div className="about2__img" style={{ background: "url('./images/about-4.jpg') center no-repeat" }}>
                         <div className="about2__banner">
                             <Banner
                                 isMini

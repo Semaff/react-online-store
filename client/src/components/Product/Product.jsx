@@ -1,16 +1,20 @@
 import { Cart, Eye, Like, Refresh } from "../_SVG";
 import "./Product.scss";
 
-const Product = ({ price, oldPrice, name, rating }) => {
+const Product = ({ price, oldPrice, name, rating, img }) => {
     return (
         <div className="product">
+            <img src={img} alt="product" className="product__img" />
+
             <div className="product__content">
                 <div className="product__header">
                     <h3 className="product__name">{name}</h3>
 
                     <div className="product__price">
                         ${price}
-                        <h4 className="product__price-old">${oldPrice}</h4>
+                        {oldPrice && (
+                            <h4 className="product__price-old">${oldPrice}</h4>
+                        )}
                     </div>
                 </div>
 

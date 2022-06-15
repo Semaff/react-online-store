@@ -2,7 +2,14 @@ import "./Banner.scss";
 
 const Banner = ({ title, subTitle, text, btnText, priceText, isMini }) => {
     return (
-        <div className="banner" style={{padding: `${isMini && "5rem"}`}}>
+        <div className="banner"
+            style={
+                { padding: `${
+                    (window.matchMedia("(max-width: 450px)").matches) ||
+                    (isMini && "5rem")
+                }`}
+            }
+        >
             {title && (
                 <h4 className="banner__title">{title}</h4>
             )}

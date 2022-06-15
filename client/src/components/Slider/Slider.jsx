@@ -6,14 +6,17 @@ const Slider = ({ children }) => {
     const sliderRef = useRef();
 
     const nextSlides = (e) => {
+        let width = 350;
+        if(window.matchMedia("(max-width: 450px)").matches) {
+            width = 280
+        }
         const gap = 50;
-        const width = sliderRef.current.offsetWidth;
         sliderRef.current.scrollBy(width + gap, 0);
     }
 
     const prevSlides = (e) => {
         const gap = 50;
-        const width = sliderRef.current.offsetWidth;
+        const width = 350;
         sliderRef.current.scrollBy(-(width + gap), 0);
     }
 

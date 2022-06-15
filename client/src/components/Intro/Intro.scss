@@ -4,12 +4,25 @@
 
 .intro__inner {
     height: 80rem;
-    background: #494546;
+    padding: 0 1.5rem;
+    text-align: center;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media screen and (max-width: 450px) {
+        height: 60rem;
+        
+        .intro__title {
+            font-size: 5.6rem;
+        }
+
+        .intro__suptitle {
+            font-size: 4rem;
+        }
+    }
 }
 
 .intro__suptitle {
