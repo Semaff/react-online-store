@@ -1,0 +1,136 @@
+/*
+  Normal input
+*/
+.input,
+.select {
+    width: 100%;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+    padding: 1rem;
+
+    font-size: 1.2rem;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.04em;
+    color: #000;
+
+    &::placeholder {
+        color: #666666;
+    }
+}
+
+.input__placeholder {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &.--checkout {
+        &::after {
+            content: "Full name as displayed on card";
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+            font-family: 'Poppins', sans-serif;
+            color: #666666;
+        }
+    }
+}
+
+.input__flexbox {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+
+    @media screen and (max-width: 676px) {
+        flex-direction: column;
+    }
+}
+
+/*
+  Label
+*/
+.label {
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.04em;
+    color: #666666;
+
+    &.--important {
+        &::after {
+            content: "*";
+            color: red;
+            margin-left: 0.5rem;
+        }
+    }
+
+    &.--black {
+        font-size: 1.4rem;
+        color: #444444;
+    }
+}
+
+/*
+  Select
+*/
+.select {
+    color: #666666;
+}
+
+/*
+  Checkbox
+*/
+.checkbox {
+    appearance: none;
+    position: relative;
+    flex-shrink: 0;
+
+    background-color: #e5e5e5;
+    border-radius: 5px;
+    width: 15px;
+    height: 15px;
+
+    &:checked {
+        &::after {
+            content: "";
+            display: block;
+
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+
+            border: solid #000;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+.checkbox__flexbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/*
+  Radio
+*/
+.radio {
+    cursor: pointer;
+    flex-shrink: 0;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #dee1e6;
+
+    transition: background-color 0.2s linear;
+
+    &:checked {
+        background-color: #000;
+        border: 3px solid #dee1e6;
+    }
+}
