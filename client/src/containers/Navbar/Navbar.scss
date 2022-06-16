@@ -18,9 +18,12 @@
             flex-direction: column;
         }
 
+        .navbar__burger {
+            display: flex;
+        }
+
         &.active {
-            .nav__list,
-            .navbar__burger {
+            .nav__list {
                 display: flex;
             }
         }

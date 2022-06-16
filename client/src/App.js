@@ -1,10 +1,19 @@
 import './App.scss';
-import Home from './pages/Home/Home';
+import { Footer, Middlebar, Navbar, Topbar } from './containers';
+import Cart from './pages/Cart/Cart';
+// import Home from "./pages/Home/Home"
 
 function App() {
     return (
         <div className="App">
-            <Home />
+            <Topbar />
+            <Middlebar />
+            <Navbar />
+
+            <Cart />
+            {/* <Home /> */}
+
+            <Footer />
         </div>
     );
 }

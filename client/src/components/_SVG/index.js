@@ -9,6 +9,7 @@ import Refresh from "./Refresh";
 import Search from "./Search";
 import Tag from "./Tag";
 import Map from "./Map";
+import Remove from "./Remove";
 
 export {
     Arrow,
@@ -21,5 +22,6 @@ export {
     Refresh,
     Search,
     Tag,
-    Map
+    Map,
+    Remove
 }

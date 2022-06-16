@@ -7,6 +7,7 @@ import Testimonials from "./Testimonials/Testimonials";
 import Navbar from "./Navbar/Navbar";
 import Middlebar from "./Middlebar/Middlebar";
 import Topbar from "./Topbar/Topbar";
+import Timeline from "./Timeline/Timeline";
 
 export {
     About,
@@ -17,5 +18,6 @@ export {
     Testimonials,
     Navbar,
     Middlebar,
-    Topbar
+    Topbar,
+    Timeline
 }

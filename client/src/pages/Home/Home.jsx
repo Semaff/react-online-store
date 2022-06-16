@@ -14,9 +14,6 @@ const Home = () => {
 
     return (
         <>
-            <Topbar />
-            <Middlebar />
-            <Navbar />
             <Intro />
             <About />
 
@@ -50,7 +47,6 @@ const Home = () => {
             </section>
 
             <Logos />
-            <Footer />
         </>
     )
 }
