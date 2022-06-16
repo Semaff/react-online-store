@@ -1,4 +1,4 @@
-import Banner from "../Banner/Banner";
+import { Banner } from "../../components";
 import "./About.scss"
 
 const About = () => {

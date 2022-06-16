@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Map, Phone } from '../_SVG';
+import { Mail, Map, Phone } from '../../components/_SVG';
 import "./Footer.scss";
 
 const Footer = () => {

@@ -1,4 +1,4 @@
-import { Phone, Search, Profile, Cart } from "../_SVG";
+import { Cart, Phone, Profile, Search } from "../../components/_SVG";
 import "./Middlebar.scss";
 
 const Middlebar = () => {
