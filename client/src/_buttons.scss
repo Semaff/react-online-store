@@ -18,6 +18,12 @@
 
     transition: background-color 0.2s linear;
 
+    &.active {
+        background: #000;
+        fill: #fff;
+        color: #fff;
+    }
+
     &:hover {
         background: darken(#fff, 5%);
     }
@@ -44,6 +50,9 @@
     }
 
     &.--rounded {
+        width: 41px;
+        height: 41px;
+
         border-radius: 50%;
         padding: 1.2rem;
 
@@ -95,6 +104,9 @@
     }
 }
 
+/*
+  Dot
+*/
 .dot {
     cursor: pointer;
     appearance: none;
@@ -110,5 +122,52 @@
 
     &:checked {
         background-color: #000;
+    }
+}
+
+/*
+  Toggle (plus - minus)
+*/
+.toggle {
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    position: relative;
+
+    &::after,
+    &::before {
+        content: "";
+
+        display: block;
+        background-color: #000;
+        transition: all 0.5s ease-in-out;
+        opacity: 1;
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%) rotate(-90deg);
+    }
+
+    &::after {
+        width: 3px;
+        height: 15px;
+    }
+
+    &::before {
+        width: 15px;
+        height: 3px;
+    }
+
+    &.active {
+        &::after,
+        &::before {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        &::after {
+            opacity: 0;
+        }
     }
 }
