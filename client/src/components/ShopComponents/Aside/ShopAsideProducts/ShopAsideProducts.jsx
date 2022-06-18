@@ -1,4 +1,4 @@
-import { Product } from "../../../";
+import { ProductMini } from "../../../";
 import "./ShopAsideProducts.scss";
 
 const ShopAsideProducts = ({ products }) => {
@@ -11,7 +11,7 @@ const ShopAsideProducts = ({ products }) => {
 
             <div className="shop__aside-products">
                 {products.map(product => (
-                    <Product key={product.name} {...product} />
+                    <ProductMini key={product.name} {...product} />
                 ))}
             </div>
         </>

@@ -33,6 +33,16 @@
         fill: #fff;
         color: #fff;
 
+        &:disabled {
+            background: #ff9d27;
+            color: #666666;
+            fill: #666666;
+
+            &:hover {
+                background: #ff9d27;
+            }
+        }
+
         &:hover {
             background-color: lighten(#000, 5%);
         }

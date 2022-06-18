@@ -1,13 +1,26 @@
+import { useRef } from "react";
 import { Grid, Lines, List } from "../../../_SVG";
 import "./ShopMainControl.scss";
 
-const ShopMainControl = () => {
+const ShopMainControl = ({ setView }) => {
+    const currentView = useRef();
+
+    const changeView = (e, view) => {
+        // Remove class + change Use Ref current View
+        currentView.current.classList.remove("active");
+        currentView.current = e.currentTarget;
+
+        // Set View
+        e.currentTarget.classList.add("active");
+        setView(view);
+    }
+
     return (
         <div className="shop__main-control">
             <div className="shop__main-control__position">
-                <a href="#a" className="active"><Grid /></a>
-                <a href="#a"><List /></a>
-                <a href="#a"><Lines /></a>
+                <a href="#a" onClick={(e) => changeView(e, "grid")} ref={currentView} className="active"><Grid /></a>
+                <a href="#a" onClick={(e) => changeView(e, "list")}><List /></a>
+                <a href="#a" onClick={(e) => changeView(e, "short")}><Lines /></a>
             </div>
 
             <div className="shop__main-control__sort">

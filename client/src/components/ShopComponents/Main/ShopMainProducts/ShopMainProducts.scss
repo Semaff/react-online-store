@@ -1,3 +1,12 @@
+.shop__main-short,
+.shop__main-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    padding: 3rem 0;
+}
+
 .shop__main-grid {
     padding: 3rem 0;
 

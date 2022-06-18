@@ -4,6 +4,7 @@
 // Pure
 import Banner from "./_Other/Pure/Banner/Banner";
 import Product from "./_Other/Pure/Product/Product";
+import ProductMini from "./_Other/Pure/ProductMini/ProductMini";
 import ProductCard from "./_Other/Pure/ProductCard/ProductCard";
 import Testimonial from "./_Other/Pure/Testimonial/Testimonial";
 import Tabs from "./_Other/Pure/Tabs/Tabs";
@@ -35,7 +36,6 @@ import ShopMainControl from "./ShopComponents/Main/ShopMainControl/ShopMainContr
 import ShopMainHeader from "./ShopComponents/Main/ShopMainHeader/ShopMainHeader";
 import ShopMainPagination from "./ShopComponents/Main/ShopMainPagination/ShopMainPagination";
 import ShopMainProducts from "./ShopComponents/Main/ShopMainProducts/ShopMainProducts";
-import ShopMainGrid from "./ShopComponents/Main/ShopMainGrid/ShopMainGrid";
 
 /*
   Checkout
@@ -53,11 +53,12 @@ import CartTableItem from "./CartComponents/CartTableItem/CartTableItem";
 export {
     Banner,
     Slider,
+    Product,
+    ProductMini,
     ProductCard,
     Carousel,
     Testimonial,
     Tabs,
-    Product,
 
     MyRange,
     MyCheckBox,
@@ -75,7 +76,6 @@ export {
     ShopMainHeader,
     ShopMainPagination,
     ShopMainProducts,
-    ShopMainGrid,
 
     CheckoutExtra,
     CheckoutForm,

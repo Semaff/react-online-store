@@ -1,0 +1,62 @@
+.product-mini {
+    display: flex;
+    align-items: flex-start;
+    text-decoration: none;
+
+    &__img {
+        img {
+            width: 10rem;
+            height: 13rem;
+        }
+    }
+
+    &__content {
+        padding: 1rem;
+    }
+
+    &__name {
+        font-size: 1.4rem;
+        font-family: "Playfair Display", sans-serif;
+        letter-spacing: 0.025em;
+        color: #000;
+        font-weight: 700;
+
+        text-decoration: none;
+        display: block;
+        margin-bottom: 1.5rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__rating {
+        font-size: 1.3rem;
+        letter-spacing: 0.025em;
+        font-family: "Playfair Display", sans-serif;
+        color: #000;
+
+        margin-bottom: 1rem;
+    }
+
+    &__price {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.5rem;
+
+        font-size: 1.8rem;
+        font-family: "Poppins", sans-serif;
+        color: #000;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+
+        &-old {
+            font-size: 1.4rem;
+            font-family: "Poppins", sans-serif;
+            color: #666666;
+            font-weight: 400;
+            text-decoration: line-through;
+        }
+    }
+}
