@@ -1,5 +1,4 @@
 @import "./_buttons.scss";
-@import "./inputs.scss";
 
 *,
 *::after,
@@ -78,7 +77,7 @@ p {
     letter-spacing: 0.025em;
     color: #000;
     font-weight: 700;
-    font-family: 'Playfair Display', sans-serif;
+    font-family: "Playfair Display", sans-serif;
 
     &::after {
         content: "";
@@ -101,4 +100,27 @@ p {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+}
+
+/*
+  Label
+*/
+.label {
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.04em;
+    color: #666666;
+
+    &.--important {
+        &::after {
+            content: "*";
+            color: red;
+            margin-left: 0.5rem;
+        }
+    }
+
+    &.--black {
+        font-size: 1.4rem;
+        color: #444444;
+    }
 }

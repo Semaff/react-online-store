@@ -1,0 +1,110 @@
+.product-card {
+    position: relative;
+
+    width: 100%;
+    padding: 3rem;
+    max-width: 35rem;
+    min-width: 35rem;
+    height: 50rem;
+    background-color: #f7f7f7;
+
+    &.mini {
+        width: 28rem;
+        height: 40rem;
+        max-width: unset;
+        min-width: unset;
+        padding: 1rem;
+    }
+
+    &:hover {
+        .product-card__content {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+        width: 28rem;
+        min-width: unset;
+        max-width: unset;
+    }
+}
+
+.product-card__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-card__content {
+    position: relative;
+    z-index: 10;
+
+    opacity: 0;
+    visibility: hidden;
+
+    text-align: center;
+    height: 100%;
+    padding: 5rem;
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: all 0.2s linear;
+}
+
+.product-card__header,
+.product-card__actions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.product-card__rating {
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: rgb(255, 204, 0);
+}
+
+.product-card__name {
+    font-size: 1.8rem;
+    letter-spacing: 0.025em;
+    color: #000;
+    font-family: "Playfair Display", sans-serif;
+}
+
+.product-card__price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    font-size: 1.8rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: 0.025em;
+
+    &-old {
+        font-size: 1.4rem;
+        text-decoration: line-through;
+        color: #666666;
+    }
+}
+
+.product-card__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}

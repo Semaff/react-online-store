@@ -1,0 +1,36 @@
+.shop__aside-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.shop__aside-subcategories {
+    padding: 1rem 0 2rem 2rem;
+    margin: 0;
+    list-style: none;
+}
+
+.shop__aside-category__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+        span {
+            color: #000;
+        }
+    }
+}
+
+.shop__aside-category,
+.shop__aside-category__title {
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: #666666;
+
+    &:hover {
+        color: #000;
+    }
+}

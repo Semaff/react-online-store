@@ -1,0 +1,19 @@
+.shop__aside-color {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    font-size: 1.3rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    color: #666666;
+    text-decoration: none;
+
+    &:hover {
+        color: #000;
+    }
+
+    & + & {
+        margin-top: 0.5rem;
+    }
+}

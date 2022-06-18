@@ -1,0 +1,7 @@
+.checkout__payment {
+    width: 70%;
+
+    @media screen and (max-width: 1200px) {
+        width: 100%;
+    }
+}

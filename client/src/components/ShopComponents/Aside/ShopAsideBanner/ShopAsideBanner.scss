@@ -1,0 +1,55 @@
+.shop__aside-banner {
+    display: block;
+    position: relative;
+    text-decoration: none;
+
+    img {
+        width: 100%;
+        height: 46rem;
+        object-fit: cover;
+    }
+
+    @media screen and (max-width: 1200px) {
+        img {
+            display: none;
+        }
+    }
+}
+
+.shop__aside-banner__text {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%, -2%);
+
+    text-align: center;
+
+    width: 90%;
+    padding: 1.5rem;
+    background-color: #fff;
+
+    b,
+    span {
+        display: block;
+        letter-spacing: 0.025em;
+        line-height: 1.2;
+        font-family: "Poppins", sans-serif;
+        color: #000;
+    }
+
+    b {
+        font-size: 2.8rem;
+        font-weight: 700;
+    }
+
+    span {
+        font-size: 2.5rem;
+    }
+
+    @media screen and (max-width: 1200px) {
+        position: static;
+        transform: none;
+        width: 100%;
+        border: 1px solid #e5e5e5;
+    }
+}

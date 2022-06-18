@@ -10,6 +10,9 @@ import Search from "./Search";
 import Tag from "./Tag";
 import Map from "./Map";
 import Remove from "./Remove";
+import Grid from "./Grid";
+import List from "./List";
+import Lines from "./Lines";
 
 export {
     Arrow,
@@ -23,5 +26,8 @@ export {
     Search,
     Tag,
     Map,
-    Remove
+    Remove,
+    Grid,
+    List,
+    Lines
 }
