@@ -33,6 +33,10 @@
         fill: #fff;
         color: #fff;
 
+        &.--lowOpacity {
+            background: rgba(#000, 0.7);
+        }
+
         &:disabled {
             background: #ff9d27;
             color: #666666;

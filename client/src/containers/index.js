@@ -26,6 +26,11 @@ import CartTable from "./CartContainers/CartTable/CartTable"
 import CartTotal from "./CartContainers/CartTotal/CartTotal"
 
 /*
+  Product Page
+*/
+import ProductDescription from "./ProductPageContainers/ProductDescription/ProductDescription"
+
+/*
   Other
 */
 import Footer from "./_Other/Footer/Footer"
@@ -54,5 +59,7 @@ export {
     CheckoutPayment,
 
     CartTable,
-    CartTotal
+    CartTotal,
+
+    ProductDescription,
 }
