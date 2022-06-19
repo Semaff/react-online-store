@@ -1,16 +1,12 @@
 import { useState } from "react";
-import Product from "../../../_Other/Pure/Product/Product";
-import ProductCard from "../../../_Other/Pure/ProductCard/ProductCard";
-import ProductList from "../../../_Other/Pure/ProductList/ProductList";
-import ShopMainControl from "../ShopMainControl/ShopMainControl";
-import ShopMainPagination from "../ShopMainPagination/ShopMainPagination";
+import { Product, ProductCard, ProductList, ShopMainControl, ShopMainPagination  } from "../../index";
 import "./ShopMainProducts.scss";
 
 const Grid = ({ products }) => {
     return (
         <div className="shop__main-grid">
-            {products?.length > 0 && products.map(product => (
-                product
+            {products?.length > 0 && products.map((product, index) => (
+                <ProductCard mini key={index} {...product} />
             ))}
         </div>
     )
@@ -19,8 +15,8 @@ const Grid = ({ products }) => {
 const Short = ({ products }) => {
     return (
         <div className="shop__main-short">
-            {products.map(product => (
-                <Product {...product} />
+            {products.map((product, index) => (
+                <Product key={index} {...product} />
             ))}
         </div>
     )
@@ -29,8 +25,8 @@ const Short = ({ products }) => {
 const List = ({ products }) => {
     return (
         <div className="shop__main-list">
-            {products.map(product => (
-                <ProductList {...product} />
+            {products.map((product, index) => (
+                <ProductList key={index} {...product} />
             ))}
         </div>
     )

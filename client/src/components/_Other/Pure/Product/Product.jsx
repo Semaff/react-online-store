@@ -31,7 +31,7 @@ const Product = () => {
             </div>
 
             <div className="product__btns">
-                <button className="btn  --black --small --poppins" disabled type="button">
+                <button className="btn  --black --small --poppins --disabled" disabled type="button">
                     <Cart /> Add To Cart
                 </button>
 

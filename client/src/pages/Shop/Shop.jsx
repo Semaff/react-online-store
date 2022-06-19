@@ -1,13 +1,18 @@
 import "./Shop.scss"
 import { ShopAside, ShopMain, Timeline } from "../../containers";
-import { ProductCard } from "../../components";
 
 const Shop = () => {
     const getProducts = () => {
         let data = [];
         for (let i = 0; i < 12; i++) {
             let img = `./images/product-${i + 1}.jpg`
-            data.push(<ProductCard mini key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+            data.push({
+                img,
+                name: "Product",
+                price: "105.25",
+                oldPrice: "105.25",
+                rating: 4.2
+            });
         }
         return data;
     }

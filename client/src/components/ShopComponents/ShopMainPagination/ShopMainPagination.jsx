@@ -1,4 +1,4 @@
-import { Arrow } from "../../../_SVG";
+import { Arrow } from "../../_SVG";
 import "./ShopMainPagination.scss";
 
 const ShopMainPagination = () => {

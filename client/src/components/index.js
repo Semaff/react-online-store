@@ -4,7 +4,7 @@
 // Pure
 import Banner from "./_Other/Pure/Banner/Banner";
 import Product from "./_Other/Pure/Product/Product";
-import ProductMini from "./_Other/Pure/ProductMini/ProductMini";
+import ProductList from "./_Other/Pure/ProductList/ProductList";
 import ProductCard from "./_Other/Pure/ProductCard/ProductCard";
 import Testimonial from "./_Other/Pure/Testimonial/Testimonial";
 import Tabs from "./_Other/Pure/Tabs/Tabs";
@@ -24,18 +24,17 @@ import Slider from "./_Other/Functional/Slider/Slider";
   Shop
 */
 // Aside
-import ShopAsideBanner from "./ShopComponents/Aside/ShopAsideBanner/ShopAsideBanner";
-import ShopAsideBlock from "./ShopComponents/Aside/ShopAsideBlock/ShopAsideBlock";
-import ShopAsideCategories from "./ShopComponents/Aside/ShopAsideCategories/ShopAsideCategories";
-import ShopAsideColors from "./ShopComponents/Aside/ShopAsideColors/ShopAsideColors";
-import ShopAsideProducts from "./ShopComponents/Aside/ShopAsideProducts/ShopAsideProducts";
-import ShopAsideSizes from "./ShopComponents/Aside/ShopAsideSizes/ShopAsideSizes";
+import ShopAsideBanner from "./ShopComponents/ShopAsideBanner/ShopAsideBanner";
+import ShopAsideBlock from "./ShopComponents/ShopAsideBlock/ShopAsideBlock";
+import ShopAsideCategories from "./ShopComponents/ShopAsideCategories/ShopAsideCategories";
+import ShopAsideColors from "./ShopComponents/ShopAsideColors/ShopAsideColors";
+import ShopAsideProducts from "./ShopComponents/ShopAsideProducts/ShopAsideProducts";
+import ShopAsideSizes from "./ShopComponents/ShopAsideSizes/ShopAsideSizes";
 
 // Main
-import ShopMainControl from "./ShopComponents/Main/ShopMainControl/ShopMainControl";
-import ShopMainHeader from "./ShopComponents/Main/ShopMainHeader/ShopMainHeader";
-import ShopMainPagination from "./ShopComponents/Main/ShopMainPagination/ShopMainPagination";
-import ShopMainProducts from "./ShopComponents/Main/ShopMainProducts/ShopMainProducts";
+import ShopMainControl from "./ShopComponents/ShopMainControl/ShopMainControl";
+import ShopMainPagination from "./ShopComponents/ShopMainPagination/ShopMainPagination";
+import ShopMainProducts from "./ShopComponents/ShopMainProducts/ShopMainProducts";
 
 /*
   Checkout
@@ -54,8 +53,8 @@ export {
     Banner,
     Slider,
     Product,
-    ProductMini,
     ProductCard,
+    ProductList,
     Carousel,
     Testimonial,
     Tabs,
@@ -73,7 +72,6 @@ export {
     ShopAsideProducts,
     ShopAsideSizes,
     ShopMainControl,
-    ShopMainHeader,
     ShopMainPagination,
     ShopMainProducts,
 

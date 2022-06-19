@@ -3,10 +3,10 @@ import "./ShopAsideCategories.scss";
 /*
   SubCategories
 */
-const ShopAsideSubCategory = ({ category }) => {
+const ShopAsideSubCategory = ({ name }) => {
     return (
-        <li key={category}>
-            <a href="#a" className="shop__aside-category">{category}</a>
+        <li>
+            <a href="#a" className="shop__aside-category">{name}</a>
         </li>
     )
 }
@@ -15,7 +15,7 @@ const ShopAsideSubCategories = ({ subcategories }) => {
     return (
         <ul className="shop__aside-subcategories">
             {subcategories.map(category => (
-                <ShopAsideSubCategory {...category} />
+                <ShopAsideSubCategory key={category} name={category} />
             ))}
         </ul>
     )

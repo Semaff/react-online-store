@@ -13,7 +13,7 @@ const ShopAsideColors = ({ colors }) => {
     return (
         <>
             {colors.map(color => (
-                <ShopAsideColor {...color} />
+                <ShopAsideColor key={color.hex} {...color} />
             ))}
         </>
     )

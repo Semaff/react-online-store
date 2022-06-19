@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Grid, Lines, List } from "../../../_SVG";
+import { Grid, Lines, List } from "../../_SVG";
 import "./ShopMainControl.scss";
 
 const ShopMainControl = ({ setView }) => {
