@@ -1,4 +1,4 @@
-import { ShopMainHeader, ShopMainProducts } from "../../../components";
+import { ShopMainProducts } from "../../../components";
 import "./ShopMain.scss";
 
 const ShopMain = ({ products }) => {
