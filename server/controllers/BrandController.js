@@ -1,4 +1,5 @@
 const { Brand } = require("../models/models");
+const AppError = require("../error/AppError");
 
 class BrandController {
     async getAll(req, res, next) {
@@ -6,7 +7,7 @@ class BrandController {
             const brands = await Brand.findAll();
             return res.json(brands);
         } catch (err) {
-            next(ApiError.badRequest(err.message));
+            next(AppError.badRequest(err.message));
         }
     }
 
@@ -23,7 +24,7 @@ class BrandController {
 
             res.json(brand);
         } catch (err) {
-            next(ApiError.badRequest(err.message));
+            next(AppError.badRequest(err.message));
         }
     }
 
@@ -36,7 +37,7 @@ class BrandController {
             const brand = await Brand.create({ name: req.body.name });
             return res.json(brand);
         } catch (err) {
-            next(ApiError.badRequest(err.message));
+            next(AppError.badRequest(err.message));
         }
     }
 
@@ -55,7 +56,7 @@ class BrandController {
             await brand.update({ name });
             return res.json(brand);
         } catch (err) {
-            next(ApiError.badRequest(err.message));
+            next(AppError.badRequest(err.message));
         }
     }
 
@@ -73,7 +74,7 @@ class BrandController {
             await brand.destroy();
             return res.json(brand);
         } catch (err) {
-            next(ApiError.badRequest(err.message));
+            next(AppError.badRequest(err.message));
         }
     }
 }
