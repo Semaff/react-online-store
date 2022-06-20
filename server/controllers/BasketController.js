@@ -23,6 +23,11 @@ class BasketController {
             const { id: userId } = req.user;
             const { productId, quantity } = req.params;
 
+            const product = await Product.findByPk(productId);
+            if(!product) {
+                throw new Error("Product was not found")
+            }
+
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
@@ -48,6 +53,11 @@ class BasketController {
         try {
             const { id: userId } = req.user;
             const { productId, quantity } = req.params;
+            
+            const product = await Product.findByPk(productId);
+            if(!product) {
+                throw new Error("Product was not found")
+            }
 
             const basket = await Basket.findOne({
                 where: { userId },
