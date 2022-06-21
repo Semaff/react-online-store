@@ -21,8 +21,11 @@ const Product = sequelize.define("product", {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.STRING, allowNull: false },
-    rating: { type: DataTypes.INTEGER, defaultValue: 0 },
     gender: { type: DataTypes.STRING },
+    sizes: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
+    colors: { type: DataTypes.ARRAY(DataTypes.JSONB), allowNull: false },
+    rating: { type: DataTypes.INTEGER, defaultValue: 0 },
+    quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
     img: { type: DataTypes.STRING, allowNull: false }
 });
 
