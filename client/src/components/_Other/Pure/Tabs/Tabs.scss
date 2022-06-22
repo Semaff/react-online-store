@@ -3,10 +3,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 
+    // For pseudo elements
     width: fit-content;
     margin: 0 auto;
-    gap: 1rem;
 
     &::after,
     &::before {

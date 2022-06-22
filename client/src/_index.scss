@@ -39,12 +39,12 @@ p {
 
 .container {
     width: 100%;
-    max-width: 1600px;
+    max-width: 163rem;
     padding: 0 15px;
     margin: 0 auto;
 
     &.--shrinked {
-        max-width: 129rem;
+        max-width: 132rem;
     }
 }
 
@@ -57,6 +57,10 @@ p {
 */
 .section {
     padding-top: 7rem;
+
+    &.--padding0 {
+        padding: 0;
+    }
 
     &.--fullPadding {
         padding: 7rem 0;
@@ -71,7 +75,7 @@ p {
     }
 
     &.--lowOpacity {
-        opacity: 0.4;
+        opacity: 0.8;
     }
 }
 
