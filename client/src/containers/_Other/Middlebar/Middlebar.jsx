@@ -3,7 +3,7 @@ import "./Middlebar.scss";
 
 const Middlebar = () => {
     return (
-        <div className="middlebar">
+        <nav className="middlebar" aria-label="middlebar">
             <div className="container">
 
                 <div className="middlebar__inner">
@@ -42,7 +42,7 @@ const Middlebar = () => {
                 </div>
 
             </div>
-        </div>
+        </nav>
     )
 }
 

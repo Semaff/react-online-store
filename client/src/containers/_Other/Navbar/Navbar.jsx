@@ -2,7 +2,7 @@ import "./Navbar.scss";
 
 const Navbar = () => {
     return (
-        <nav className="navbar">
+        <nav className="navbar" aria-label="navbar">
             <div className="container">
 
                 <ul className="nav__list">
