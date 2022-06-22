@@ -1,32 +1,30 @@
 .slider {
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 3rem;
     margin: 2rem 0;
-}
-
-.slider__wrapper {
-    overflow: hidden;
-    scroll-behavior: smooth;
 }
 
 .slider__inner {
     display: flex;
+    align-items: flex-start;
     gap: 5rem;
-    width: 100%;
-    height: 100%;
+
+    overflow: hidden;
+    scroll-behavior: smooth;
 }
 
 .slider__btns {
     position: relative;
 
     display: flex;
-    width: fit-content;
-    margin: 0 auto;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    
+    // For pseudo elements
+    width: fit-content;
+    margin: 0 auto;
 
     &::after,
     &::before {
