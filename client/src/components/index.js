@@ -40,10 +40,8 @@ import ShopMainProducts from "./ShopComponents/ShopMainProducts/ShopMainProducts
 /*
   Checkout
 */
-import CheckoutExtra from "./CheckoutComponents/CheckoutExtra/CheckoutExtra";
-import CheckoutForm from "./CheckoutComponents/CheckoutForm/CheckoutForm";
-import CheckoutCardForm from "./CheckoutComponents/CheckoutCardForm/CheckoutCardForm";
-import CheckoutCartHeader from "./CheckoutComponents/CheckoutCartHeader/CheckoutCartHeader";
+import BillingForm from "./CheckoutComponents/BillingForm/BillingForm";
+import CardForm from "./CheckoutComponents/CardForm/CardForm";
 
 /*
   Cart
@@ -78,10 +76,8 @@ export {
     ShopMainPagination,
     ShopMainProducts,
 
-    CheckoutExtra,
-    CheckoutForm,
-    CheckoutCardForm,
-    CheckoutCartHeader,
+    BillingForm,
+    CardForm,
 
     CartTableItem,
 }

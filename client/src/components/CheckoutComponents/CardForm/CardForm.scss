@@ -1,8 +1,7 @@
-.checkout__card-form {
+.card-form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin-bottom: 3rem;
 
     &__radio,
     &__inputs {

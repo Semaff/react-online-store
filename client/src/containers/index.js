@@ -14,14 +14,11 @@ import ShopMain from "./ShopContainers/ShopMain/ShopMain"
 /*
   Checkout Page
 */
-import CheckoutCart from "./CheckoutContainers/CheckoutCart/CheckoutCart"
-import CheckoutPayment from "./CheckoutContainers/CheckoutPayment/CheckoutPayment";
 
 /*
   Cart Page
 */
 import CartTable from "./CartContainers/CartTable/CartTable"
-import CartTotal from "./CartContainers/CartTotal/CartTotal"
 
 /*
   Product Page
@@ -37,6 +34,8 @@ import Navbar from "./_Other/Navbar/Navbar"
 import Timeline from "./_Other/Timeline/Timeline"
 import Topbar from "./_Other/Topbar/Topbar"
 
+import Total from "./Total/Total"
+
 export {
     About,
     Intro,
@@ -51,11 +50,8 @@ export {
     ShopAside,
     ShopMain,
 
-    CheckoutCart,
-    CheckoutPayment,
-
     CartTable,
-    CartTotal,
+    Total,
 
     ProductDescription,
 }

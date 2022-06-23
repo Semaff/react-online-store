@@ -1,31 +1,17 @@
 import MyInput from "../../_Other/Inputs/MyInput/MyInput";
 import MyRadio from "../../_Other/Inputs/MyRadio/MyRadio";
-import "./CheckoutCardForm.scss";
+import "./CardForm.scss";
 
-const CheckoutCardForm = () => {
+const CardForm = () => {
     return (
-        <div className="checkout__card-form">
-            <div className="checkout__card-form__radio">
-                <MyRadio
-                    name="credit"
-                    labelText="Credit card"
-                    labelColor="black"
-                />
-
-                <MyRadio
-                    name="debit"
-                    labelText="Debit card"
-                    labelColor="black"
-                />
-
-                <MyRadio
-                    name="paypal"
-                    labelText="Paypal"
-                    labelColor="black"
-                />
+        <div className="card-form">
+            <div className="card-form__radio">
+                <MyRadio name="credit" labelText="Credit card" labelColor="black" />
+                <MyRadio name="debit" labelText="Debit card" labelColor="black" />
+                <MyRadio name="paypal" labelText="Paypal" labelColor="black" />
             </div>
 
-            <div className="checkout__card-form__inputs">
+            <div className="card-form__inputs">
                 <MyInput
                     name="cardname"
                     type="text"
@@ -56,9 +42,13 @@ const CheckoutCardForm = () => {
                         isImportant
                     />
                 </div>
+
+                <button className="btn --black --poppins" style={{ width: "100%" }}>
+                    Place An Order
+                </button>
             </div>
         </div>
     )
 }
 
-export default CheckoutCardForm;
+export default CardForm;

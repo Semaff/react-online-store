@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartTable, CartTotal, Timeline } from '../../containers';
+import { CartTable, Timeline, Total } from '../../containers';
 import "./Cart.scss"
 
 const Cart = () => {
@@ -7,9 +7,9 @@ const Cart = () => {
         <>
             <Timeline page="Cart" />
 
-            <section className="cart">
+            <section className="section  --fullPadding">
                 <div className="container">
-                    <div className="cart__inner">
+                    <div className="cart">
 
                         <div className="cart__content">
                             <CartTable />
@@ -20,7 +20,7 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <CartTotal />
+                        <Total />
 
                     </div>
                 </div>
