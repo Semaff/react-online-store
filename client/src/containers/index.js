@@ -1,11 +1,9 @@
 /*
   Home Page
 */
-import HomeAbout from "./HomeContainers/HomeAbout/HomeAbout"
-import HomeAbout2 from "./HomeContainers/HomeAbout2/HomeAbout2"
-import HomeIntro from "./HomeContainers/HomeIntro/HomeIntro"
-import HomeLogos from "./HomeContainers/HomeLogos/HomeLogos"
-import HomeTestimonials from "./HomeContainers/HomeTestimonials/HomeTestimonials"
+import About from "./Home/About/About"
+import Intro from "./Home/Intro/Intro"
+import Logos from "./Home/Logos/Logos"
 
 /*
   Shop Page
@@ -40,11 +38,9 @@ import Timeline from "./_Other/Timeline/Timeline"
 import Topbar from "./_Other/Topbar/Topbar"
 
 export {
-    HomeAbout,
-    HomeAbout2,
-    HomeIntro,
-    HomeLogos,
-    HomeTestimonials,
+    About,
+    Intro,
+    Logos,
     
     Footer,
     Navbar,

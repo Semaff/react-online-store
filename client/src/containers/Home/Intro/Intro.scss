@@ -1,11 +1,10 @@
 .intro {
-    padding: 0;
-}
-
-.intro__inner {
     height: 80rem;
     padding: 0 1.5rem;
     text-align: center;
+
+    background: center no-repeat;
+    background-size: cover;
 
     display: flex;
     flex-direction: column;
