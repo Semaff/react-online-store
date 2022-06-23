@@ -23,7 +23,6 @@ import Table from "./Table/Table"
 /*
   Product Page
 */
-import ProductDescription from "./ProductPageContainers/ProductDescription/ProductDescription"
 
 /*
   Other
@@ -52,6 +51,4 @@ export {
 
     Table,
     Total,
-
-    ProductDescription,
 }

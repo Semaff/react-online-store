@@ -1,4 +1,4 @@
-import { ProductList } from "../../index";
+import { Product } from "../../index";
 import "./ShopAsideProducts.scss";
 
 const ShopAsideProducts = ({ products }) => {
@@ -11,7 +11,7 @@ const ShopAsideProducts = ({ products }) => {
 
             <div className="shop__aside-products">
                 {products.map(product => (
-                    <ProductList isMini key={product.name} {...product} />
+                    <Product isMini key={product.name} {...product} />
                 ))}
             </div>
         </>

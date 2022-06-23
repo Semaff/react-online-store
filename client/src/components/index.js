@@ -4,8 +4,6 @@
 // Pure
 import Banner from "./_Other/Pure/Banner/Banner";
 import Product from "./_Other/Pure/Product/Product";
-import ProductList from "./_Other/Pure/Product/ProductList";
-import ProductCard from "./_Other/Pure/Product/ProductCard";
 import Testimonial from "./_Other/Pure/Testimonial/Testimonial";
 import Tabs from "./_Other/Pure/Tabs/Tabs";
 
@@ -19,7 +17,6 @@ import MyRadio from "./_Other/Inputs/MyRadio/MyRadio";
 // Functional
 import Carousel from "./_Other/Functional/Carousel/Carousel";
 import Slider from "./_Other/Functional/Slider/Slider";
-import Gallery from "./_Other/Functional/Gallery/Gallery";
 
 /*
   Shop
@@ -50,14 +47,11 @@ import CardForm from "./CheckoutComponents/CardForm/CardForm";
 export {
     Banner,
     Product,
-    ProductCard,
-    ProductList,
     Testimonial,
     Tabs,
 
     Slider,
     Carousel,
-    Gallery,
 
     MyRange,
     MyCheckBox,

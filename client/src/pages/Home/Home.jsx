@@ -1,4 +1,4 @@
-import { Carousel, ProductCard, Slider, Tabs, Testimonial } from "../../components";
+import { Carousel, Product, Slider, Tabs, Testimonial } from "../../components";
 import { About, Logos, Intro } from "../../containers";
 import "./Home.scss"
 
@@ -7,7 +7,7 @@ const Home = () => {
         let data = [];
         for (let i = 0; i < 5; i++) {
             let img = `./images/product-${i + 1}.jpg`
-            data.push(<ProductCard key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+            data.push(<Product isCard key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
         }
         return data;
     }

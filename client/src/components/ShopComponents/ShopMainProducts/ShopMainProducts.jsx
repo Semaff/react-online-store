@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Product, ProductCard, ProductList, ShopMainControl, ShopMainPagination  } from "../../index";
+import { Product, ShopMainControl, ShopMainPagination  } from "../../index";
 import "./ShopMainProducts.scss";
 
 const Grid = ({ products }) => {
     return (
         <div className="shop__main-grid">
             {products?.length > 0 && products.map((product, index) => (
-                <ProductCard mini key={index} {...product} />
+                <Product isMiniCard mini key={index} {...product} />
             ))}
         </div>
     )
@@ -26,7 +26,7 @@ const List = ({ products }) => {
     return (
         <div className="shop__main-list">
             {products.map((product, index) => (
-                <ProductList key={index} {...product} />
+                <Product isList key={index} {...product} />
             ))}
         </div>
     )
