@@ -1,33 +1,10 @@
 .shop {
-    padding: 3rem 0 7rem;
-
-    @media screen and (max-width: 1200px) {
-        .shop__inner {
-            flex-direction: column;
-        }
-    }
-}
-
-.shop__inner {
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
     gap: 3rem;
-}
 
-.shop__select {
-    border: 1px solid #e5e5e5;
-    padding: 1rem 0.5rem;
-
-    font-size: 1.3rem;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.02em;
-    color: #888888;
-}
-
-.shop__label {
-    font-size: 1.3rem;
-    font-family: "Poppins", sans-serif;
-    color: #222222;
-    letter-spacing: 0.02em;
+    @media screen and (max-width: 1200px) {
+        flex-direction: column;
+    }
 }

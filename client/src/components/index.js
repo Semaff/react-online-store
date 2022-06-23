@@ -1,48 +1,31 @@
 /*
+  Inputs
+*/
+import MyRange from "./_Inputs/MyRange/MyRange";
+import MyCheckBox from "./_Inputs/MyCheckBox/MyCheckBox";
+import MyInput from "./_Inputs/MyInput/MyInput";
+import MySelect from "./_Inputs/MySelect/MySelect";
+import MyRadio from "./_Inputs/MyRadio/MyRadio";
+
+/*
   Other
 */
-// Pure
-import Banner from "./_Other/Pure/Banner/Banner";
-import Product from "./_Other/Pure/Product/Product";
-import Testimonial from "./_Other/Pure/Testimonial/Testimonial";
-import Tabs from "./_Other/Pure/Tabs/Tabs";
-
-// Inputs
-import MyRange from "./_Other/Inputs/MyRange/MyRange";
-import MyCheckBox from "./_Other/Inputs/MyCheckBox/MyCheckBox";
-import MyInput from "./_Other/Inputs/MyInput/MyInput";
-import MySelect from "./_Other/Inputs/MySelect/MySelect";
-import MyRadio from "./_Other/Inputs/MyRadio/MyRadio";
+import Banner from "./Banner/Banner";
+import Product from "./Product/Product";
+import Testimonial from "./Testimonial/Testimonial";
+import Tabs from "./Tabs/Tabs";
 
 // Functional
-import Carousel from "./_Other/Functional/Carousel/Carousel";
-import Slider from "./_Other/Functional/Slider/Slider";
+import Carousel from "./Carousel/Carousel";
+import Slider from "./Slider/Slider";
 
-/*
-  Shop
-*/
-// Aside
-import ShopAsideBanner from "./ShopComponents/ShopAsideBanner/ShopAsideBanner";
-import ShopAsideBlock from "./ShopComponents/ShopAsideBlock/ShopAsideBlock";
-import ShopAsideCategories from "./ShopComponents/ShopAsideCategories/ShopAsideCategories";
-import ShopAsideColors from "./ShopComponents/ShopAsideColors/ShopAsideColors";
-import ShopAsideProducts from "./ShopComponents/ShopAsideProducts/ShopAsideProducts";
-import ShopAsideSizes from "./ShopComponents/ShopAsideSizes/ShopAsideSizes";
+import CategoriesList from "./CategoriesList/CategoriesList";
 
-// Main
-import ShopMainControl from "./ShopComponents/ShopMainControl/ShopMainControl";
-import ShopMainPagination from "./ShopComponents/ShopMainPagination/ShopMainPagination";
-import ShopMainProducts from "./ShopComponents/ShopMainProducts/ShopMainProducts";
+import ViewControl from "./ViewControl/ViewControl";
+import Pagination from "./Pagination/Pagination";
 
-/*
-  Checkout
-*/
-import BillingForm from "./CheckoutComponents/BillingForm/BillingForm";
-import CardForm from "./CheckoutComponents/CardForm/CardForm";
-
-/*
-  Cart
-*/
+import BillingForm from "./BillingForm/BillingForm";
+import CardForm from "./CardForm/CardForm";
 
 export {
     Banner,
@@ -59,15 +42,9 @@ export {
     MySelect,
     MyRadio,
 
-    ShopAsideBanner,
-    ShopAsideBlock,
-    ShopAsideCategories,
-    ShopAsideColors,
-    ShopAsideProducts,
-    ShopAsideSizes,
-    ShopMainControl,
-    ShopMainPagination,
-    ShopMainProducts,
+    CategoriesList,
+    ViewControl,
+    Pagination,
 
     BillingForm,
     CardForm

@@ -1,5 +1,5 @@
 import "./Shop.scss"
-import { ShopAside, ShopMain, Timeline } from "../../containers";
+import { Aside, Products, ShopMain, Timeline } from "../../containers";
 
 const Shop = () => {
     const getProducts = () => {
@@ -21,11 +21,11 @@ const Shop = () => {
         <>
             <Timeline page="Category" />
 
-            <section className="shop">
+            <section className="section --fullPadding">
                 <div className="container">
-                    <div className="shop__inner">
-                        <ShopAside />
-                        <ShopMain products={getProducts()} />
+                    <div className="shop">
+                        <Aside />
+                        <Products products={getProducts()} />
                     </div>
                 </div>
             </section>

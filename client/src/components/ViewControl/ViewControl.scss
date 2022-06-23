@@ -1,0 +1,61 @@
+.view-control {
+    padding: 1.5rem;
+    border: 1px solid #e5e5e5;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    a {
+        text-decoration: none;
+
+        svg {
+            fill: #e5e5e5;
+            transition: fill 0.2s linear;
+        }
+
+        &:hover,
+        &.active {
+            svg {
+                fill: #000;
+            }
+        }
+    }
+
+    &__position {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__sort {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__select {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        span {
+            font-size: 1.3rem;
+            font-family: "Poppins", sans-serif;
+            color: #222222;
+            letter-spacing: 0.02em;
+    
+            flex-shrink: 0;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+        &,
+        &__sort {
+            justify-content: center;
+        }
+    }
+}

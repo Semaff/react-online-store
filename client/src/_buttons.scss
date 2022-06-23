@@ -145,6 +145,8 @@
 */
 .toggle {
     cursor: pointer;
+    background: none;
+    border: none;
     width: 15px;
     height: 15px;
     position: relative;
@@ -155,7 +157,7 @@
 
         display: block;
         background-color: #000;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.1s ease-in-out;
         opacity: 1;
 
         position: absolute;
