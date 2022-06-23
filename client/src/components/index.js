@@ -46,7 +46,6 @@ import CardForm from "./CheckoutComponents/CardForm/CardForm";
 /*
   Cart
 */
-import CartTableItem from "./CartComponents/CartTableItem/CartTableItem";
 
 export {
     Banner,
@@ -77,7 +76,5 @@ export {
     ShopMainProducts,
 
     BillingForm,
-    CardForm,
-
-    CartTableItem,
+    CardForm
 }

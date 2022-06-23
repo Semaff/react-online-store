@@ -7,55 +7,5 @@
     @media screen and (max-width: 1200px) {
         flex-wrap: wrap;
         gap: 5rem;
-
-        .cart__content {
-            width: 100%;
-        }
-
-        .cart__btns {
-            justify-content: flex-end;
-        }
-    }
-
-    @media screen and (max-width: 676px) {
-        .cart__total {
-            width: 100%;
-        }
     }
 }
-
-.cart__content {
-    width: 70%;
-}
-
-/*
-  Btns
-*/
-.cart__btns {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.cart__btns-input {
-    padding: 1.5rem;
-    border: 1px solid #e1e1e1;
-    border-radius: 5rem;
-
-    width: 100%;
-    max-width: 28rem;
-
-    font-family: "Poppins", sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.04em;
-    color: #000;
-
-    &::placeholder {
-        font-family: inherit;
-        font-size: inherit;
-        color: #666666;
-    }
-}
-
-

@@ -18,7 +18,7 @@ import ShopMain from "./ShopContainers/ShopMain/ShopMain"
 /*
   Cart Page
 */
-import CartTable from "./CartContainers/CartTable/CartTable"
+import Table from "./Table/Table"
 
 /*
   Product Page
@@ -50,7 +50,7 @@ export {
     ShopAside,
     ShopMain,
 
-    CartTable,
+    Table,
     Total,
 
     ProductDescription,
