@@ -1,10 +1,10 @@
 import './App.scss';
 import { Footer, Middlebar, Navbar, Topbar } from './containers';
-// import ProductPage from './pages/ProductPage/ProductPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 import Cart from './pages/Cart/Cart';
 import Home from "./pages/Home/Home"
 import Checkout from './pages/Checkout/Checkout';
-// import Shop from './pages/Shop/Shop';
+import Shop from './pages/Shop/Shop';
 
 function App() {
     return (
@@ -13,10 +13,10 @@ function App() {
             <Middlebar />
             <Navbar />
 
-            <Cart />
+            {/* <Cart /> */}
             {/* <Home /> */}
             {/* <Checkout /> */}
-            {/* <Shop /> */}
+            <Shop />
             {/* <ProductPage /> */}
 
             <Footer />
