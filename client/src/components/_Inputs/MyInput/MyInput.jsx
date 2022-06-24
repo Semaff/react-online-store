@@ -1,6 +1,18 @@
 import "./MyInput.scss";
 
-const MyInput = ({ name, type, placeholder, labelText, defaultValue, isImportant, isCardName, min, max }) => {
+const MyInput = ({
+    name,
+    type,
+    placeholder,
+    labelText,
+    defaultValue,
+    isImportant,
+    isCardName,
+    min,
+    max,
+    value,
+    changeValue
+}) => {
     return (
         <div className={`input__placeholder ${isCardName ? "--cardname" : ""}`}>
             {labelText && (
@@ -9,6 +21,8 @@ const MyInput = ({ name, type, placeholder, labelText, defaultValue, isImportant
                 </label>
             )}
             <input
+                value={value}
+                onChange={e => changeValue(e.target.value)}
                 className="input"
                 defaultValue={defaultValue}
                 min={min}
