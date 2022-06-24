@@ -1,5 +1,5 @@
 import "./Shop.scss"
-import { Aside, Products, ShopMain, Timeline } from "../../containers";
+import { Aside, Products, Timeline } from "../../containers";
 
 const Shop = () => {
     const getProducts = () => {

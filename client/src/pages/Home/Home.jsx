@@ -1,26 +1,25 @@
-import { Carousel, Product, Slider, Tabs, Testimonial } from "../../components";
+import { Carousel, Product, Slider, Spinner, Tabs, Testimonial } from "../../components";
 import { About, Logos, Intro } from "../../containers";
+import { useSelector, useDispatch } from "react-redux";
 import "./Home.scss"
+import { fetchAllProducts, selectProducts } from "../../store/productsSlice";
+import { useEffect } from "react";
+
+const getTestimonials = () => {
+    let data = [];
+    for (let i = 0; i < 10; i++) {
+        data.push(<Testimonial key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+    }
+    return data;
+}
 
 const Home = () => {
-    const getProducts = () => {
-        let data = [];
-        for (let i = 0; i < 5; i++) {
-            let img = `./images/product-${i + 1}.jpg`
-            data.push(<Product isCard key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
-        }
-        return data;
-    }
+    const dispatch = useDispatch();
+    const products = useSelector(selectProducts);
 
-    const getTestimonials = () => {
-        let data = [];
-
-        for (let i = 0; i < 10; i++) {
-            data.push(<Testimonial key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
-        }
-
-        return data;
-    }
+    useEffect(() => {
+        dispatch(fetchAllProducts(""));
+    }, [dispatch]);
 
     return (
         <>
@@ -45,7 +44,12 @@ const Home = () => {
 
                     <Tabs />
                     <Slider>
-                        {getProducts()}
+                        {Object.keys(products).length === 0
+                            ? <Spinner />
+                            : products.rows.map(product => (
+                                <Product isCard {...product} key={product.id} />
+                            ))
+                        }
                     </Slider>
                 </div>
             </section>
@@ -75,7 +79,12 @@ const Home = () => {
                     <h2 className="section__title">Special products</h2>
 
                     <Slider>
-                        {getProducts()}
+                        {Object.keys(products).length === 0
+                            ? <Spinner />
+                            : products.rows.map(product => (
+                                <Product isCard {...product} key={product.id} />
+                            ))
+                        }
                     </Slider>
                 </div>
             </section>
