@@ -1,0 +1,17 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.profile__title {
+    font-size: 3rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.025em;
+    color: #000;
+
+    width: 100%;
+    border-bottom: 2px solid #e1e1e1;
+    padding-bottom: 1rem;
+}

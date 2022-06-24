@@ -6,6 +6,7 @@ import Home from "../pages/Home/Home";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import Shop from "../pages/Shop/Shop";
 import Auth from "../pages/Auth/Auth";
+import Profile from "../pages/Profile/Profile";
 
 export const publicRoutes = [
     { path: SIGNIN_ROUTE, element: <Auth /> },
@@ -13,13 +14,13 @@ export const publicRoutes = [
     { path: HOME_ROUTE, element: <Home /> },
     { path: SHOP_ROUTE, element: <Shop /> },
     { path: PRODUCT_ROUTE, element: <ProductPage /> },
-    { path: PROFILE_ROUTE, element: <Navigate to={HOME_ROUTE} /> },
     { path: "*", element: <Navigate to={HOME_ROUTE} /> }
 ];
 
 export const authRoutes = [
     { path: CART_ROUTE, element: <Cart /> },
     { path: CHECKOUT_ROUTE, element: <Checkout /> },
+    { path: PROFILE_ROUTE, element: <Profile /> },
     { path: "*", element: <Navigate to={HOME_ROUTE} /> }
 ];
 
