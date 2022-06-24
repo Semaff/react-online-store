@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { Cart, Phone, Profile, Search } from "../../components/_SVG";
-import { CART_ROUTE, HOME_ROUTE } from "../../router/routerConsts";
+import { CART_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SIGNIN_ROUTE } from "../../router/routerConsts";
 import "./Middlebar.scss";
 
 const Middlebar = () => {
+    const isAuth = false;
+
     return (
         <nav className="middlebar" aria-label="middlebar">
             <div className="container">
@@ -40,7 +42,7 @@ const Middlebar = () => {
 
                     <span className="middlebar__right">
                         <Search />
-                        <Link to="">
+                        <Link to={!isAuth ? SIGNIN_ROUTE : PROFILE_ROUTE}>
                             <Profile />
                         </Link>
                         <Link to={CART_ROUTE}>
