@@ -8,11 +8,11 @@ const MySelect = ({ name, options, labelText, isImportant, defaultValue }) => {
                     {labelText}
                 </label>
             )}
-            <select className="select" name="name" id="name">
-                <option value="" disabled selected>{defaultValue || "Choose..."}</option>
+            <select className="select" name="name" id="name" defaultValue={defaultValue || "Choose..."}>
+                <option value="" disabled>{defaultValue || "Choose..."}</option>
 
                 {options && options.length > 0 && options.map(option => (
-                    <option value={option}>{option}</option>
+                    <option value={option} key={option}>{option}</option>
                 ))}
             </select>
         </div>

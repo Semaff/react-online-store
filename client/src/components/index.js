@@ -14,6 +14,7 @@ import Banner from "./Banner/Banner";
 import Product from "./Product/Product";
 import Testimonial from "./Testimonial/Testimonial";
 import Tabs from "./Tabs/Tabs";
+import Spinner from "./Spinner/Spinner";
 
 // Functional
 import Carousel from "./Carousel/Carousel";
@@ -32,6 +33,7 @@ export {
     Product,
     Testimonial,
     Tabs,
+    Spinner,
 
     Slider,
     Carousel,
