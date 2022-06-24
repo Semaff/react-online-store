@@ -32,7 +32,6 @@ const Product = sequelize.define("product", {
     sizes: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // XL, L, S, ..
     colors: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // #ffffff, #000000, ..
     quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
-    views: { type: DataTypes.INTEGER, defaultValue: 0 },
 
     rating: { type: DataTypes.INTEGER, defaultValue: 0 },
     img: { type: DataTypes.STRING, allowNull: false }
