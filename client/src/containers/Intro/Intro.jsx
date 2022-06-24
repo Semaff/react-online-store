@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { SHOP_ROUTE } from "../../router/routerConsts";
 import "./Intro.scss";
 
 const Intro = () => {
@@ -6,7 +8,7 @@ const Intro = () => {
             <h2 className="intro__suptitle">Our specials</h2>
             <h1 className="intro__title">Fashion Trend</h1>
 
-            <button className="btn" type="button">Shop now</button>
+            <Link className="btn" to={SHOP_ROUTE}>Shop now</Link>
         </div>
     )
 }
