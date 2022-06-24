@@ -10,9 +10,14 @@ class ProductController {
             let { brandId, typeId, gender, limit, page, size, color } = req.query;
             let products;
 
+            console.log(limit, page)
+
+            if (!limit && !page) {
+                products = await Product.findAndCountAll();
+                return res.json(products)
+            }
+
             // Check what offset we need to send
-            page = page || 1;
-            limit = limit || 9;
             let offset = page * limit - limit;
 
             /*
