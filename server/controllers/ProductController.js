@@ -40,7 +40,7 @@ class ProductController {
                     products = await Product.findAndCountAll({
                         limit, offset, where: {
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -53,10 +53,10 @@ class ProductController {
                     products = await Product.findAndCountAll({
                         limit, offset, where: {
                             sizes: {
-                                [Op.contains]: [size]
+                                [Op.contains]: [color]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -91,7 +91,7 @@ class ProductController {
                         limit, offset, where: {
                             brandId,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -108,7 +108,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -143,7 +143,7 @@ class ProductController {
                         limit, offset, where: {
                             typeId,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -160,7 +160,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -195,7 +195,7 @@ class ProductController {
                         limit, offset, where: {
                             gender,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -212,7 +212,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -247,7 +247,7 @@ class ProductController {
                         limit, offset, where: {
                             brandId, typeId,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -264,7 +264,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -299,7 +299,7 @@ class ProductController {
                         limit, offset, where: {
                             brandId, gender,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -316,7 +316,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -351,7 +351,7 @@ class ProductController {
                         limit, offset, where: {
                             typeId, gender,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -368,7 +368,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -403,7 +403,7 @@ class ProductController {
                         limit, offset, where: {
                             brandId, typeId, gender,
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -420,7 +420,7 @@ class ProductController {
                                 [Op.contains]: [size]
                             },
                             colors: {
-                                [Op.contains]: [{ "color": `#${color}` }]
+                                [Op.contains]: [`#${color}`]
                             }
                         }
                     });
@@ -477,13 +477,13 @@ class ProductController {
             img.mv(path.resolve(__dirname, "..", "static", fileName));
 
             // Parse colors and sizes
-            const arrayOfColors = JSON.parse(colors);
+            const arrayOfColors = colors.split(", ");
             const arrayOfSizes = sizes.split(", ");
 
             // Create product
             const product = await Product.create({
                 name,
-                price,
+                price: +price,
                 description,
                 gender,
                 sizes: arrayOfSizes,
@@ -513,7 +513,7 @@ class ProductController {
             }
 
             // Parse Img
-            const img = req.files.img;
+            const img = req.files?.img;
             let fileName;
             if (img) {
                 const [, ext] = img.mimetype.split('/');
@@ -522,8 +522,18 @@ class ProductController {
             }
 
             // Parse colors and sizes
-            let arrayOfColors = JSON.parse(req.body.colors);
-            let arrayOfSizes = req.body.sizes.split(", ");
+            let arrayOfColors;
+            let arrayOfSizes;
+            if (req.body.colors) {
+                arrayOfColors = req.body.colors.split(", ");
+            } else {
+                arrayOfColors = product.colors;
+            }
+            if (req.body.sizes) {
+                arrayOfSizes = req.body.sizes.split(", ");
+            } else {
+                arrayOfSizes = product.sizes;
+            }
 
             // Update or not information about product
             const name = req.body.name || product.name;
@@ -535,12 +545,31 @@ class ProductController {
             const newColors = arrayOfColors || product.colors;
             const newSizes = arrayOfSizes || product.sizes;
 
-            const newImg = fileName || req.product.img;
+            const newImg = fileName || product.img;
+
+            // Parse Sale price
+            let onASale;
+            let salePrice;
+            if (req.body.onASale === "false") {
+                onASale = false;
+                salePrice = null;
+            } else if (req.body.onASale === "true") {
+                onASale = true;
+                salePrice = req.body.salePrice;
+            } else {
+                onASale = product.onASale;
+                salePrice = product.salePrice;
+            }
 
             // Update product
             await product.update({
                 name,
                 price,
+
+                isNew: false,
+                onASale,
+                salePrice,
+
                 description,
                 quantity,
                 gender,

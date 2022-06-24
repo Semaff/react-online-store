@@ -23,7 +23,10 @@ const Product = sequelize.define("product", {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.INTEGER, allowNull: false },
-    oldPrice: { type: DataTypes.INTEGER },
+    isNew: { type: DataTypes.BOOLEAN, defaultValue: true },
+
+    salePrice: { type: DataTypes.INTEGER },
+    onASale: { type: DataTypes.BOOLEAN, defaultValue: false },
 
     gender: { type: DataTypes.STRING }, // men \ women
     sizes: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // XL, L, S, ..
