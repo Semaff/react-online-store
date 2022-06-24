@@ -4,7 +4,8 @@ const { DataTypes } = require("sequelize");
 const User = sequelize.define("user", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
-    password: { type: DataTypes.STRING, allowNull: false }
+    password: { type: DataTypes.STRING, allowNull: false },
+    role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
 const Basket = sequelize.define("basket", {
@@ -18,14 +19,19 @@ const BasketProduct = sequelize.define("basket_product", {
 
 const Product = sequelize.define("product", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
-    price: { type: DataTypes.STRING, allowNull: false },
-    gender: { type: DataTypes.STRING },
-    sizes: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
-    colors: { type: DataTypes.ARRAY(DataTypes.JSONB), allowNull: false },
-    rating: { type: DataTypes.INTEGER, defaultValue: 0 },
+    price: { type: DataTypes.INTEGER, allowNull: false },
+    oldPrice: { type: DataTypes.INTEGER },
+
+    gender: { type: DataTypes.STRING }, // men \ women
+    sizes: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // XL, L, S, ..
+    colors: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // #ffffff, #000000, ..
     quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
+    views: { type: DataTypes.INTEGER, defaultValue: 0 },
+
+    rating: { type: DataTypes.INTEGER, defaultValue: 0 },
     img: { type: DataTypes.STRING, allowNull: false }
 });
 

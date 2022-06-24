@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const { User, Basket } = require("../models/models");
 const AppError = require("../error/AppError");
 
-const generateJWT = (id, email) => {
+const generateJWT = (id, email, role) => {
     return jwt.sign(
-        { id, email },
+        { id, email, role },
         process.env.SECRET_KEY,
         { expiresIn: '24h' }
     )
@@ -14,7 +14,7 @@ const generateJWT = (id, email) => {
 class UserController {
     async signup(req, res, next) {
         try {
-            const { email, password } = req.body;
+            const { email, password, role } = req.body;
             if (!email || !password) {
                 throw new Error('Wrong Email or Password');
             };
@@ -25,9 +25,9 @@ class UserController {
             }
 
             const hashPassword = await bcrypt.hash(password, 5);
-            const user = await User.create({ email, password: hashPassword });
+            const user = await User.create({ email, role, password: hashPassword });
             const basket = await Basket.create({ userId: user.id });
-            const token = generateJWT(user.id, user.email)
+            const token = generateJWT(user.id, user.email, user.role)
 
             return res.json({ token: token })
         } catch (err) {
@@ -49,7 +49,7 @@ class UserController {
                 throw new Error('Wrong password!');
             }
 
-            const token = generateJWT(user.id, user.email);
+            const token = generateJWT(user.id, user.email, user.role);
             return res.json({ token: token })
         } catch (err) {
             next(AppError.badRequest(err.message));
@@ -58,14 +58,14 @@ class UserController {
 
     async checkAuth(req, res, next) {
         try {
-            const { id, email } = req.user;
+            const { id, email, role } = req.user;
 
             const user = await User.findByPk(id);
             if (!user) {
                 throw new Error('User does not exist!');
             }
 
-            const token = generateJWT(id, email);
+            const token = generateJWT(id, email, role);
             return res.json({ token: token });
         } catch (err) {
             next(AppError.badRequest(err.message));
