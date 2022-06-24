@@ -1,4 +1,4 @@
-const { Basket, Product, BasketProduct } = require("../models/models");
+const { Basket, Product, BasketProduct, BasketFavourite } = require("../models/models");
 const AppError = require("../error/AppError");
 
 class BasketController {
@@ -10,13 +10,48 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] },
+                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 
             return res.json(basket);
         } catch (err) {
             next(AppError.badRequest(err.message));
+        }
+    }
+
+    async toggleFavourite(req, res, next) {
+        try {
+            const { id: userId } = req.user;
+            const { productId } = req.params;
+
+            // Find Product by productId and check it's quantity
+            const product = await Product.findByPk(productId);
+            if (!product) {
+                throw new Error("Product was not found")
+            }
+
+            // Find Basket by userId with inner Products
+            const basket = await Basket.findOne({
+                where: { userId },
+                include: [
+                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
+                ]
+            });
+
+            // Delete or create favourite BasketFavourite
+            const basketFavourite = await BasketFavourite.findOne({ where: { basketId: basket.id, productId } });
+            if (basketFavourite) {
+                await basketFavourite.destroy();
+            } else {
+                await BasketFavourite.create({ basketId: basket.id, productId });
+            }
+
+            await basket.reload();
+            return res.json(basket);
+        } catch (err) {
+            next(AppError.badRequest(err.message))
         }
     }
 
@@ -38,7 +73,7 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 
@@ -76,7 +111,7 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 
@@ -111,13 +146,13 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 
             // Decrement BasketProduct or destroy it
             const basketProduct = await BasketProduct.findOne({ where: { basketId: basket.id, productId } });
-            if (basketProduct) { 
+            if (basketProduct) {
                 if (basketProduct.quantity > quantity) {
                     await product.update({ quantity: +product.quantity + +quantity });
                     await basketProduct.decrement('quantity', { by: quantity });
@@ -146,7 +181,7 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 
@@ -172,7 +207,8 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, attributes: ["id", "name", "price"] }
+                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] },
+                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
                 ]
             });
 

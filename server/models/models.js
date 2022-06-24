@@ -17,6 +17,10 @@ const BasketProduct = sequelize.define("basket_product", {
     quantity: { type: DataTypes.INTEGER, defaultValue: 1 }
 });
 
+const BasketFavourite = sequelize.define("basket_favourite", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
+});
+
 const Product = sequelize.define("product", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 
@@ -56,8 +60,11 @@ const TypeBrand = sequelize.define('type_brand', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-Basket.belongsToMany(Product, { through: BasketProduct, onDelete: "CASCADE" });
-Product.belongsToMany(Basket, { through: BasketProduct, onDelete: "CASCADE" });
+Basket.belongsToMany(Product, { through: BasketProduct, as: "products", onDelete: "CASCADE" });
+Product.belongsToMany(Basket, { through: BasketProduct, as: "products", onDelete: "CASCADE" });
+
+Basket.belongsToMany(Product, { through: BasketFavourite, as: "favourites", onDelete: "CASCADE" });
+Product.belongsToMany(Basket, { through: BasketFavourite, as: "favourites", onDelete: "CASCADE" });
 
 User.hasOne(Basket);
 Basket.belongsTo(User);
@@ -67,6 +74,9 @@ Rating.belongsTo(User);
 
 Basket.hasMany(BasketProduct);
 BasketProduct.belongsTo(Basket);
+
+Basket.hasMany(BasketFavourite);
+BasketFavourite.belongsTo(Basket);
 
 Type.hasMany(Product);
 Product.belongsTo(Type);
@@ -80,6 +90,9 @@ Rating.belongsTo(Product);
 Product.hasMany(BasketProduct);
 BasketProduct.belongsTo(Product);
 
+Product.hasMany(BasketFavourite);
+BasketFavourite.belongsTo(Product);
+
 Type.belongsToMany(Brand, { through: TypeBrand });
 Brand.belongsToMany(Type, { through: TypeBrand });
 
@@ -87,6 +100,7 @@ module.exports = {
     User,
     Basket,
     BasketProduct,
+    BasketFavourite,
     Product,
     Type,
     Brand,
