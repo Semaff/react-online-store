@@ -31,6 +31,11 @@
         font-family: "Playfair Display", sans-serif;
         letter-spacing: 0.04em;
         color: #222222;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .product__rating {
@@ -281,8 +286,7 @@
     align-items: flex-start;
 
     .product__img {
-        width: 100%;
-        max-width: 65rem;
+        width: 65rem;
         height: 85rem;
         object-fit: cover;
     }

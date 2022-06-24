@@ -1,26 +1,19 @@
 import './App.scss';
 import { Footer, Middlebar, Navbar, Topbar } from './containers';
-import ProductPage from './pages/ProductPage/ProductPage';
-import Cart from './pages/Cart/Cart';
-import Home from "./pages/Home/Home"
-import Checkout from './pages/Checkout/Checkout';
-import Shop from './pages/Shop/Shop';
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from './router/AppRouter';
 
 function App() {
     return (
-        <div className="App">
+        <BrowserRouter>
             <Topbar />
             <Middlebar />
             <Navbar />
 
-            {/* <Cart /> */}
-            {/* <Home /> */}
-            {/* <Checkout /> */}
-            <Shop />
-            {/* <ProductPage /> */}
+            <AppRouter />
 
             <Footer />
-        </div>
+        </BrowserRouter>
     );
 }
 

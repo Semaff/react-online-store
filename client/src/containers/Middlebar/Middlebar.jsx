@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { Cart, Phone, Profile, Search } from "../../components/_SVG";
+import { CART_ROUTE, HOME_ROUTE } from "../../router/routerConsts";
 import "./Middlebar.scss";
 
 const Middlebar = () => {
@@ -31,13 +33,19 @@ const Middlebar = () => {
                     </span>
 
                     <span className="middlebar__logo">
-                        <img src="./images/logo.png" alt="logo" />
+                        <Link to={HOME_ROUTE}>
+                            <img src="./images/logo.png" alt="logo" />
+                        </Link>
                     </span>
 
                     <span className="middlebar__right">
                         <Search />
-                        <Profile />
-                        <Cart />
+                        <Link to="">
+                            <Profile />
+                        </Link>
+                        <Link to={CART_ROUTE}>
+                            <Cart />
+                        </Link>
                     </span>
                 </div>
 

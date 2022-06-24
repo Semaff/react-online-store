@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+import { PRODUCT_ROUTE } from "../../router/routerConsts"
 import MyInput from "../_Inputs/MyInput/MyInput"
 import MySelect from "../_Inputs/MySelect/MySelect"
 import { Cart, Eye, Like, Refresh } from "../_SVG"
@@ -28,13 +30,15 @@ const Product = ({ isList, isCard, isMini, isMiniCard, isFull }) => {
             (isFull ? "  --full" : "") +
             (isMiniCard ? "  --card mini" : "")
         }>
-            <img src="https://placehold.jp/1000x1000.png" alt="1" className="product__img" />
+            <Link to={PRODUCT_ROUTE}>
+                <img src="https://placehold.jp/1000x1000.png" alt="1" className="product__img" />
+            </Link>
 
             <div className="product__content">
                 <div className="product__desc">
-                    <h4 className="product__name">
+                    <Link to={PRODUCT_ROUTE} className="product__name">
                         Aliquam quaerat voluptatem
-                    </h4>
+                    </Link>
 
                     {/* If it's not Card Product and not Card Product mini */}
                     {(!isCard && !isMiniCard)

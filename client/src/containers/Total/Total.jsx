@@ -1,18 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import { CardForm } from "../../components";
+import { CHECKOUT_ROUTE } from "../../router/routerConsts";
 import "./Total.scss"
 
 const Total = ({ withForm }) => {
+    const navigate = useNavigate();
+
+    const handleProcceed = () => {
+        navigate(CHECKOUT_ROUTE);
+    }
+
     let rowsContent;
     if (withForm) {
         rowsContent = (
             <>
                 <div className="total__row">
-                    <b style={{fontSize: "1.4rem", fontWeight: 500}}>Shirt</b>
+                    <b style={{ fontSize: "1.4rem", fontWeight: 500 }}>Shirt</b>
                     <span>$20.00</span>
                 </div>
 
                 <div className="total__row">
-                    <b style={{fontSize: "1.4rem", fontWeight: 500}}>Jeans</b>
+                    <b style={{ fontSize: "1.4rem", fontWeight: 500 }}>Jeans</b>
                     <span>$20.00</span>
                 </div>
 
@@ -67,7 +75,7 @@ const Total = ({ withForm }) => {
                         </div>
                     </div>
 
-                    <button className="btn  --black  --poppins" style={{ width: '100%' }}>
+                    <button onClick={handleProcceed} className="btn  --black  --poppins" style={{ width: '100%' }}>
                         Proceed To Checkout
                     </button>
                 </>
