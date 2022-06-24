@@ -4,7 +4,7 @@ import { CART_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SIGNIN_ROUTE } from "../../route
 import "./Middlebar.scss";
 
 const Middlebar = () => {
-    const isAuth = false;
+    const isAuth = true;
 
     return (
         <nav className="middlebar" aria-label="middlebar">

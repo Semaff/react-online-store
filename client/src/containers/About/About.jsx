@@ -13,9 +13,10 @@ const About = ({ isMini }) => {
                 <div className="about__banner">
                     {isMini
                         ?
-                        <Banner isMini subTitle="Summer Collection" priceText="up to 70% off" btnText="Read More" />
+                        <Banner isMini toType="2" subTitle="Shirt Collection" priceText="up to 70% off" btnText="Read More" />
                         :
                         <Banner
+                            toGender="women"
                             title="Women's"
                             subTitle="Collection"
                             text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"
@@ -29,9 +30,10 @@ const About = ({ isMini }) => {
                 <div className="about__banner  --reversed">
                     {isMini
                         ?
-                        <Banner isMini subTitle="Summer Collection" priceText="up to 70% off" btnText="Read More" />
+                        <Banner isMini toType="3" subTitle="Jeans Collection" priceText="up to 70% off" btnText="Read More" />
                         :
                         <Banner
+                            toGender="men"
                             title="Men's"
                             subTitle="Collection"
                             text="Et harum quidem rerum facilis est et expedita m libero tempore, cum solut"

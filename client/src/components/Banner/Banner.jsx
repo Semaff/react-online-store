@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+import { SHOP_ROUTE } from "../../router/routerConsts";
 import "./Banner.scss";
 
-const Banner = ({ title, subTitle, text, btnText, priceText, isMini }) => {
+const Banner = ({ title, subTitle, text, btnText, priceText, isMini, toType, toGender }) => {
     return (
         <div className={`banner  ${isMini ? "--mini" : ""}`}>
             {title && (<h4 className="banner__title">{title}</h4>)}
@@ -16,9 +18,12 @@ const Banner = ({ title, subTitle, text, btnText, priceText, isMini }) => {
             )}
 
             {btnText && (
-                <button className="btn --black --poppins --small" type="btn">
+                <Link
+                    to={SHOP_ROUTE + ((toType && `?typeId=${toType}`) || (toGender && `?gender=${toGender}`))}
+                    className="btn --black --poppins --small" type="btn"
+                >
                     {btnText}
-                </button>
+                </Link>
             )}
         </div>
     )

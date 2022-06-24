@@ -51,7 +51,7 @@ const Home = () => {
             </section>
 
             {/* Carousel with Testimonials */}
-            <section className="section  --addMargin --extraPadding  --lowOpacity" style={{
+            <section className="section  --addMargin --extraPadding" style={{
                 background: "url('./images/testimonials.jpg') center no-repeat",
                 backgroundSize: "cover"
             }}>
