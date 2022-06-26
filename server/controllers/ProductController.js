@@ -4,438 +4,59 @@ const uuid = require("uuid");
 const path = require("path");
 const { Op } = require("sequelize");
 
+async function findAllProducts({ brandId, typeId, gender, size, color, limit, offset, order }) {
+    // Where Statements
+    let whereStatements = {};
+
+    if (brandId) whereStatements.brandId = brandId;
+    if (typeId) whereStatements.typeId = typeId;
+    if (gender) whereStatements.gender = gender;
+
+    if (size) {
+        whereStatements.sizes = {
+            [Op.contains]: [size]
+        }
+    }
+
+    if (color) {
+        whereStatements.colors = {
+            [Op.contains]: [`#${color}`]
+        }
+    }
+
+    // Order statements
+    let orderStatements = [];
+    if (+order === 1) {
+        orderStatements.push(["price", "ASC"])
+    } else if (+order === 2) {
+        orderStatements.push(["price", "DESC"])
+    } else if (+order === 3) {
+        whereStatements.onASale = true;
+    } else if (+order === 4) {
+        whereStatements.isNew = true;
+    }
+
+    const products = await Product.findAndCountAll({
+        limit, offset, where: whereStatements, order: orderStatements
+    });
+
+    return products;
+}
+
 class ProductController {
     async getAll(req, res, next) {
         try {
-            let { brandId, typeId, gender, limit, page, size, color } = req.query;
-            let products;
-
-            console.log(limit, page)
-
-            if (!limit && !page) {
-                products = await Product.findAndCountAll();
-                return res.json(products)
-            }
+            let { brandId, typeId, gender, size, color, limit, page, order } = req.query;
 
             // Check what offset we need to send
+            limit = limit || 9;
+            page = page || 1;
             let offset = page * limit - limit;
 
             /*
               Check what filters are used
             */
-
-            // Find Products
-            if (!brandId && !typeId && !gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            sizes: {
-                                [Op.contains]: [color]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with brandId
-            if (brandId && !typeId && !gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { brandId }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with typeId
-            if (!brandId && typeId && !gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { typeId }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with gender
-            if (!brandId && !typeId && gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            gender,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { gender }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with brandId and typeId
-            if (brandId && typeId && !gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { brandId, typeId }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with brandId and gender
-            if (brandId && !typeId && gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, gender,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including sizes and colors column
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { brandId, gender }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with typeId and gender
-            if (!brandId && typeId && gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId, gender,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors and sizes columns
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            typeId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { typeId, gender }, limit, offset });
-                return res.json(products);
-            }
-
-            // Find Products with brandId, typeId and gender
-            if (brandId && typeId && gender) {
-
-                // Find Products including sizes column
-                if (size && !color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors column
-                if (!size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId, gender,
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                // Find Products including colors and sizes columns
-                if (size && color) {
-                    products = await Product.findAndCountAll({
-                        limit, offset, where: {
-                            brandId, typeId, gender,
-                            sizes: {
-                                [Op.contains]: [size]
-                            },
-                            colors: {
-                                [Op.contains]: [`#${color}`]
-                            }
-                        }
-                    });
-
-                    return res.json(products);
-                }
-
-                products = await Product.findAndCountAll({ where: { brandId, typeId, gender }, limit, offset });
-                return res.json(products);
-            }
+            const products = await findAllProducts({ brandId, typeId, gender, size, color, limit, offset, order })
 
             return res.json(products);
         } catch (err) {
