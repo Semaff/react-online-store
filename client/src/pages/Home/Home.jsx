@@ -1,14 +1,15 @@
-import { Carousel, Product, Slider, Spinner, Tabs, Testimonial } from "../../components";
+import { Carousel, Slider, Spinner, Tabs, Testimonial } from "../../components";
 import { About, Logos, Intro } from "../../containers";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.scss"
-import { fetchAllProducts, selectProducts } from "../../store/productsSlice";
+import { fetchAllProducts, fetchProductsOnASale, selectProducts, selectProductsOnASale } from "../../store/productsSlice";
 import { useEffect } from "react";
+import ProductCard from "../../components/Product/ProductCard";
 
 const getTestimonials = () => {
     let data = [];
     for (let i = 0; i < 10; i++) {
-        data.push(<Testimonial key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+        data.push(<Testimonial key={i} />)
     }
     return data;
 }
@@ -16,9 +17,11 @@ const getTestimonials = () => {
 const Home = () => {
     const dispatch = useDispatch();
     const products = useSelector(selectProducts);
+    const productsOnASale = useSelector(selectProductsOnASale);
 
     useEffect(() => {
-        dispatch(fetchAllProducts(""));
+        dispatch(fetchAllProducts("?order=4"));
+        dispatch(fetchProductsOnASale(""));
     }, [dispatch]);
 
     return (
@@ -40,14 +43,14 @@ const Home = () => {
             {/* Slider with trending Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">Trending products</h2>
+                    <h2 className="section__title">Products on a sale</h2>
 
                     <Tabs />
                     <Slider>
-                        {Object.keys(products).length === 0
+                        {Object.keys(productsOnASale).length === 0
                             ? <Spinner />
-                            : products.rows.map(product => (
-                                <Product isCard {...product} key={product.id} />
+                            : productsOnASale.rows.map(product => (
+                                <ProductCard {...product} key={product.id} />
                             ))
                         }
                     </Slider>
@@ -76,13 +79,13 @@ const Home = () => {
             {/* Slider with special Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">Special products</h2>
+                    <h2 className="section__title">New products</h2>
 
                     <Slider>
                         {Object.keys(products).length === 0
                             ? <Spinner />
                             : products.rows.map(product => (
-                                <Product isCard {...product} key={product.id} />
+                                <ProductCard {...product} key={product.id} />
                             ))
                         }
                     </Slider>

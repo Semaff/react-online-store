@@ -1,11 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { guestRequest } from "../http/requests";
 
+const handleError = (state, action) => {
+    return {
+        ...state,
+        error: action.error,
+        status: "error"
+    }
+}
+
+const handlePending = (state, action) => {
+    return {
+        ...state,
+        error: null,
+        status: 'pending'
+    }
+}
+
 /*
   Reducer
 */
 const initialState = {
-    entities: {},
+    products: {},
+    productsOnASale: {},
     error: null,
     status: 'idle' // idle / loading / ?error
 }
@@ -17,17 +34,17 @@ const productsSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(fetchAllProducts.fulfilled, (state, action) => {
-                state.entities = action.payload;
+                state.products = action.payload;
                 state.status = "idle";
             })
-            .addCase(fetchAllProducts.pending, (state, action) => {
-                state.error = null;
-                state.status = "pending";
+            .addCase(fetchProductsOnASale.fulfilled, (state, action) => {
+                state.productsOnASale = action.payload;
+                state.status = "idle";
             })
-            .addCase(fetchAllProducts.rejected, (state, action) => {
-                state.error = action.error;
-                state.status = "error"
-            })
+            .addCase(fetchAllProducts.pending, handlePending)
+            .addCase(fetchAllProducts.rejected, handleError)
+            .addCase(fetchProductsOnASale.pending, handlePending)
+            .addCase(fetchProductsOnASale.rejected, handleError);
     }
 });
 
@@ -36,7 +53,8 @@ export default productsSlice.reducer;
 /*
   Selector creators
 */
-export const selectProducts = state => state.products.entities;
+export const selectProducts = state => state.products.products;
+export const selectProductsOnASale = state => state.products.productsOnASale;
 export const selectProductsError = state => state.products.error;
 export const selectProductsStatus = state => state.products.status;
 
@@ -45,9 +63,27 @@ export const selectProductsStatus = state => state.products.status;
 */
 export const fetchAllProducts = createAsyncThunk("products/fetchAll", async (params) => {
     try {
-        const response = await guestRequest.get("api/product/getall?" + (params || ""));
+        const response = await guestRequest.get("api/product/getall" + (params || ""));
         return response.data;
     } catch (err) {
         return Promise.reject(err.message);
     }
-})
+});
+
+export const fetchProductsOnASale = createAsyncThunk("products/fetchOnASale", async () => {
+    try {
+        const response = await guestRequest.get("api/product/getall?order=3");
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const fetchOneProduct = createAsyncThunk("products/fetchOne", async (id) => {
+    try {
+        const response = await guestRequest.get("api/product/getone/" + id);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
