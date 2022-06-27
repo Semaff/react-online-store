@@ -4,7 +4,7 @@ const uuid = require("uuid");
 const path = require("path");
 const { Op } = require("sequelize");
 
-async function findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order }) {
+async function findAllProducts({ brandId, categoryId, gender, sizes, colors, limit, offset, order }) {
     // Where Statements
     let whereStatements = {};
 
@@ -12,12 +12,12 @@ async function findAllProducts({ brandId, categoryId, gender, size, color, limit
     if (categoryId) whereStatements.categoryId = categoryId;
     if (gender) whereStatements.gender = gender;
 
-    if (size) whereStatements.sizes = {
-        [Op.contains]: [size]
+    if (sizes) whereStatements.sizes = {
+        [Op.contains]: sizes.filter(size => size !== "")
     }
 
-    if (color) whereStatements.colors = {
-        [Op.contains]: [`#${color}`]
+    if (colors) whereStatements.colors = {
+        [Op.contains]: colors.filter(color => color !== "").map(color => `#${color}`)
     }
 
     // Order statements
@@ -42,7 +42,7 @@ async function findAllProducts({ brandId, categoryId, gender, size, color, limit
 class ProductController {
     async getAll(req, res, next) {
         try {
-            let { brandId, categoryId, gender, size, color, limit, page, order } = req.query;
+            let { brandId, categoryId, gender, sizes, colors, limit, page, order } = req.query;
 
             // Check what offset we need to send
             limit = limit || 9;
@@ -52,7 +52,7 @@ class ProductController {
             /*
               Check what filters are used
             */
-            const products = await findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order })
+            const products = await findAllProducts({ brandId, categoryId, gender, sizes, colors, limit, offset, order })
             return res.json(products);
         } catch (err) {
             next(AppError.badRequest(err.message))
