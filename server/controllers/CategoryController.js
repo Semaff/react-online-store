@@ -1,10 +1,12 @@
 const AppError = require("../error/AppError");
-const { Category } = require("../models/models");
+const { Category, Brand } = require("../models/models");
 
 class CategoryController {
     async getAll(req, res, next) {
         try {
-            const categories = await Category.findAll();
+            const categories = await Category.findAll({
+                include: [{ model: Brand }]
+            });
             return res.json(categories);
         } catch (err) {
             next(AppError.badRequest(err.message));
@@ -13,7 +15,10 @@ class CategoryController {
 
     async getOne(req, res, next) {
         try {
-            const category = await Category.findByPk(req.params.id);
+            const category = await Category.findOne({
+                where: { id: req.params.id },
+                include: [{ model: Brand }]
+            });
             if (!category) {
                 throw new Error('Category does not exist');
             }
@@ -40,7 +45,10 @@ class CategoryController {
 
     async update(req, res, next) {
         try {
-            const category = await Category.findByPk(req.params.id);
+            const category = await Category.findOne({
+                where: { id: req.params.id },
+                include: [{ model: Brand }]
+            });
             if (!category) {
                 throw new Error('Category does not exist!');
             }
@@ -55,7 +63,10 @@ class CategoryController {
 
     async delete(req, res, next) {
         try {
-            const category = await Category.findByPk(req.params.id);
+            const category = await Category.findOne({
+                where: { id: req.params.id },
+                include: [{ model: Brand }]
+            });
             if (!category) {
                 throw new Error('Category does not exist');
             }
