@@ -1,27 +1,23 @@
 const AppError = require("../error/AppError");
-const { Product } = require("../models/models");
+const { Product, Category } = require("../models/models");
 const uuid = require("uuid");
 const path = require("path");
 const { Op } = require("sequelize");
 
-async function findAllProducts({ brandId, typeId, gender, size, color, limit, offset, order }) {
+async function findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order }) {
     // Where Statements
     let whereStatements = {};
 
     if (brandId) whereStatements.brandId = brandId;
-    if (typeId) whereStatements.typeId = typeId;
+    if (categoryId) whereStatements.categoryId = categoryId;
     if (gender) whereStatements.gender = gender;
 
-    if (size) {
-        whereStatements.sizes = {
-            [Op.contains]: [size]
-        }
+    if (size) whereStatements.sizes = {
+        [Op.contains]: [size]
     }
 
-    if (color) {
-        whereStatements.colors = {
-            [Op.contains]: [`#${color}`]
-        }
+    if (color) whereStatements.colors = {
+        [Op.contains]: [`#${color}`]
     }
 
     // Order statements
@@ -46,7 +42,7 @@ async function findAllProducts({ brandId, typeId, gender, size, color, limit, of
 class ProductController {
     async getAll(req, res, next) {
         try {
-            let { brandId, typeId, gender, size, color, limit, page, order } = req.query;
+            let { brandId, categoryId, gender, size, color, limit, page, order } = req.query;
 
             // Check what offset we need to send
             limit = limit || 9;
@@ -56,8 +52,7 @@ class ProductController {
             /*
               Check what filters are used
             */
-            const products = await findAllProducts({ brandId, typeId, gender, size, color, limit, offset, order })
-
+            const products = await findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order })
             return res.json(products);
         } catch (err) {
             next(AppError.badRequest(err.message))
@@ -93,8 +88,14 @@ class ProductController {
                 sizes,
                 quantity,
                 brandId = null,
-                typeId = null
+                categoryId = null
             } = req.body;
+
+            // Increment Category amount
+            if (categoryId) {
+                const category = await Category.findByPk(categoryId);
+                category.increment("amount", { by: 1 });
+            }
 
             // Parse Img
             const img = req.files.img;
@@ -117,7 +118,7 @@ class ProductController {
                 img: fileName,
                 quantity,
                 brandId,
-                typeId
+                categoryId
             });
 
             return res.json(product);
@@ -220,6 +221,10 @@ class ProductController {
             if (!product) {
                 throw new Error('Product was not found')
             }
+
+            // Decrement Category amount
+            const category = await Category.findByPk(product.categoryId);
+            category.decrement("amount", { by: 1 });
 
             // Destroy Product
             await product.destroy();
