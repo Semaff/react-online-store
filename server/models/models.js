@@ -41,9 +41,10 @@ const Product = sequelize.define("product", {
     img: { type: DataTypes.STRING, allowNull: false }
 });
 
-const Type = sequelize.define('type', {
+const Category = sequelize.define('category', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
+    amount: { type: DataTypes.INTEGER, defaultValue: 0 }
 });
 
 const Brand = sequelize.define('brand', {
@@ -56,21 +57,17 @@ const Rating = sequelize.define('rating', {
     rate: { type: DataTypes.INTEGER, allowNull: false },
 });
 
-const TypeBrand = sequelize.define('type_brand', {
+const CategoryBrand = sequelize.define('category_brand', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
+
+// Basket and Product (BasketProduct / BasketFavourite)
 Basket.belongsToMany(Product, { through: BasketProduct, as: "products", onDelete: "CASCADE" });
 Product.belongsToMany(Basket, { through: BasketProduct, as: "products", onDelete: "CASCADE" });
 
 Basket.belongsToMany(Product, { through: BasketFavourite, as: "favourites", onDelete: "CASCADE" });
 Product.belongsToMany(Basket, { through: BasketFavourite, as: "favourites", onDelete: "CASCADE" });
-
-User.hasOne(Basket);
-Basket.belongsTo(User);
-
-User.hasMany(Rating);
-Rating.belongsTo(User);
 
 Basket.hasMany(BasketProduct);
 BasketProduct.belongsTo(Basket);
@@ -78,23 +75,34 @@ BasketProduct.belongsTo(Basket);
 Basket.hasMany(BasketFavourite);
 BasketFavourite.belongsTo(Basket);
 
-Type.hasMany(Product);
-Product.belongsTo(Type);
-
-Brand.hasMany(Product);
-Product.belongsTo(Brand);
-
-Product.hasMany(Rating);
-Rating.belongsTo(Product);
-
 Product.hasMany(BasketProduct);
 BasketProduct.belongsTo(Product);
 
 Product.hasMany(BasketFavourite);
 BasketFavourite.belongsTo(Product);
 
-Type.belongsToMany(Brand, { through: TypeBrand });
-Brand.belongsToMany(Type, { through: TypeBrand });
+// User and Basket
+User.hasOne(Basket);
+Basket.belongsTo(User);
+
+// Rating
+User.hasMany(Rating);
+Rating.belongsTo(User);
+
+Product.hasMany(Rating);
+Rating.belongsTo(Product);
+
+// Category
+Category.hasMany(Product);
+Product.belongsTo(Category);
+
+// Brands
+Brand.hasMany(Product);
+Product.belongsTo(Brand);
+
+// TypeBrands
+Category.belongsToMany(Brand, { through: CategoryBrand });
+Brand.belongsToMany(Category, { through: CategoryBrand });
 
 module.exports = {
     User,
@@ -102,8 +110,8 @@ module.exports = {
     BasketProduct,
     BasketFavourite,
     Product,
-    Type,
+    Category,
     Brand,
-    TypeBrand,
+    CategoryBrand,
     Rating
 }
