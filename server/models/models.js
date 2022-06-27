@@ -44,6 +44,7 @@ const Product = sequelize.define("product", {
 const Category = sequelize.define('category', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
+    description: { type: DataTypes.STRING },
     amount: { type: DataTypes.INTEGER, defaultValue: 0 }
 });
 
@@ -60,6 +61,14 @@ const Rating = sequelize.define('rating', {
 const CategoryBrand = sequelize.define('category_brand', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
+
+const Testimonial = sequelize.define("testimonial", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    img: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false },
+    profession: { type: DataTypes.STRING, allowNull: false },
+    content: { type: DataTypes.STRING, allowNull: false }
+})
 
 
 // Basket and Product (BasketProduct / BasketFavourite)
@@ -113,5 +122,6 @@ module.exports = {
     Category,
     Brand,
     CategoryBrand,
-    Rating
+    Rating,
+    Testimonial
 }
