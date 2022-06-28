@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { checkAuth, selectUserStatus } from './store/userSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from './components';
-import { selectProductsStatus } from './store/productsSlice';
 
 function App() {
     const dispatch = useDispatch();

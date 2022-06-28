@@ -23,6 +23,11 @@ const handlePending = (state, action) => {
 const initialState = {
     products: {},
     productsOnASale: {},
+    product: {},
+
+    colors: [],
+    sizes: [],
+
     error: null,
     status: 'idle' // idle / loading / ?error
 }
@@ -33,18 +38,60 @@ const productsSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(fetchAllProducts.fulfilled, (state, action) => {
+            // Fetched Products with query parameters
+            .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.products = action.payload;
                 state.status = "idle";
             })
-            .addCase(fetchProductsOnASale.fulfilled, (state, action) => {
+            .addCase(fetchProducts.pending, handlePending)
+            .addCase(fetchProducts.rejected, handleError)
+
+            // Fetched Products on a sale
+            .addCase(fetchSaleProducts.fulfilled, (state, action) => {
                 state.productsOnASale = action.payload;
                 state.status = "idle";
             })
-            .addCase(fetchAllProducts.pending, handlePending)
-            .addCase(fetchAllProducts.rejected, handleError)
-            .addCase(fetchProductsOnASale.pending, handlePending)
-            .addCase(fetchProductsOnASale.rejected, handleError);
+            .addCase(fetchSaleProducts.pending, handlePending)
+            .addCase(fetchSaleProducts.rejected, handleError)
+
+            // Fetched Products and then used their properties for filling colors and sizes
+            .addCase(fetchParameters.fulfilled, (state, action) => {
+                const products = action.payload.rows;
+                let colors = [];
+                let sizes = [];
+
+                // Iterate through products and get their Colors and Sizes
+                for (let i = 0; i < products; i++) {
+                    products[i].colors.forEach(color => {
+                        if (colors[color]) {
+                            colors[color]++;
+                        } else {
+                            colors[color] = 1;
+                        };
+                    });
+
+                    products[i].sizes.forEach(size => {
+                        if (sizes[size]) {
+                            sizes[size]++;
+                        } else {
+                            sizes[size] = 1;
+                        };
+                    });
+                }
+
+                state.colors = colors;
+                state.sizes = sizes;
+            })
+            .addCase(fetchParameters.pending, handlePending)
+            .addCase(fetchParameters.rejected, handleError)
+
+            // Fetched one Product by its id
+            .addCase(fetchOneProduct.fulfilled, (state, action) => {
+                state.product = action.payload;
+                state.status = "idle";
+            })
+            .addCase(fetchOneProduct.pending, handlePending)
+            .addCase(fetchOneProduct.rejected, handleError);
     }
 });
 
@@ -53,33 +100,46 @@ export default productsSlice.reducer;
 /*
   Selector creators
 */
+export const selectProductColors = state => state.products.colors;
+export const selectProductSizes = state => state.products.sizes;
+
 export const selectProducts = state => state.products.products;
-export const selectProductsOnASale = state => state.products.productsOnASale;
+export const selectSaleProducts = state => state.products.productsOnASale;
+
 export const selectProductsError = state => state.products.error;
 export const selectProductsStatus = state => state.products.status;
 
 /*
   Thunk actions
 */
-export const fetchAllProducts = createAsyncThunk("products/fetchAll", async (params) => {
+export const fetchParameters = createAsyncThunk("products/fetchParameters", async (params) => {
     try {
-        const response = await guestRequest.get("api/product/getall" + (params || ""));
+        const response = await guestRequest.get("api/product/getall?getall=true" + (params || ""));
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+})
+
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async (params) => {
+    try {
+        const response = await guestRequest.get("api/product/getall?" + (params || ""));
         return response.data;
     } catch (err) {
         return Promise.reject(err.message);
     }
 });
 
-export const fetchProductsOnASale = createAsyncThunk("products/fetchOnASale", async () => {
+export const fetchSaleProducts = createAsyncThunk("products/fetchSaleProducts", async () => {
     try {
-        const response = await guestRequest.get("api/product/getall?order=3");
+        const response = await guestRequest.get("api/product/getall?order=5");
         return response.data;
     } catch (err) {
         return Promise.reject(err.message);
     }
 });
 
-export const fetchOneProduct = createAsyncThunk("products/fetchOne", async (id) => {
+export const fetchOneProduct = createAsyncThunk("products/fetchOneProduct", async (id) => {
     try {
         const response = await guestRequest.get("api/product/getone/" + id);
         return response.data;

@@ -2,27 +2,42 @@ import { Carousel, Slider, Spinner, Tabs, Testimonial } from "../../components";
 import { About, Logos, Intro } from "../../containers";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.scss"
-import { fetchAllProducts, fetchProductsOnASale, selectProducts, selectProductsOnASale } from "../../store/productsSlice";
 import { useEffect } from "react";
 import ProductCard from "../../components/Product/ProductCard";
-
-const getTestimonials = () => {
-    let data = [];
-    for (let i = 0; i < 10; i++) {
-        data.push(<Testimonial key={i} />)
-    }
-    return data;
-}
+import { fetchProducts, fetchSaleProducts, selectProducts, selectProductsStatus, selectSaleProducts } from "../../store/productsSlice";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { fetchTestimonials, selectTestimonials } from "../../store/testimonialsSlice";
 
 const Home = () => {
+    const [, setSearchParams] = useSearchParams();
+    const query = useLocation().search;
     const dispatch = useDispatch();
+
     const products = useSelector(selectProducts);
-    const productsOnASale = useSelector(selectProductsOnASale);
+    const productsOnASale = useSelector(selectSaleProducts);
+    const testimonials = useSelector(selectTestimonials);
+
+    const productsStatus = useSelector(selectProductsStatus);
 
     useEffect(() => {
-        dispatch(fetchAllProducts("?order=4"));
-        dispatch(fetchProductsOnASale(""));
-    }, [dispatch]);
+        // Fetch Sale Products
+        dispatch(fetchSaleProducts(""));
+
+        // Fetch Products for slider with tabs
+        if (query) {
+            dispatch(fetchProducts(query.slice(1)));
+        } else {
+            dispatch(fetchProducts("order=4"));
+        }
+
+        // Fetch Testimonials
+        dispatch(fetchTestimonials());
+    }, [dispatch, query]);
+
+    // Change 'order' query to fetch right Products
+    const handleTabClick = (orderNum) => {
+        setSearchParams({ order: orderNum });
+    }
 
     return (
         <>
@@ -43,16 +58,19 @@ const Home = () => {
             {/* Slider with trending Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">Products on a sale</h2>
+                    <h2 className="section__title">Featured Products</h2>
 
-                    <Tabs />
+                    <Tabs onClick={handleTabClick} />
                     <Slider>
-                        {Object.keys(productsOnASale).length === 0
-                            ? <Spinner />
-                            : productsOnASale.rows.map(product => (
-                                <ProductCard {...product} key={product.id} />
-                            ))
+                        {(Object.keys(products).length === 0 || productsStatus === "pending") &&
+                            <div className="loading">
+                                <Spinner />
+                            </div>
                         }
+
+                        {products?.rows?.map(product => (
+                            <ProductCard {...product} key={product.id} />
+                        ))}
                     </Slider>
                 </div>
             </section>
@@ -62,9 +80,11 @@ const Home = () => {
                 background: "url('./images/testimonials.jpg') center no-repeat",
                 backgroundSize: "cover"
             }}>
-                <div className="container" style={{ opacity: 1 }}>
+                <div className="container">
                     <Carousel>
-                        {getTestimonials()}
+                        {testimonials && testimonials.length > 0 && testimonials.map(testimonial => (
+                            <Testimonial {...testimonial} key={testimonial.id} />
+                        ))}
                     </Carousel>
                 </div>
             </section>
@@ -79,15 +99,18 @@ const Home = () => {
             {/* Slider with special Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">New products</h2>
+                    <h2 className="section__title">Products on a sale</h2>
 
                     <Slider>
-                        {Object.keys(products).length === 0
-                            ? <Spinner />
-                            : products.rows.map(product => (
-                                <ProductCard {...product} key={product.id} />
-                            ))
+                        {(Object.keys(products).length === 0 || productsStatus === "pending") &&
+                            <div className="loading">
+                                <Spinner />
+                            </div>
                         }
+
+                        {productsOnASale?.rows?.map(product => (
+                            <ProductCard {...product} key={product.id} />
+                        ))}
                     </Slider>
                 </div>
             </section>
