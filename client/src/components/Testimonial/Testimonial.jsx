@@ -1,20 +1,21 @@
 import "./Testimonial.scss";
 
-const Testimonial = () => {
+const Testimonial = ({ img, name, profession, content }) => {
     return (
         <div className="testimonial">
-            <img className="testimonial__img" src="https://placehold.jp/200x200.png" alt="testimoImg" />
+            <img
+                className="testimonial__img"
+                src={`${process.env.REACT_APP_API_URL + img}` || "https://placehold.jp/200x200.png"}
+                alt="testimoImg"
+            />
 
             <div className="testimonial__text">
-                <p>
-                    Dunt purus blandit arrc ullamcorper Aliquam a iaculis est Dunt purus blandit
-                    arrc ullamcorper Aliquam a iaculis est...
-                </p>
+                <p>{content}</p>
             </div>
 
             <div className="testimonial__desc">
-                <h3>John Doe</h3>
-                <h3>Ceo & Founder</h3>
+                <h3>{name}</h3>
+                <h3>{profession}</h3>
             </div>
         </div>
     )

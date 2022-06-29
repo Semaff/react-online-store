@@ -1,5 +1,5 @@
 import { Carousel, Slider, Spinner, Tabs, Testimonial } from "../../components";
-import { About, Logos, Intro } from "../../containers";
+import { About, Logos, Intro, Aside } from "../../containers";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.scss"
 import { useEffect } from "react";
@@ -68,7 +68,7 @@ const Home = () => {
                             </div>
                         }
 
-                        {products?.rows?.map(product => (
+                        {Object.keys(products).length > 0 && products.rows.map(product => (
                             <ProductCard {...product} key={product.id} />
                         ))}
                     </Slider>
@@ -102,13 +102,13 @@ const Home = () => {
                     <h2 className="section__title">Products on a sale</h2>
 
                     <Slider>
-                        {(Object.keys(products).length === 0 || productsStatus === "pending") &&
+                        {(Object.keys(productsOnASale).length === 0 || productsStatus === "pending") &&
                             <div className="loading">
                                 <Spinner />
                             </div>
                         }
 
-                        {productsOnASale?.rows?.map(product => (
+                        {Object.keys(productsOnASale).length > 0 && productsOnASale.rows.map(product => (
                             <ProductCard {...product} key={product.id} />
                         ))}
                     </Slider>

@@ -1,11 +1,10 @@
 import "./Tabs.scss";
 
-const Tabs = () => {
+const Tabs = ({ onClick }) => {
     return (
         <div className="tabs">
-            <button className="tab" type="button">Featured</button>
-            <button className="tab" type="button">Latest</button>
-            <button className="tab" type="button">Bestseller</button>
+            <button className="tab" type="button" onClick={() => onClick(4)}>New</button>
+            <button className="tab" type="button" onClick={() => onClick(3)}>Featured</button>
         </div>
     )
 }

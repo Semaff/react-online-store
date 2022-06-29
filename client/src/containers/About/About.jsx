@@ -6,14 +6,19 @@ const About = ({ isMini }) => {
         <div className={`about ${isMini ? "--mini" : ""}`} style={
             !isMini ? { backgroundImage: "url('./images/about-bg.jpg')" } : null
         }>
-
             <div className="about__item">
                 <img src={isMini ? `./images/about-3.jpg` : `./images/about-2.jpg`} alt="1" className="about__img" />
 
                 <div className="about__banner">
                     {isMini
                         ?
-                        <Banner isMini toType="2" subTitle="Shirt Collection" priceText="up to 70% off" btnText="Read More" />
+                        <Banner
+                            isMini
+                            toType="2"
+                            subTitle="Shirt Collection"
+                            priceText="up to 70% off"
+                            btnText="Read More"
+                        />
                         :
                         <Banner
                             toGender="women"
@@ -30,7 +35,13 @@ const About = ({ isMini }) => {
                 <div className="about__banner  --reversed">
                     {isMini
                         ?
-                        <Banner isMini toType="3" subTitle="Jeans Collection" priceText="up to 70% off" btnText="Read More" />
+                        <Banner
+                            isMini
+                            toType="3"
+                            subTitle="Jeans Collection"
+                            priceText="up to 70% off"
+                            btnText="Read More"
+                        />
                         :
                         <Banner
                             toGender="men"
