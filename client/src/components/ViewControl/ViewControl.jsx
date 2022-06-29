@@ -3,7 +3,7 @@ import MySelect from "../_Inputs/MySelect/MySelect";
 import { Grid, Lines, List } from "../_SVG";
 import "./ViewControl.scss";
 
-const ViewControl = ({ setView }) => {
+const ViewControl = ({ setView, onSelectClick }) => {
     const currentView = useRef();
 
     const changeView = (e, view) => {
@@ -12,24 +12,30 @@ const ViewControl = ({ setView }) => {
         currentView.current = e.currentTarget;
 
         // Set View
-        e.currentTarget.classList.add("active");
+        currentView.current.classList.add("active");
         setView(view);
     }
 
     return (
         <div className="view-control">
             <div className="view-control__position">
-                <a href="#a" onClick={(e) => changeView(e, "grid")} ref={currentView} className="active"><Grid /></a>
-                <a href="#a" onClick={(e) => changeView(e, "list")}><List /></a>
-                <a href="#a" onClick={(e) => changeView(e, "short")}><Lines /></a>
+                <button onClick={(e) => changeView(e, "grid")} ref={currentView} className="active">
+                    <Grid />
+                </button>
+                <button onClick={(e) => changeView(e, "list")}>
+                    <List />
+                </button>
+                <button onClick={(e) => changeView(e, "short")}>
+                    <Lines />
+                </button>
             </div>
 
             <div className="view-control__sort">
                 <div className="view-control__select">
                     <span>Show</span>
                     <MySelect
-                        defaultValue="--"
-                        name="show"
+                        onChange={e => onSelectClick("limit", e.target.value)}
+                        name="limit"
                         options={[12, 8]}
                     />
                 </div>
@@ -37,8 +43,9 @@ const ViewControl = ({ setView }) => {
                 <div className="view-control__select">
                     <span>Sort by</span>
                     <MySelect
-                        name="sort"
-                        options={["Ascending", "Descending"]}
+                        onChange={e => onSelectClick("order", e.target.value)}
+                        name="order"
+                        options={["Default", "Ascending", "Descending"]}
                     />
                 </div>
             </div>

@@ -77,6 +77,10 @@
 /*
   View
 */
+.products__content {
+    position: relative;
+}
+
 .products__short,
 .products__list {
     display: flex;

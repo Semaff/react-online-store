@@ -1,18 +1,25 @@
 import "./CategoriesList.scss";
 
-const Category = ({ name, amount, subcategories }) => {
+const Category = ({ id, name, amount, brands, onCategoryClick, onBrandClick, searchParams }) => {
     return (
-        <li className="category">
-            <a className="category__title" href="#a">
+        <li
+            className={`category ${+searchParams.get("categoryId") === id ? "active" : ""}`}
+            onClick={(e) => onCategoryClick(e, id)}
+        >
+            <h5 className="category__title">
                 <span>{name}</span>
                 <span>{amount}</span>
-            </a>
+            </h5>
 
-            {subcategories && subcategories.length > 0 && (
+            {brands && brands.length > 0 && (
                 <ul className="subcategories">
-                    {subcategories.map(subcategory => (
-                        <li key={subcategory} className="category">
-                            <a href="#a">{subcategory}</a>
+                    {brands.map(brand => (
+                        <li
+                            key={brand.id}
+                            className={`subcategory ${+searchParams.get("brandId") === brand.id ? "active" : ""}`}
+                            onClick={(e) => onBrandClick(e, id, brand.id)}
+                        >
+                            {brand.name}
                         </li>
                     ))}
                 </ul>
@@ -21,11 +28,37 @@ const Category = ({ name, amount, subcategories }) => {
     )
 }
 
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, searchParams, changeSearchParams }) => {
+    const handleCategoryClick = (e, categoryId) => {
+        if (e.currentTarget.classList.contains("active")) {
+            changeSearchParams("delete", "categoryId");
+        } else {
+            changeSearchParams("set", "categoryId", categoryId);
+        }
+        changeSearchParams("delete", "brandId");
+    }
+
+    const handleBrandClick = (e, categoryId, brandId) => {
+        e.stopPropagation();
+
+        if (e.currentTarget.classList.contains("active")) {
+            changeSearchParams("delete", "brandId");
+        } else {
+            changeSearchParams("set", "categoryId", categoryId);
+            changeSearchParams("set", "brandId", brandId);
+        }
+    }
+
     return (
         <ul className="categories">
-            {categories.map(category => (
-                <Category {...category} key={category.name} />
+            {Object.keys(categories)?.length > 0 && Object.entries(categories).map(category => (
+                <Category
+                    {...category[1]}
+                    key={category[1].name}
+                    onCategoryClick={handleCategoryClick}
+                    onBrandClick={handleBrandClick}
+                    searchParams={searchParams}
+                />
             ))}
         </ul>
     )

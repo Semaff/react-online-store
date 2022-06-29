@@ -22,15 +22,28 @@
     }
 }
 
-.category,
-.category a {
-    font-size: 1.3rem;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    color: #666666;
+.category {
+    .subcategory,
+    .category__title {
+        cursor: pointer;
+        font-size: 1.3rem;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        color: #666666;
 
-    &:hover {
+        &:hover {
+            color: #000;
+        }
+    }
+
+    &.active {
+        .category__title {
+            color: #000;
+        }
+    }
+
+    .subcategory.active {
         color: #000;
     }
 }

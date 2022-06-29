@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { CategoriesList, MyRange, Product } from "../../components";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { CategoriesList, MyCheckBox, MyRange, Product } from "../../components";
+import useDebouncedFunction from "../../hooks/useDebouncedFunction";
+import { selectCategories } from "../../store/categoriesSlice";
+import { selectProductColors, selectProductSizes, selectProductsMaxPrice, selectProductsMinPrice, selectSaleProducts } from "../../store/productsSlice";
 import "./Aside.scss";
 
 const AsideBlock = ({ title, children }) => {
@@ -24,69 +29,120 @@ const AsideBlock = ({ title, children }) => {
 }
 
 const Aside = () => {
+    /*
+      Functions
+    */
 
-    const categories = [
-        {
-            name: "Jackets",
-            amount: "120",
-            subcategories: ["Lorem ipsum", "Donec vitae"]
-        },
-        {
-            name: "Jeans & chinos",
-            amount: "55",
-            subcategories: ["Dolor", "Sit amet"]
+    // Several Colors / Sizes can be selected, so we need to make array of Search Query separating them by '%'
+    function changeSearchQueryArray(name, value) {
+        if (!searchParams.get(name)) {
+            searchParams.set(name, value);
+            return setSearchParams(searchParams);
+        } else {
+            let queryArray = searchParams.get(name).split("%");
+
+            if (queryArray.includes(value)) {
+                queryArray = queryArray.filter(el => el !== value);
+                if (queryArray.length === 0 || queryArray[0] === "") {
+                    searchParams.delete(name);
+                    return setSearchParams(searchParams);
+                }
+            } else {
+                queryArray.push(value);
+            }
+
+            searchParams.set(name, queryArray.join("%"));
+            return setSearchParams(searchParams)
         }
-    ];
+    }
 
-    const colors = [
-        { hex: "#333333", name: "Black", amount: "4" },
-        { hex: "#11426b", name: "Blue", amount: "3" },
-        { hex: "#7d5a3c", name: "Brown", amount: "3" },
-        { hex: "#ffffff", name: "White", amount: "3" },
-    ];
+    // You can't select multiple Price, brandId and categoryId, so it's just Search Query 
+    function changeSearchQuery(action, name, value) {
+        if (action === "delete") {
+            searchParams.delete(name);
+        } else if (action === "set") {
+            searchParams.set(name, value);
+        }
+        setSearchParams(searchParams);
+    }
 
-    const sizes = [
-        { name: "L", amount: 4 },
-        { name: "XS", amount: 3 },
-        { name: "S", amount: 3 },
-        { name: "XL", amount: 3 },
-    ];
+    /*
+      Variables
+    */
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const productsThatOnASale = [
-        { image: "./images/product-1.jpg", name: "Product1", rating: "4.1", price: "100.00", oldPrice: "150.00" },
-        { image: "./images/product-2.jpg", name: "Product2", rating: "4.3", price: "110.00", oldPrice: "171.00" },
-        { image: "./images/product-3.jpg", name: "Product3", rating: "4.2", price: "105.00", oldPrice: "160.00" },
-        { image: "./images/product-4.jpg", name: "Product4", rating: "3.2", price: "101.00", oldPrice: "110.00" },
-    ].slice(0, 3);
+    // For Aside products
+    const productsThatOnASale = useSelector(selectSaleProducts);
+
+    // Aside config for products
+    const categories = useSelector(selectCategories);
+    const colors = useSelector(selectProductColors);
+    const sizes = useSelector(selectProductSizes);
+
+    // Handle Range input (from - minPrice ; to - maxPrice ; range - for label)
+    const debouncedChangeSearchQuery = useDebouncedFunction(changeSearchQuery, 2000);
+    const minPrice = useSelector(selectProductsMinPrice);
+    const maxPrice = useSelector(selectProductsMaxPrice);
+    const [range, setRange] = useState(searchParams.get("price") || minPrice);
+
+    const handlePriceChange = (e) => {
+        setRange(e.target.value);
+        debouncedChangeSearchQuery("set", "price", e.target.value);
+    }
 
     return (
         <aside className="aside">
             {/* Aside Config */}
             <div className="aside__section">
+                {/* Categories */}
                 <AsideBlock title="Categories">
-                    <CategoriesList categories={categories} />
+                    <CategoriesList
+                        categories={categories}
+                        searchParams={searchParams}
+                        changeSearchParams={changeSearchQuery}
+                    />
                 </AsideBlock>
 
+                {/* Price */}
                 <AsideBlock title="Price">
-                    <MyRange />
+                    <MyRange
+                        name="price"
+                        from={minPrice}
+                        to={maxPrice}
+                        value={range}
+                        onChange={handlePriceChange}
+                    />
                 </AsideBlock>
 
+                {/* Colors */}
                 <AsideBlock title="Color">
-                    {colors.map(color => (
-                        <button type="button" className="aside__color" key={color.name}>
-                            <div className="color" style={{ background: `${color.hex}` }}></div>
-                            {color.name} ({color.amount})
-                        </button>
-                    ))}
+                    <div className="aside__colors">
+                        {Object.keys(colors)?.length > 0 && Object.entries(colors).map(color => (
+                            <button
+                                type="button"
+                                key={color[0]}
+                                onClick={() => changeSearchQueryArray("color", color[0].slice(1))}
+                                className={`aside__color ${searchParams.get("color")?.split("%").includes(color[0].slice(1)) ? "active" : ""}`}
+                            >
+                                <div className="color" style={{ background: `${color[0]}` }} />
+                                ({color[1]})
+                            </button>
+                        ))}
+                    </div>
                 </AsideBlock>
 
+                {/* Sizes */}
                 <AsideBlock title="Size">
-                    {sizes.map((size, index) => (
+                    {Object.keys(sizes)?.length > 0 && Object.entries(sizes).map((size, index) => (
                         <div className="checkbox__flexbox" key={index}>
-                            <input type="checkbox" className="checkbox" id={`size-${size.name}`} />
+                            <MyCheckBox
+                                defaultChecked={searchParams.get("size")?.split("%").includes(size[0])}
+                                onChange={() => changeSearchQueryArray("size", size[0])}
+                                name={`size-${size[0]}`}
+                            />
 
-                            <label htmlFor={`size-${size.name}`} className="label">
-                                {size.name} ({size.amount})
+                            <label htmlFor={`size-${size[0]}`} className="label">
+                                {size[0]} ({size[1]})
                             </label>
                         </div>
                     ))}
@@ -112,9 +168,11 @@ const Aside = () => {
                 </div>
 
                 <div className="aside__products">
-                    {productsThatOnASale.map(product => (
-                        <Product isMini key={product.name} {...product} />
-                    ))}
+                    {Object.keys(productsThatOnASale).length > 0 && (
+                        productsThatOnASale.rows.slice(0, 3).map(product => (
+                            <Product isMini key={product.name} {...product} />
+                        ))
+                    )}
                 </div>
             </div>
         </aside>
