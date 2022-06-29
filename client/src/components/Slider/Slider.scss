@@ -6,6 +6,9 @@
 }
 
 .slider__inner {
+    position: relative;
+    min-height: 50rem;
+
     display: flex;
     align-items: flex-start;
     gap: 5rem;
