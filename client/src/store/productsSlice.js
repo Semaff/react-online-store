@@ -27,6 +27,8 @@ const initialState = {
 
     colors: [],
     sizes: [],
+    minPrice: 1,
+    maxPrice: 1,
 
     error: null,
     status: 'idle' // idle / loading / ?error
@@ -59,9 +61,11 @@ const productsSlice = createSlice({
                 const products = action.payload.rows;
                 let colors = [];
                 let sizes = [];
+                let minPrice = 1;
+                let maxPrice = 1;
 
                 // Iterate through products and get their Colors and Sizes
-                for (let i = 0; i < products; i++) {
+                for (let i = 0; i < products.length; i++) {
                     products[i].colors.forEach(color => {
                         if (colors[color]) {
                             colors[color]++;
@@ -77,10 +81,15 @@ const productsSlice = createSlice({
                             sizes[size] = 1;
                         };
                     });
+
+                    minPrice = Math.min(products[i].price, minPrice);
+                    maxPrice = Math.max(products[i].price, maxPrice);
                 }
 
                 state.colors = colors;
                 state.sizes = sizes;
+                state.minPrice = minPrice;
+                state.maxPrice = maxPrice;
             })
             .addCase(fetchParameters.pending, handlePending)
             .addCase(fetchParameters.rejected, handleError)
@@ -102,6 +111,9 @@ export default productsSlice.reducer;
 */
 export const selectProductColors = state => state.products.colors;
 export const selectProductSizes = state => state.products.sizes;
+
+export const selectProductsMinPrice = state => state.products.minPrice;
+export const selectProductsMaxPrice = state => state.products.maxPrice;
 
 export const selectProducts = state => state.products.products;
 export const selectSaleProducts = state => state.products.productsOnASale;
