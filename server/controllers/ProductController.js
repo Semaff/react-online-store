@@ -4,20 +4,24 @@ const uuid = require("uuid");
 const path = require("path");
 const { Op } = require("sequelize");
 
-async function findAllProducts({ brandId, categoryId, gender, sizes, colors, limit, offset, order }) {
+async function findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order, price }) {
     // Where Statements
     let whereStatements = {};
 
-    if (brandId) whereStatements.brandId = brandId;
-    if (categoryId) whereStatements.categoryId = categoryId;
+    if (+brandId) whereStatements.brandId = brandId;
+    if (+categoryId) whereStatements.categoryId = categoryId;
     if (gender) whereStatements.gender = gender;
 
-    if (sizes) whereStatements.sizes = {
-        [Op.contains]: sizes.filter(size => size !== "")
+    if (size) whereStatements.sizes = {
+        [Op.contains]: size.split("%").filter(sizeEl => sizeEl !== "")
     }
 
-    if (colors) whereStatements.colors = {
-        [Op.contains]: colors.filter(color => color !== "").map(color => `#${color}`)
+    if (color) whereStatements.colors = {
+        [Op.contains]: color.split("%").filter(colorEl => colorEl !== "").map(colorEl => `#${colorEl}`)
+    }
+
+    if (price) whereStatements.price = {
+        [Op.gte]: price
     }
 
     // Order statements
@@ -27,9 +31,11 @@ async function findAllProducts({ brandId, categoryId, gender, sizes, colors, lim
     } else if (+order === 2) {
         orderStatements.push(["price", "DESC"])
     } else if (+order === 3) {
-        whereStatements.onASale = true;
+        orderStatements.push(["updatedAt", "DESC"])
     } else if (+order === 4) {
         whereStatements.isNew = true;
+    } else if (+order === 5) {
+        whereStatements.onASale = true;
     }
 
     const products = await Product.findAndCountAll({
@@ -42,17 +48,24 @@ async function findAllProducts({ brandId, categoryId, gender, sizes, colors, lim
 class ProductController {
     async getAll(req, res, next) {
         try {
-            let { brandId, categoryId, gender, sizes, colors, limit, page, order } = req.query;
+            let { brandId, categoryId, gender, size, color, limit, page, order, getall, price } = req.query;
 
             // Check what offset we need to send
-            limit = limit || 9;
-            page = page || 1;
-            let offset = page * limit - limit;
+            let offset;
+            if (getall === "true") {
+                limit = undefined;
+                page = undefined;
+                offset = undefined;
+            } else {
+                limit = limit || 12;
+                page = page || 1;
+                offset = page * limit - limit
+            }
 
             /*
               Check what filters are used
             */
-            const products = await findAllProducts({ brandId, categoryId, gender, sizes, colors, limit, offset, order })
+            const products = await findAllProducts({ brandId, categoryId, gender, size, color, limit, offset, order, price })
             return res.json(products);
         } catch (err) {
             next(AppError.badRequest(err.message))
@@ -91,12 +104,6 @@ class ProductController {
                 categoryId = null
             } = req.body;
 
-            // Increment Category amount
-            if (categoryId) {
-                const category = await Category.findByPk(categoryId);
-                category.increment("amount", { by: 1 });
-            }
-
             // Parse Img
             const img = req.files.img;
             const [, ext] = img.mimetype.split('/');
@@ -120,6 +127,12 @@ class ProductController {
                 brandId,
                 categoryId
             });
+
+            // Increment Category amount
+            if (categoryId) {
+                const category = await Category.findByPk(categoryId);
+                category.increment("amount", { by: 1 });
+            }
 
             return res.json(product);
         } catch (err) {
@@ -222,12 +235,15 @@ class ProductController {
                 throw new Error('Product was not found')
             }
 
-            // Decrement Category amount
-            const category = await Category.findByPk(product.categoryId);
-            category.decrement("amount", { by: 1 });
+            const categoryId = product.categoryId;
 
             // Destroy Product
             await product.destroy();
+
+            // Decrement Category amount
+            const category = await Category.findByPk(categoryId);
+            category.decrement("amount", { by: 1 });
+
             return res.json(product);
         } catch (err) {
             next(AppError.badRequest(err.message))
