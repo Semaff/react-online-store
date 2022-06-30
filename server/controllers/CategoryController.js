@@ -34,8 +34,11 @@ class CategoryController {
             if (!req.body.name) {
                 throw new Error("Can't create Category without name")
             }
+            if(!req.body.description) {
+                throw new Error("Can't create Category without description")
+            }
 
-            const category = await Category.create({ name: req.body.name });
+            const category = await Category.create({ name: req.body.name, description: req.body.description });
             return res.json(category);
         } catch (err) {
             next(AppError.badRequest(err.message));
@@ -54,7 +57,8 @@ class CategoryController {
             }
 
             const name = req.body.name || category.name;
-            await category.update({ name });
+            const description = req.body.description || category.description;
+            await category.update({ name, description });
             return res.json(category);
         } catch (err) {
             next(AppError.badRequest(err.message));
