@@ -10,9 +10,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] },
-                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             return res.json(basket);
@@ -36,8 +36,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Delete or create favourite BasketFavourite
@@ -73,8 +74,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Increment or Update basketProduct
@@ -111,8 +113,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Increment BasketProduct
@@ -146,8 +149,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Decrement BasketProduct or destroy it
@@ -181,8 +185,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Delete BasketProduct
@@ -207,9 +212,9 @@ class BasketController {
             const basket = await Basket.findOne({
                 where: { userId },
                 include: [
-                    { model: Product, as: "products", attributes: ["id", "img", "name", "price"] },
-                    { model: Product, as: "favourites", attributes: ["id", "img", "name", "price"] }
-                ]
+                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
+                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
+                ],
             });
 
             // Turn back quantities to products
