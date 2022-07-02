@@ -1,4 +1,4 @@
-const { Brand } = require("../models/models");
+const { Brand, CategoryBrand } = require("../models/models");
 const AppError = require("../error/AppError");
 
 class BrandController {
@@ -59,6 +59,7 @@ class BrandController {
                 throw new Error('Brand does not found');
             }
 
+            await CategoryBrand.destroy({ where: { brandId: brand.id } })
             await brand.destroy();
             return res.json(brand);
         } catch (err) {

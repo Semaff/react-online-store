@@ -1,5 +1,5 @@
 const AppError = require("../error/AppError");
-const { Category, Brand } = require("../models/models");
+const { Category, Brand, CategoryBrand } = require("../models/models");
 
 class CategoryController {
     async getAll(req, res, next) {
@@ -34,7 +34,7 @@ class CategoryController {
             if (!req.body.name) {
                 throw new Error("Can't create Category without name")
             }
-            if(!req.body.description) {
+            if (!req.body.description) {
                 throw new Error("Can't create Category without description")
             }
 
@@ -75,6 +75,7 @@ class CategoryController {
                 throw new Error('Category does not exist');
             }
 
+            await CategoryBrand.destroy({ where: { categoryId: category.id } });
             await category.destroy();
             return res.json(category);
         } catch (err) {
