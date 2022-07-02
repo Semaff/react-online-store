@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import MySelect from "../_Inputs/MySelect/MySelect";
 import { Grid, Lines, List } from "../_SVG";
+import { MySelect } from "../index";
 import "./ViewControl.scss";
 
 const ViewControl = ({ setView, onSelectClick }) => {
