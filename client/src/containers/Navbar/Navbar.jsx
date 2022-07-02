@@ -12,19 +12,19 @@ const Navbar = () => {
 
                 <ul className="nav__list">
                     <li className="nav__item">
-                        <Link to={SHOP_ROUTE + "?typeId=7"} className="nav__link">Electronics</Link>
-                    </li>
-                    <li className="nav__item">
                         <Link to={SHOP_ROUTE + "?gender=men"} className="nav__link">Men</Link>
                     </li>
                     <li className="nav__item">
                         <Link to={SHOP_ROUTE + "?gender=women"} className="nav__link">Women</Link>
                     </li>
                     <li className="nav__item">
-                        <Link to={SHOP_ROUTE + "?typeId=5"} className="nav__link">Jeans</Link>
+                        <Link to={SHOP_ROUTE + "?categoryId=5"} className="nav__link">Shirt</Link>
                     </li>
                     <li className="nav__item">
-                        <Link to={SHOP_ROUTE + "?typeId=2"} className="nav__link">Dress</Link>
+                        <Link to={SHOP_ROUTE + "?categoryId=1"} className="nav__link">Jeans</Link>
+                    </li>
+                    <li className="nav__item">
+                        <Link to={SHOP_ROUTE + "?categoryId=3"} className="nav__link">Dress</Link>
                     </li>
                 </ul>
 
