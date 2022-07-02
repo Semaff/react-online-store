@@ -52,7 +52,7 @@ const Middlebar = () => {
                             <Cart />
                         </Link>
 
-                        {user.role === "ADMIN" && (
+                        {user?.role === "ADMIN" && (
                             <Link to={ADMIN_ROUTE}>
                                 <Database />
                             </Link>

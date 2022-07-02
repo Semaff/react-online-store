@@ -18,7 +18,7 @@ const AppRouter = () => {
                 <Route key={path} path={path} element={element} />
             ))}
 
-            {user.role === "ADMIN" && adminRoutes.map(({ path, element }) => (
+            {user?.role === "ADMIN" && adminRoutes.map(({ path, element }) => (
                 <Route key={path} path={path} element={element} />
             ))}
         </Routes>
