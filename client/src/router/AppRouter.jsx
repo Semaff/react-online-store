@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { adminRoutes, authRoutes, publicRoutes } from './routes';
 import { useSelector } from "react-redux";
-import { selectUserLoggedIn } from '../store/userSlice';
+import { selectUser, selectUserLoggedIn } from '../store/userSlice';
 
 const AppRouter = () => {
-    const isAdmin = true;
+    const user = useSelector(selectUser);
     const isLoggedIn = useSelector(selectUserLoggedIn);
 
     return (
@@ -18,7 +18,7 @@ const AppRouter = () => {
                 <Route key={path} path={path} element={element} />
             ))}
 
-            {isAdmin && adminRoutes.map(({ path, element }) => (
+            {user.role === "ADMIN" && adminRoutes.map(({ path, element }) => (
                 <Route key={path} path={path} element={element} />
             ))}
         </Routes>
