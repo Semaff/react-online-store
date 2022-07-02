@@ -11,7 +11,8 @@ const MyInput = ({
     min,
     max,
     value,
-    changeValue
+    inputRef,
+    onChange
 }) => {
     return (
         <div className={`input__placeholder ${isCardName ? "--cardname" : ""}`}>
@@ -21,8 +22,9 @@ const MyInput = ({
                 </label>
             )}
             <input
+                ref={inputRef}
                 value={value}
-                onChange={e => changeValue(e.target.value)}
+                onChange={onChange}
                 className="input"
                 defaultValue={defaultValue}
                 min={min}

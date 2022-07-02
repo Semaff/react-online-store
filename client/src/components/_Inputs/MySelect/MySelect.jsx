@@ -9,7 +9,13 @@ const MySelect = ({ name, options, labelText, isImportant, defaultValue, onChang
                 </label>
             )}
 
-            <select className="select" name={name} id={name} defaultValue={defaultValue || "Choose..."} onChange={onChange} >
+            <select
+                className="select"
+                name={name}
+                id={name}
+                defaultValue={defaultValue || "Choose..."}
+                onChange={onChange}
+            >
                 <option value="" disabled>{defaultValue || "Choose..."}</option>
 
                 {options && options.length > 0 && options.map(option => (
