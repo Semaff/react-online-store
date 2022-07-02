@@ -1,39 +1,50 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { Pagination, Product, Spinner, ViewControl } from "../../components";
-import ProductCard from "../../components/Product/ProductCard";
-import ProductList from "../../components/Product/ProductList";
+import { Pagination, Product, ProductCard, ProductList, Spinner, ViewControl } from "../../components";
+import { selectBasketFavouriteIds } from "../../store/basketSlice";
 import { selectCategory } from "../../store/categoriesSlice";
 import { selectProductsStatus } from "../../store/productsSlice";
 import "./Products.scss";
 
-const Grid = ({ products }) => {
+const Grid = ({ products, favouriteIds }) => {
     return (
         <div className="products__grid">
-            {products?.length > 0 && products.map((product, index) => (
-                <ProductCard isMini key={index} {...product} />
-            ))}
+            {products && products.length > 0 && products.map(product => {
+                if (favouriteIds.includes(product.id)) {
+                    return <ProductCard isMini {...product} isFavourite key={product.id} />
+                } else {
+                    return <ProductCard isMini {...product} key={product.id} />
+                }
+            })}
         </div>
     )
 }
 
-const Short = ({ products }) => {
+const Short = ({ products, favouriteIds }) => {
     return (
         <div className="products__short">
-            {products?.length > 0 && products.map((product, index) => (
-                <Product key={index} {...product} />
-            ))}
+            {products && products.length > 0 && products.map(product => {
+                if (favouriteIds.includes(product.id)) {
+                    return <Product {...product} isFavourite key={product.id} />
+                } else {
+                    return <Product {...product} key={product.id} />
+                }
+            })}
         </div>
     )
 }
 
-const List = ({ products }) => {
+const List = ({ products, favouriteIds }) => {
     return (
         <div className="products__list">
-            {products?.length > 0 && products.map((product, index) => (
-                <ProductList key={index} {...product} />
-            ))}
+            {products && products.length > 0 && products.map(product => {
+                if (favouriteIds.includes(product.id)) {
+                    return <ProductList {...product} isFavourite key={product.id} />
+                } else {
+                    return <ProductList {...product} key={product.id} />
+                }
+            })}
         </div>
     )
 }
@@ -76,6 +87,7 @@ const Products = ({ products }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const productsStatus = useSelector(selectProductsStatus);
     const category = useSelector(selectCategory);
+    const favouriteIds = useSelector(selectBasketFavouriteIds);
 
     return (
         <div className="products">
@@ -119,9 +131,9 @@ const Products = ({ products }) => {
                     </div>
                 )}
 
-                {view === "grid" && <Grid products={products.rows} />}
-                {view === "list" && <List products={products.rows} />}
-                {view === "short" && <Short products={products.rows} />}
+                {view === "grid" && <Grid products={products.rows} favouriteIds={favouriteIds} />}
+                {view === "list" && <List products={products.rows} favouriteIds={favouriteIds} />}
+                {view === "short" && <Short products={products.rows} favouriteIds={favouriteIds} />}
             </div>
 
             <Pagination
