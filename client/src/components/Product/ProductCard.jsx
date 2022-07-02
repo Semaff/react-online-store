@@ -1,12 +1,24 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { PRODUCT_ROUTE } from "../../router/routerConsts";
-import { Cart, Eye, Like, Refresh } from "../_SVG";
+import { appendProduct, toggleFavouriteProduct } from "../../store/basketSlice";
+import { Cart, Eye, Like } from "../_SVG";
 import "./Product.scss"
 
-const ProductCard = ({ isMini, img, name, rating, price, salePrice, quantity }) => {
+const ProductCard = ({ isMini, id, img, name, rating, price, salePrice, quantity, isFavourite }) => {
+    const dispatch = useDispatch();
+
+    const handleFavouriteClick = () => {
+        dispatch(toggleFavouriteProduct(id));
+    }
+
+    const handleAddToCartClick = (productId, quantity) => {
+        dispatch(appendProduct({ productId, quantity }))
+    }
+
     return (
         <div className={`product  --card ${isMini ? " mini" : ""}`}>
-            <Link style={{flexShrink: 0}} to={PRODUCT_ROUTE}>
+            <Link style={{ flexShrink: 0 }} to={PRODUCT_ROUTE + "/" + id}>
                 <img
                     src={(process.env.REACT_APP_API_URL + img) || "https://placehold.jp/1000x1000.png"}
                     alt="1"
@@ -16,7 +28,7 @@ const ProductCard = ({ isMini, img, name, rating, price, salePrice, quantity }) 
 
             <div className="product__content">
                 <div className="product__desc">
-                    <Link to={PRODUCT_ROUTE} className="product__name">
+                    <Link to={PRODUCT_ROUTE + "/" + id} className="product__name">
                         {name}
                     </Link>
 
@@ -38,13 +50,22 @@ const ProductCard = ({ isMini, img, name, rating, price, salePrice, quantity }) 
                         type="button"
                         disabled={quantity === 0}
                         style={{ width: "max-content" }}
+                        onClick={() => handleAddToCartClick(id, 1)}
                     >
                         <Cart /> Add To Cart
                     </button>
 
-                    <button className="btn  --rounded  --grey" type="button"><Refresh /></button>
-                    <button className="btn  --rounded  --grey" type="button"><Like /></button>
-                    <button className="btn  --rounded  --grey" type="button"><Eye /></button>
+                    <button
+                        onClick={() => handleFavouriteClick()}
+                        className={`btn  --rounded  --grey ${isFavourite ? "pink" : ""}`}
+                        type="button"
+                    >
+                        <Like />
+                    </button>
+
+                    <Link to={PRODUCT_ROUTE + "/" + id} className="btn  --rounded  --grey" type="button">
+                        <Eye />
+                    </Link>
                 </div>
 
                 <span className="product__rating">Rating: {rating}</span>
