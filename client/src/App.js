@@ -14,13 +14,13 @@ function App() {
     const userStatus = useSelector(selectUserStatus);
 
     useEffect(() => {
-        // Check auth and fetch User's basket
         dispatch(checkAuth());
-        dispatch(fetchBasket());
-
-        // Fetch Products on a sale
         dispatch(fetchSaleProducts());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(fetchBasket());
+    }, [dispatch, userStatus])
 
     if (userStatus === "pending") {
         return <Spinner />
