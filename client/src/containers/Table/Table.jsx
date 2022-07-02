@@ -1,15 +1,47 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Remove } from "../../components/_SVG";
+import { decrementProduct, incrementProduct, removeProductFromBasket } from "../../store/basketSlice";
 import "./Table.scss";
 
-const TableRow = ({ img, name, price, total }) => {
+const TableRow = ({ id, img, name, price, salePrice, quantity, basket_product }) => {
+    const [productQuantity, setProductQuantity] = useState(basket_product.quantity);
+    const dispatch = useDispatch();
+
+    if (salePrice) {
+        price = salePrice;
+    }
+
+    const handleChangeQuantity = (e) => {
+        if (e.target.value < basket_product.quantity && e.target.value > 0) {
+            dispatch(decrementProduct({ productId: id, quantity: basket_product.quantity - e.target.value }));
+        } else if (e.target.value > basket_product.quantity && e.target.value < quantity) {
+            dispatch(incrementProduct({ productId: id, quantity: e.target.value - basket_product.quantity }));
+        }
+
+        setProductQuantity(e.target.value);
+    }
+
+    const handleRemove = id => {
+        dispatch(removeProductFromBasket(id));
+    }
+
+    const total = price * basket_product.quantity
+
     return (
         <tr>
             <td>
-                <button type='button' className='table__remove'><Remove /></button>
+                <button type='button' className='table__remove' onClick={() => handleRemove(id)}>
+                    <Remove />
+                </button>
             </td>
 
             <td>
-                <img src={img} alt={name} className='table__img' />
+                <img
+                    className='table__img'
+                    src={process.env.REACT_APP_API_URL + img || "https://placehold.jp/500x500.png"}
+                    alt={name}
+                />
             </td>
 
             <td className='table__name'>
@@ -20,7 +52,14 @@ const TableRow = ({ img, name, price, total }) => {
             </td>
 
             <td>
-                <input type="number" defaultValue={1} className='table__quantity' />
+                <input
+                    type="number"
+                    className='table__quantity'
+                    min={1}
+                    max={quantity}
+                    value={productQuantity}
+                    onChange={(e) => handleChangeQuantity(e)}
+                />
             </td>
 
             <td className='table__price'>
@@ -30,7 +69,9 @@ const TableRow = ({ img, name, price, total }) => {
     )
 }
 
-const Table = () => {
+const Table = ({ products, couponRef, onCouponClick }) => {
+    console.log(products)
+
     return (
         <div className="table__responsive">
             <table className="table">
@@ -46,32 +87,29 @@ const Table = () => {
                 </thead>
 
                 <tbody>
-                    <TableRow
-                        img="./images/product-1.jpg"
-                        name="Aliquam quaerat voluptatem"
-                        price="100.00"
-                        total="100.00"
-                    />
-
-                    <TableRow
-                        img="./images/product-2.jpg"
-                        name="Aliquam quaerat voluptatem"
-                        price="100.00"
-                        total="100.00"
-                    />
-
-                    <TableRow
-                        img="./images/product-3.jpg"
-                        name="Aliquam quaerat voluptatem"
-                        price="100.00"
-                        total="100.00"
-                    />
+                    {products && products.length > 0
+                        ?
+                        products.map(product => (
+                            <TableRow key={product.id} {...product} />
+                        ))
+                        :
+                        <tr className="table__title">
+                            <td> Your basket is clear! </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
 
             <div className="table__btns">
-                <input type="text" className='table__input' placeholder='Coupon code' />
-                <button className="btn --black --poppins">Apply coupon</button>
+                <input
+                    type="text"
+                    className='table__input'
+                    placeholder='Coupon code'
+                    ref={couponRef}
+                />
+                <button className="btn --black --poppins" onClick={onCouponClick}>
+                    Apply coupon
+                </button>
             </div>
         </div>
     )
