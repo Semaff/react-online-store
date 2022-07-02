@@ -1,17 +1,19 @@
-import { Carousel, Slider, Spinner, Tabs, Testimonial } from "../../components";
-import { About, Logos, Intro, Aside } from "../../containers";
-import { useSelector, useDispatch } from "react-redux";
-import "./Home.scss"
 import { useEffect } from "react";
-import ProductCard from "../../components/Product/ProductCard";
-import { fetchProducts, fetchSaleProducts, selectProducts, selectProductsStatus, selectSaleProducts } from "../../store/productsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { Carousel, ProductCard, Slider, Spinner, Tabs, Testimonial } from "../../components";
+import { About, Logos, Intro } from "../../containers";
+import { fetchProducts, selectProducts, selectProductsStatus, selectSaleProducts } from "../../store/productsSlice";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { fetchTestimonials, selectTestimonials } from "../../store/testimonialsSlice";
+import { selectBasketFavouriteIds } from "../../store/basketSlice";
+import "./Home.scss"
 
 const Home = () => {
     const [, setSearchParams] = useSearchParams();
     const query = useLocation().search;
     const dispatch = useDispatch();
+
+    const favouriteIds = useSelector(selectBasketFavouriteIds);
 
     const products = useSelector(selectProducts);
     const productsOnASale = useSelector(selectSaleProducts);
@@ -20,9 +22,6 @@ const Home = () => {
     const productsStatus = useSelector(selectProductsStatus);
 
     useEffect(() => {
-        // Fetch Sale Products
-        dispatch(fetchSaleProducts(""));
-
         // Fetch Products for slider with tabs
         if (query) {
             dispatch(fetchProducts(query.slice(1)));
@@ -68,9 +67,13 @@ const Home = () => {
                             </div>
                         }
 
-                        {Object.keys(products).length > 0 && products.rows.map(product => (
-                            <ProductCard {...product} key={product.id} />
-                        ))}
+                        {Object.keys(products).length > 0 && products.rows.map(product => {
+                            if (favouriteIds.includes(product.id)) {
+                                return <ProductCard {...product} isFavourite key={product.id} />
+                            } else {
+                                return <ProductCard {...product} key={product.id} />
+                            }
+                        })}
                     </Slider>
                 </div>
             </section>
@@ -108,9 +111,13 @@ const Home = () => {
                             </div>
                         }
 
-                        {Object.keys(productsOnASale).length > 0 && productsOnASale.rows.map(product => (
-                            <ProductCard {...product} key={product.id} />
-                        ))}
+                        {Object.keys(productsOnASale).length > 0 && productsOnASale.rows.map(product => {
+                            if (favouriteIds.includes(product.id)) {
+                                return <ProductCard {...product} isFavourite key={product.id} />
+                            } else {
+                                return <ProductCard {...product} key={product.id} />
+                            }
+                        })}
                     </Slider>
                 </div>
             </section>
