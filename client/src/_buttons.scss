@@ -118,6 +118,15 @@
             height: 20px;
         }
     }
+
+    &.pink {
+        background-color: #ff8da1;
+        fill: red;
+
+        &:hover {
+            background-color: darken(pink, 20%);            
+        }
+    }
 }
 
 /*

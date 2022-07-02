@@ -4,7 +4,7 @@
     @media screen and (max-width: 1200px) {
         width: 100%;
 
-        &-banner {
+        .products__banner {
             i {
                 font-size: 3.6rem;
             }
@@ -77,6 +77,10 @@
 /*
   View
 */
+.products__content {
+    position: relative;
+}
+
 .products__short,
 .products__list {
     display: flex;

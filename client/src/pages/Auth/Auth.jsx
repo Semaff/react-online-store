@@ -1,19 +1,30 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MyInput } from '../../components';
 import { Timeline } from '../../containers';
 import { SIGNIN_ROUTE, SIGNUP_ROUTE } from '../../router/routerConsts';
+import { useDispatch } from "react-redux";
+import { signin, signup } from '../../store/userSlice';
 import "./Auth.scss";
 
 const Auth = () => {
-    const isLoginPage = window.location.pathname === "/signin";
+    const isSigninPage = window.location.pathname === "/signin";
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password)
+        if (username && password) {
+            if (isSigninPage) {
+                dispatch(signin({ username, password }))
+            } else {
+                dispatch(signup({ username, password }))
+            }
+        }
+        navigate("/");
     }
 
     return (
@@ -26,7 +37,7 @@ const Auth = () => {
                         <MyInput
                             isImportant
                             value={username}
-                            changeValue={setUsername}
+                            onChange={e => setUsername(e.target.value)}
                             labelText="Username"
                             name="username"
                             type="text"
@@ -36,7 +47,7 @@ const Auth = () => {
                         <MyInput
                             isImportant
                             value={password}
-                            changeValue={setPassword}
+                            onChange={e => setPassword(e.target.value)}
                             labelText="Password"
                             name="password"
                             type="password"
@@ -44,12 +55,12 @@ const Auth = () => {
                         />
 
                         <button type='submit' className="btn  --black --poppins">
-                            {isLoginPage ? "Sign In" : "Sign Up"}
+                            {isSigninPage ? "Sign In" : "Sign Up"}
                         </button>
 
                         <div className="auth__redirec">
                             Already have an account?
-                            {isLoginPage
+                            {isSigninPage
                                 ? <Link to={SIGNUP_ROUTE}> Signup</Link>
                                 : <Link to={SIGNIN_ROUTE}> Signin</Link>
                             }

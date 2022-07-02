@@ -14,7 +14,7 @@ const Carousel = ({ children }) => {
         }, 8000);
 
         return () => clearInterval(timer)
-    }, [children.length, currentSlide])
+    }, [children.length, currentSlide]);
 
     return (
         <div className="carousel">

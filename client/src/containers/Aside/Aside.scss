@@ -54,6 +54,14 @@
     transition: all 0.1s ease-in-out;
 }
 
+.aside__colors {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
 .aside__color {
     cursor: pointer;
     background: none;
@@ -61,7 +69,7 @@
 
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
     font-size: 1.3rem;
     font-family: "Poppins", sans-serif;
@@ -69,12 +77,9 @@
     color: #666666;
     text-decoration: none;
 
-    &:hover {
+    &:hover,
+    &.active {
         color: #000;
-    }
-
-    & + & {
-        margin-top: 0.5rem;
     }
 }
 

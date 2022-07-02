@@ -1,70 +1,96 @@
+import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { PRODUCT_ROUTE } from "../../router/routerConsts"
-import MyInput from "../_Inputs/MyInput/MyInput"
-import MySelect from "../_Inputs/MySelect/MySelect"
-import { Cart, Eye, Like, Refresh } from "../_SVG"
+import { appendProduct, toggleFavouriteProduct } from "../../store/basketSlice"
+import { Cart, Eye, Like } from "../_SVG"
+import { MyInput, MySelect } from "../index";
 import "./Product.scss"
 
-const Product = ({ isList, isCard, isMini, isMiniCard, isFull }) => {
-    let colors = (
+const Product = ({
+    isMini,
+    isFull,
+    id,
+    img,
+    name,
+    rating,
+    description,
+    colors,
+    price,
+    sizes,
+    salePrice,
+    quantity,
+    isFavourite
+}) => {
+    const [curColor, setCurColor] = useState(null);
+    const [productQuantity, setProductQuantity] = useState(1);
+    const dispatch = useDispatch();
+
+    const handleFavouriteClick = () => {
+        dispatch(toggleFavouriteProduct(id));
+    }
+
+    const handleAddToCartClick = (productId, quantity) => {
+        dispatch(appendProduct({ productId, quantity }))
+    }
+
+    let colorsContent = (
         <div className="product__colors">
-            <div className="color" style={{ background: "#ff9d27", border: "1px solid #e5e5e5" }}></div>
-            <div className="color" style={{ background: "#403a34", border: "1px solid #e5e5e5" }}></div>
-            <div className="color" style={{ background: "#416d99", border: "1px solid #e5e5e5" }}></div>
+            {colors && colors.length > 0 && colors.map(color => (
+                <div
+                    className={`color ${curColor === color ? "active" : ""}`}
+                    onClick={() => setCurColor(color)}
+                    key={color}
+                    style={{ background: color, border: "1px solid #e5e5e5" }}
+                />
+            ))}
         </div>
     )
 
-    let price = (
+    let priceContent = (
         <div className="product__price">
-            $105.25 <span className="product__price-old">$155.25</span>
+            {salePrice
+                ?
+                <>
+                    <span>${salePrice}</span>
+                    <span className="product__price-old">${price}</span>
+                </>
+                : <span>${price}</span>
+            }
         </div>
     )
-
-    const sizes = ["XS", "L", "XL", "S"]
 
     return (
-        <div className={"product" +
-            (isList ? "  --list" : "") +
-            (isCard ? "  --card" : "") +
-            (isMini ? "  --mini" : "") +
-            (isFull ? "  --full" : "") +
-            (isMiniCard ? "  --card mini" : "")
-        }>
-            <Link to={PRODUCT_ROUTE}>
-                <img src="https://placehold.jp/1000x1000.png" alt="1" className="product__img" />
+        <div className={"product" + (isMini ? "  --mini" : "") + (isFull ? "  --full" : "")}>
+            <Link to={PRODUCT_ROUTE + "/" + id} style={{ flexShrink: 0 }}>
+                <img
+                    src={(process.env.REACT_APP_API_URL + img) || "https://placehold.jp/1000x1000.png"}
+                    alt="1"
+                    className="product__img"
+                />
             </Link>
 
             <div className="product__content">
                 <div className="product__desc">
-                    <Link to={PRODUCT_ROUTE} className="product__name">
-                        Aliquam quaerat voluptatem
+                    <Link to={PRODUCT_ROUTE + "/" + id} className="product__name">
+                        {name}
                     </Link>
 
-                    {/* If it's not Card Product and not Card Product mini */}
-                    {(!isCard && !isMiniCard)
-                        ?
-                        <>
-                            <span className="product__rating">Rating: 4.2</span>
+                    <span className="product__rating">Rating: {rating}</span>
 
-                            {!isMini && (
-                                <div className="product__text">
-                                    <p>
-                                        Perspiciatis unde omnis iste natus error sit
-                                        omnis iste natus error sit voluptat
-                                    </p>
-                                </div>
-                            )}
+                    {!isMini && (
+                        <div className="product__text">
+                            <p>{description}</p>
+                        </div>
+                    )}
 
-                            {(!isList && !isMini) ? colors : price}
-                        </>
-                        : price
-                    }
+                    {!isMini ? colorsContent : priceContent}
                 </div>
 
                 {/* If it's Full Page description of Product */}
                 {isFull && (
                     <>
-                        {price}
+                        {priceContent}
 
                         <div className="product__size">
                             <span>Size: </span>
@@ -73,8 +99,23 @@ const Product = ({ isList, isCard, isMini, isMiniCard, isFull }) => {
 
                         <div className="product__quantity">
                             Quantity:
-                            <MyInput type="number" name="quantity" defaultValue={1} min="1" max="100" />
-                            <button className="btn  --black --poppins  --fs0"><Cart /> Add To Cart</button>
+                            <MyInput
+                                type="number"
+                                name="quantity"
+                                min="1"
+                                value={productQuantity}
+                                onChange={(e) => setProductQuantity(e.target.value)}
+                                max={quantity}
+                            />
+
+                            <button
+                                className="btn  --black --poppins  --fs0"
+                                type="button"
+                                disabled={quantity === 0}
+                                onClick={() => handleAddToCartClick(id, productQuantity)}
+                            >
+                                <Cart /> Add To Cart
+                            </button>
                         </div>
                     </>
                 )}
@@ -82,24 +123,30 @@ const Product = ({ isList, isCard, isMini, isMiniCard, isFull }) => {
                 {/* If it's not Full Page or Product mini */}
                 {(!isMini && !isFull) && (
                     <>
-                        {!isCard && !isMiniCard && (isList ? colors : price)}
+                        {priceContent}
 
                         <div className="product__btns">
                             <button
                                 className="btn  --black --small --poppins --disabled"
                                 type="button"
-                                disabled
-                                style={{ width: isCard ? "max-content" : "" }}
+                                disabled={quantity === 0}
+                                onClick={() => handleAddToCartClick(id, productQuantity)}
                             >
                                 <Cart /> Add To Cart
                             </button>
 
-                            <button className="btn  --rounded  --grey" type="button"><Refresh /></button>
-                            <button className="btn  --rounded  --grey" type="button"><Like /></button>
-                            <button className="btn  --rounded  --grey" type="button"><Eye /></button>
-                        </div>
+                            <button
+                                onClick={() => handleFavouriteClick()}
+                                className={`btn  --rounded  --grey ${isFavourite ? "pink" : ""}`}
+                                type="button"
+                            >
+                                <Like />
+                            </button>
 
-                        {isCard && <span className="product__rating">Rating: 4.2</span>}
+                            <Link to={PRODUCT_ROUTE + "/" + id} className="btn  --rounded  --grey" type="button">
+                                <Eye />
+                            </Link>
+                        </div>
                     </>
                 )}
             </div>

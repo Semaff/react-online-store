@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
-import { Cart, Phone, Profile, Search } from "../../components/_SVG";
-import { CART_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SIGNIN_ROUTE } from "../../router/routerConsts";
+import { Cart, Database, Phone, Profile, Search } from "../../components/_SVG";
+import { ADMIN_ROUTE, CART_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SIGNIN_ROUTE } from "../../router/routerConsts";
+import { useSelector } from "react-redux"
+import { selectUser, selectUserLoggedIn } from "../../store/userSlice";
 import "./Middlebar.scss";
 
 const Middlebar = () => {
-    const isAuth = true;
+    const isLoggedIn = useSelector(selectUserLoggedIn);
+    const user = useSelector(selectUser);
 
     return (
         <nav className="middlebar" aria-label="middlebar">
@@ -42,12 +45,18 @@ const Middlebar = () => {
 
                     <span className="middlebar__right">
                         <Search />
-                        <Link to={!isAuth ? SIGNIN_ROUTE : PROFILE_ROUTE}>
+                        <Link to={!isLoggedIn ? SIGNIN_ROUTE : PROFILE_ROUTE}>
                             <Profile />
                         </Link>
                         <Link to={CART_ROUTE}>
                             <Cart />
                         </Link>
+
+                        {user.role === "ADMIN" && (
+                            <Link to={ADMIN_ROUTE}>
+                                <Database />
+                            </Link>
+                        )}
                     </span>
                 </div>
 

@@ -1,21 +1,37 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { Aside, Products, Timeline } from "../../containers";
+import { fetchParameters, fetchProducts, selectProducts } from "../../store/productsSlice";
+import { fetchCategories, fetchOneCategory, resetOneCategory } from "../../store/categoriesSlice";
 import "./Shop.scss"
-import { Aside, Products, ShopMain, Timeline } from "../../containers";
 
 const Shop = () => {
-    const getProducts = () => {
-        let data = [];
-        for (let i = 0; i < 12; i++) {
-            let img = `./images/product-${i + 1}.jpg`
-            data.push({
-                img,
-                name: "Product",
-                price: "105.25",
-                oldPrice: "105.25",
-                rating: 4.2
-            });
+    const [searchParams] = useSearchParams();
+    const query = useLocation().search;
+    const products = useSelector(selectProducts);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // Fetch All Products to get parameters with query
+        dispatch(fetchParameters("&" + query.slice(1,)));
+
+        // Fetch needed Products
+        dispatch(fetchProducts(query.slice(1,)));
+    }, [dispatch, query]);
+
+    useEffect(() => {
+        if (searchParams.get("categoryId")) {
+            dispatch(fetchOneCategory(searchParams.get("categoryId")));
+        } else {
+            dispatch(resetOneCategory())
         }
-        return data;
-    }
+    }, [dispatch, searchParams]);
+
+    useEffect(() => {
+        // Fetch Categories
+        dispatch(fetchCategories());
+    }, [dispatch])
 
     return (
         <>
@@ -25,7 +41,7 @@ const Shop = () => {
                 <div className="container">
                     <div className="shop">
                         <Aside />
-                        <Products products={getProducts()} />
+                        <Products products={products} />
                     </div>
                 </div>
             </section>

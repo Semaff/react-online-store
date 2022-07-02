@@ -1,4 +1,4 @@
-const { Brand } = require("../models/models");
+const { Brand, CategoryBrand } = require("../models/models");
 const AppError = require("../error/AppError");
 
 class BrandController {
@@ -13,16 +13,12 @@ class BrandController {
 
     async getOne(req, res, next) {
         try {
-            if (!req.params.id) {
-                throw new Error('Wrong id!');
-            };
-
             const brand = await Brand.findByPk(req.params.id);
             if (!brand) {
                 throw new Error('Brand does not found!');
             }
 
-            res.json(brand);
+            return res.json(brand);
         } catch (err) {
             next(AppError.badRequest(err.message));
         }
@@ -43,10 +39,6 @@ class BrandController {
 
     async update(req, res, next) {
         try {
-            if (!req.params.id) {
-                throw new Error('Wrong id!');
-            }
-
             const brand = await Brand.findByPk(req.params.id);
             if (!brand) {
                 throw new Error('Brand does not found!');
@@ -62,15 +54,12 @@ class BrandController {
 
     async delete(req, res, next) {
         try {
-            if (!req.params.id) {
-                throw new Error('Wrong id');
-            }
-
             const brand = await Brand.findByPk(req.params.id);
             if (!brand) {
                 throw new Error('Brand does not found');
             }
 
+            await CategoryBrand.destroy({ where: { brandId: brand.id } })
             await brand.destroy();
             return res.json(brand);
         } catch (err) {

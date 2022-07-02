@@ -3,8 +3,9 @@ import { CardForm } from "../../components";
 import { CHECKOUT_ROUTE } from "../../router/routerConsts";
 import "./Total.scss"
 
-const Total = ({ withForm }) => {
+const Total = ({ withForm, products, coupon, total, handlePlaceOrder }) => {
     const navigate = useNavigate();
+    const shipping = 5;
 
     const handleProcceed = () => {
         navigate(CHECKOUT_ROUTE);
@@ -14,24 +15,23 @@ const Total = ({ withForm }) => {
     if (withForm) {
         rowsContent = (
             <>
-                <div className="total__row">
-                    <b style={{ fontSize: "1.4rem", fontWeight: 500 }}>Shirt</b>
-                    <span>$20.00</span>
-                </div>
+                {products && products.length > 0 && products.map(product => (
+                    <div className="total__row" key={product.id}>
+                        <b style={{ fontSize: "1.4rem", fontWeight: 500 }}>{product.name}</b>
+                        <span>${product.price * product.basket_product.quantity}</span>
+                    </div>
+                ))}
 
-                <div className="total__row">
-                    <b style={{ fontSize: "1.4rem", fontWeight: 500 }}>Jeans</b>
-                    <span>$20.00</span>
-                </div>
-
-                <div className="total__row">
-                    <b className="total__promo">Promo code</b>
-                    <span>-$5</span>
-                </div>
+                {coupon && (
+                    <div className="total__row">
+                        <b className="total__promo">Promo code</b>
+                        <span>-${coupon}</span>
+                    </div>
+                )}
 
                 <div className="total__row">
                     <b className="total__price">Total (USD)</b>
-                    <span>$35</span>
+                    <span>${total + shipping - coupon}</span>
                 </div>
             </>
         )
@@ -40,12 +40,12 @@ const Total = ({ withForm }) => {
             <>
                 <div className="total__row">
                     <b>Subtotal</b>
-                    <span>$160.00</span>
+                    <span>${total}</span>
                 </div>
 
                 <div className="total__row">
                     <b>Shipping</b>
-                    <span>Flat Rate: $5.00</span>
+                    <span>Flat Rate: ${shipping}</span>
                 </div>
 
                 <div className="total__row">
@@ -71,7 +71,7 @@ const Total = ({ withForm }) => {
                     <div className="total__footer">
                         <div className="total__row">
                             <b>Total</b>
-                            <span>$165.00</span>
+                            <span>${total + shipping}</span>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@ const Total = ({ withForm }) => {
                         Proceed To Checkout
                     </button>
                 </>
-                : <CardForm />
+                : <CardForm onClick={handlePlaceOrder} />
             }
         </div>
     )

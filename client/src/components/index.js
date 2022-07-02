@@ -6,16 +6,28 @@ import MyCheckBox from "./_Inputs/MyCheckBox/MyCheckBox";
 import MyInput from "./_Inputs/MyInput/MyInput";
 import MySelect from "./_Inputs/MySelect/MySelect";
 import MyRadio from "./_Inputs/MyRadio/MyRadio";
+import MyTextArea from "./_Inputs/MyTextArea/MyTextArea";
+
+/*
+  Modals
+*/
+import CategoryModal from "./_Modals/CategoryModal";
+import BrandModal from "./_Modals/BrandModal";
+import CategoryBrandModal from "./_Modals/CategoryBrandModal";
+import ProductModal from "./_Modals/ProductModal";
+import TestimonialModal from "./_Modals/TestimonialModal";
 
 /*
   Other
 */
 import Banner from "./Banner/Banner";
 import Product from "./Product/Product";
+import ProductCard from "./Product/ProductCard";
+import ProductList from "./Product/ProductList";
 import Testimonial from "./Testimonial/Testimonial";
 import Tabs from "./Tabs/Tabs";
+import Spinner from "./Spinner/Spinner";
 
-// Functional
 import Carousel from "./Carousel/Carousel";
 import Slider from "./Slider/Slider";
 
@@ -30,8 +42,17 @@ import CardForm from "./CardForm/CardForm";
 export {
     Banner,
     Product,
+    ProductCard,
+    ProductList,
     Testimonial,
     Tabs,
+    Spinner,
+
+    CategoryModal,
+    BrandModal,
+    CategoryBrandModal,
+    ProductModal,
+    TestimonialModal,
 
     Slider,
     Carousel,
@@ -41,6 +62,7 @@ export {
     MyInput,
     MySelect,
     MyRadio,
+    MyTextArea,
 
     CategoriesList,
     ViewControl,

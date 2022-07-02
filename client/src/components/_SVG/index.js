@@ -5,7 +5,7 @@ import Like from "./Like"
 import Mail from "./Mail";
 import Phone from "./Phone";
 import Profile from "./Profile";
-import Refresh from "./Refresh";
+import Database from "./Database";
 import Search from "./Search";
 import Tag from "./Tag";
 import Map from "./Map";
@@ -22,7 +22,7 @@ export {
     Mail,
     Phone,
     Profile,
-    Refresh,
+    Database,
     Search,
     Tag,
     Map,

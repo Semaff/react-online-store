@@ -1,10 +1,23 @@
 import "./MyCheckBox.scss";
 
-const MyCheckBox = ({ name, labelText }) => {
+const MyCheckBox = ({ name, labelText, defaultChecked, checked, onChange }) => {
     return (
         <div className="checkbox__flexbox">
-            <input id={name} name={name} type="checkbox" className="checkbox" />
-            <label htmlFor={name} className="label">{labelText}</label>
+            <input
+                type="checkbox"
+                className="checkbox"
+                defaultChecked={defaultChecked}
+                checked={checked}
+                onChange={onChange}
+                id={name}
+                name={name}
+            />
+
+            {labelText && (
+                <label htmlFor={name} className="label">
+                    {labelText}
+                </label>
+            )}
         </div>
     )
 }

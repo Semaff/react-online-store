@@ -1,0 +1,41 @@
+.admin__control {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.admin__title {
+    font-size: 3rem;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    font-weight: 500;
+
+    margin-bottom: 3rem;
+}
+
+.admin__block-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    h4 {
+        font-size: 1.8rem;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.02em;
+        color: #222222;
+        font-weight: 500;
+    }
+}
+
+.admin__block-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.1s ease-in-out;
+}
+
+.admin__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

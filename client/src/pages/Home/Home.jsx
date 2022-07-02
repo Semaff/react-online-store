@@ -1,25 +1,41 @@
-import { Carousel, Product, Slider, Tabs, Testimonial } from "../../components";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Carousel, ProductCard, Slider, Spinner, Tabs, Testimonial } from "../../components";
 import { About, Logos, Intro } from "../../containers";
+import { fetchProducts, selectProducts, selectProductsStatus, selectSaleProducts } from "../../store/productsSlice";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { fetchTestimonials, selectTestimonials } from "../../store/testimonialsSlice";
+import { selectBasketFavouriteIds } from "../../store/basketSlice";
 import "./Home.scss"
 
 const Home = () => {
-    const getProducts = () => {
-        let data = [];
-        for (let i = 0; i < 5; i++) {
-            let img = `./images/product-${i + 1}.jpg`
-            data.push(<Product isCard key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
+    const [, setSearchParams] = useSearchParams();
+    const query = useLocation().search;
+    const dispatch = useDispatch();
+
+    const favouriteIds = useSelector(selectBasketFavouriteIds);
+
+    const products = useSelector(selectProducts);
+    const productsOnASale = useSelector(selectSaleProducts);
+    const testimonials = useSelector(selectTestimonials);
+
+    const productsStatus = useSelector(selectProductsStatus);
+
+    useEffect(() => {
+        // Fetch Products for slider with tabs
+        if (query) {
+            dispatch(fetchProducts(query.slice(1)));
+        } else {
+            dispatch(fetchProducts("order=4"));
         }
-        return data;
-    }
 
-    const getTestimonials = () => {
-        let data = [];
+        // Fetch Testimonials
+        dispatch(fetchTestimonials());
+    }, [dispatch, query]);
 
-        for (let i = 0; i < 10; i++) {
-            data.push(<Testimonial key={i} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
-        }
-
-        return data;
+    // Change 'order' query to fetch right Products
+    const handleTabClick = (orderNum) => {
+        setSearchParams({ order: orderNum });
     }
 
     return (
@@ -41,11 +57,23 @@ const Home = () => {
             {/* Slider with trending Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">Trending products</h2>
+                    <h2 className="section__title">Featured Products</h2>
 
-                    <Tabs />
+                    <Tabs onClick={handleTabClick} />
                     <Slider>
-                        {getProducts()}
+                        {(Object.keys(products).length === 0 || productsStatus === "pending") &&
+                            <div className="loading">
+                                <Spinner />
+                            </div>
+                        }
+
+                        {Object.keys(products).length > 0 && products.rows.map(product => {
+                            if (favouriteIds.includes(product.id)) {
+                                return <ProductCard {...product} isFavourite key={product.id} />
+                            } else {
+                                return <ProductCard {...product} key={product.id} />
+                            }
+                        })}
                     </Slider>
                 </div>
             </section>
@@ -55,9 +83,11 @@ const Home = () => {
                 background: "url('./images/testimonials.jpg') center no-repeat",
                 backgroundSize: "cover"
             }}>
-                <div className="container" style={{ opacity: 1 }}>
+                <div className="container">
                     <Carousel>
-                        {getTestimonials()}
+                        {testimonials && testimonials.length > 0 && testimonials.map(testimonial => (
+                            <Testimonial {...testimonial} key={testimonial.id} />
+                        ))}
                     </Carousel>
                 </div>
             </section>
@@ -72,10 +102,22 @@ const Home = () => {
             {/* Slider with special Products */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section__title">Special products</h2>
+                    <h2 className="section__title">Products on a sale</h2>
 
                     <Slider>
-                        {getProducts()}
+                        {(Object.keys(productsOnASale).length === 0 || productsStatus === "pending") &&
+                            <div className="loading">
+                                <Spinner />
+                            </div>
+                        }
+
+                        {Object.keys(productsOnASale).length > 0 && productsOnASale.rows.map(product => {
+                            if (favouriteIds.includes(product.id)) {
+                                return <ProductCard {...product} isFavourite key={product.id} />
+                            } else {
+                                return <ProductCard {...product} key={product.id} />
+                            }
+                        })}
                     </Slider>
                 </div>
             </section>

@@ -6,3 +6,4 @@ export const CHECKOUT_ROUTE = "/checkout";
 export const SIGNIN_ROUTE = "/signin";
 export const SIGNUP_ROUTE = "/signup";
 export const PROFILE_ROUTE = "/profile";
+export const ADMIN_ROUTE = "/admin";
