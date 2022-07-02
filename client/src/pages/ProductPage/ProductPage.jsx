@@ -1,16 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Product, Slider } from "../../components";
+import ProductCard from "../../components/Product/ProductCard";
 import { Timeline } from "../../containers";
+import { fetchOneProduct, fetchProducts, selectProduct, selectProducts } from "../../store/productsSlice";
 import "./ProductPage.scss";
 
 const ProductPage = () => {
-    const getProducts = () => {
-        let data = [];
-        for (let i = 0; i < 5; i++) {
-            let img = `./images/product-${i + 1}.jpg`
-            data.push(<Product isCard key={i} img={img} name={"Product"} price={105.25} oldPrice={105.25} rating={4.2} />)
-        }
-        return data;
-    }
+    const { id } = useParams();
+    const products = useSelector(selectProducts);
+    const product = useSelector(selectProduct);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchOneProduct(id));
+        dispatch(fetchProducts(`categoryId=${product.categoryId}`));
+    }, [dispatch, id]);
 
     return (
         <>
@@ -18,7 +24,7 @@ const ProductPage = () => {
 
             <section className="section">
                 <div className="container">
-                    <Product isFull />
+                    <Product isFull {...product} />
                 </div>
             </section>
 
@@ -27,7 +33,9 @@ const ProductPage = () => {
                     <h2 className="section__title">You might also like</h2>
 
                     <Slider>
-                        {getProducts()}
+                        {Object.keys(products).length > 0 && products.rows.map(product => (
+                            <ProductCard key={product.id} {...product} />
+                        ))}
                     </Slider>
                 </div>
             </section>
