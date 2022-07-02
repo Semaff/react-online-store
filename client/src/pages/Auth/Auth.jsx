@@ -5,8 +5,8 @@ import { MyInput } from '../../components';
 import { Timeline } from '../../containers';
 import { SIGNIN_ROUTE, SIGNUP_ROUTE } from '../../router/routerConsts';
 import { useDispatch } from "react-redux";
-import "./Auth.scss";
 import { signin, signup } from '../../store/userSlice';
+import "./Auth.scss";
 
 const Auth = () => {
     const isSigninPage = window.location.pathname === "/signin";
@@ -37,7 +37,7 @@ const Auth = () => {
                         <MyInput
                             isImportant
                             value={username}
-                            changeValue={setUsername}
+                            onChange={e => setUsername(e.target.value)}
                             labelText="Username"
                             name="username"
                             type="text"
@@ -47,7 +47,7 @@ const Auth = () => {
                         <MyInput
                             isImportant
                             value={password}
-                            changeValue={setPassword}
+                            onChange={e => setPassword(e.target.value)}
                             labelText="Password"
                             name="password"
                             type="password"
