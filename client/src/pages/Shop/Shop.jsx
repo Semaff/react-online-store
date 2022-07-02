@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { Aside, Products, Timeline } from "../../containers";
-import { fetchParameters, fetchProducts, fetchSaleProducts, selectProducts } from "../../store/productsSlice";
+import { fetchParameters, fetchProducts, selectProducts } from "../../store/productsSlice";
 import { fetchCategories, fetchOneCategory, resetOneCategory } from "../../store/categoriesSlice";
 import "./Shop.scss"
 
@@ -22,7 +22,6 @@ const Shop = () => {
 
     useEffect(() => {
         if (searchParams.get("categoryId")) {
-            // Fetch Category Description
             dispatch(fetchOneCategory(searchParams.get("categoryId")));
         } else {
             dispatch(resetOneCategory())
@@ -32,9 +31,6 @@ const Shop = () => {
     useEffect(() => {
         // Fetch Categories
         dispatch(fetchCategories());
-
-        // Fetch Products on a sale
-        dispatch(fetchSaleProducts());
     }, [dispatch])
 
     return (
