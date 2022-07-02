@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { guestRequest } from "../http/requests";
+import { authRequest, guestRequest } from "../http/requests";
 
 const handleError = (state, action) => {
     return {
@@ -82,7 +82,6 @@ const productsSlice = createSlice({
                         };
                     });
 
-                    minPrice = Math.min(products[i].price, minPrice);
                     maxPrice = Math.max(products[i].price, maxPrice);
                 }
 
@@ -115,6 +114,7 @@ export const selectProductSizes = state => state.products.sizes;
 export const selectProductsMinPrice = state => state.products.minPrice;
 export const selectProductsMaxPrice = state => state.products.maxPrice;
 
+export const selectProduct = state => state.products.product;
 export const selectProducts = state => state.products.products;
 export const selectSaleProducts = state => state.products.productsOnASale;
 
@@ -154,6 +154,33 @@ export const fetchSaleProducts = createAsyncThunk("products/fetchSaleProducts", 
 export const fetchOneProduct = createAsyncThunk("products/fetchOneProduct", async (id) => {
     try {
         const response = await guestRequest.get("api/product/getone/" + id);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const createProduct = createAsyncThunk("products/createProduct", async (formData) => {
+    try {
+        const response = await authRequest.post("api/product/create", formData);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const updateProduct = createAsyncThunk("products/updateProduct", async ({ productId, formData }) => {
+    try {
+        const response = await authRequest.put("api/product/update/" + productId, formData);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
+    try {
+        const response = await authRequest.delete("api/product/delete/" + id);
         return response.data;
     } catch (err) {
         return Promise.reject(err.message);
