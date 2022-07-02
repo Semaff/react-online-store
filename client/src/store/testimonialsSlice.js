@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { guestRequest } from "../http/requests";
+import { authRequest, guestRequest } from "../http/requests";
 
 const handleError = (state, action) => {
     return {
@@ -61,4 +61,31 @@ export const fetchTestimonials = createAsyncThunk("testimonials/fetchTestimonial
     } catch (err) {
         return Promise.reject(err.message);
     }
-})
+});
+
+export const createTestimonial = createAsyncThunk("testimonials/createTestimonial", async (formData) => {
+    try {
+        const response = await authRequest.post("api/testimonial/create", formData);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const updateTestimonial = createAsyncThunk("testimonials/updateTestimonial", async ({ id, formData }) => {
+    try {
+        const response = await authRequest.put("api/testimonial/update/" + id, formData);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
+
+export const deleteTestimonial = createAsyncThunk("testimonials/deleteTestimonial", async (id) => {
+    try {
+        const response = await authRequest.delete("api/testimonial/delete/" + id);
+        return response.data;
+    } catch (err) {
+        return Promise.reject(err.message);
+    }
+});
