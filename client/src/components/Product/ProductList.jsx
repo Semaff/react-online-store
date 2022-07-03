@@ -72,7 +72,7 @@ const ProductList = ({ id, img, name, rating, description, colors, price, salePr
                         disabled={quantity === 0}
                         onClick={() => handleAddToCartClick(id, 1)}
                     >
-                        <Cart /> Add To Cart
+                        <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
                     </button>
 
                     <button

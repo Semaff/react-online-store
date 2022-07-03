@@ -114,7 +114,7 @@ const Product = ({
                                 disabled={quantity === 0}
                                 onClick={() => handleAddToCartClick(id, productQuantity)}
                             >
-                                <Cart /> Add To Cart
+                                <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
                             </button>
                         </div>
                     </>

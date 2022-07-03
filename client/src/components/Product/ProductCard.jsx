@@ -49,10 +49,10 @@ const ProductCard = ({ isMini, id, img, name, rating, price, salePrice, quantity
                         className="btn  --black --small --poppins"
                         type="button"
                         disabled={quantity === 0}
-                        style={{ width: "max-content" }}
+                        style={{ width: "100%" }}
                         onClick={() => handleAddToCartClick(id, 1)}
                     >
-                        <Cart /> Add To Cart
+                        <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
                     </button>
 
                     <button
