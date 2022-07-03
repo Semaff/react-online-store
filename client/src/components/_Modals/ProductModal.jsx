@@ -38,30 +38,32 @@ const ProductModal = ({ show, setShow, view }) => {
     const [curSize, setCurSize] = useState("S");
 
     /* Current options in MySelect */
-    const [categoryOption, setCategoryOption] = useState("(Id: 0)");
-    const [brandOption, setBrandOption] = useState("(Id: 0)");
-    const [productOption, setProductOption] = useState("(Id: 0)");
+    const [categoryOption, setCategoryOption] = useState("");
+    const [brandOption, setBrandOption] = useState("");
+    const [productOption, setProductOption] = useState("");
 
     // Fetch One Product by it's id
     useEffect(() => {
-        const productId = +productOption.match(/(?<=\(Id: ).+(?=\))/g);
-        dispatch(fetchOneProduct(productId));
+        if (productOption) {
+            const productId = +productOption.match(/(?<=\(Id: ).+(?=\))/g);
+            dispatch(fetchOneProduct(productId));
+        }
     }, [dispatch, productOption]);
 
     // And then asign variables
     useEffect(() => {
-        setProductColors(product.colors);
-        setProductSizes(product.sizes);
-        setName(product.name);
-        setPrice(product.price);
-        setDescription(product.description);
-        setGender(product.gender);
-        setQuantity(product.quantity);
-        setOnASale(product.onASale);
+        setProductColors(product.colors || []);
+        setProductSizes(product.sizes || []);
+        setName(product.name || "");
+        setPrice(product.price || 1);
+        setDescription(product.description || "");
+        setGender(product.gender || "men");
+        setQuantity(product.quantity || 1);
+        setOnASale(product.onASale || false);
         setSalePrice(product.salePrice || 1);
 
         setProductOption(product.name + `(Id: ${product.id})`);
-    }, [product])
+    }, [product]);
 
     /* Fetch all Products to choose them in MySelect */
     useEffect(() => {
@@ -70,9 +72,18 @@ const ProductModal = ({ show, setShow, view }) => {
 
     /* Fetch choosen Category */
     useEffect(() => {
-        const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
-        dispatch(fetchOneCategory(categoryId));
+        if (categoryOption) {
+            const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
+            dispatch(fetchOneCategory(categoryId));
+        }
     }, [dispatch, categoryOption]);
+
+    useEffect(() => {
+        if (Object.keys(category).length > 0) {
+            setCategoryOption(category.name + ` (Id: ${category.id}) amount: ${category.amount}`);
+            setBrandOption(category.brands[0].name + ` (Id: ${category.brands[0].id})`)
+        }
+    }, [category]);
 
     /* Handle Submit (when we pressed the button) */
     const handleSubmit = () => {
@@ -105,20 +116,6 @@ const ProductModal = ({ show, setShow, view }) => {
         setShow(false);
     }
 
-    const handleCloseModal = () => {
-        setProductColors([]);
-        setProductSizes([]);
-        setName("");
-        setPrice("");
-        setDescription("");
-        setGender("men");
-        setQuantity(1);
-        setOnASale(false);
-        setSalePrice(1);
-
-        setShow(false);
-    }
-
     if (!show) {
         return null;
     }
@@ -138,7 +135,7 @@ const ProductModal = ({ show, setShow, view }) => {
                         type='button'
                         className='toggle'
                         style={{ transform: "rotate(45deg)" }}
-                        onClick={() => handleCloseModal()}
+                        onClick={() => setShow(false)}
                     />
                 </div>
 
@@ -186,6 +183,7 @@ const ProductModal = ({ show, setShow, view }) => {
                         name="gender"
                         isImportant
                         options={["men", "women"]}
+                        value={gender}
                         onChange={e => setGender(e.target.value)}
                     />
 
