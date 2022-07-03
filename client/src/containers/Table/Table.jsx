@@ -70,8 +70,6 @@ const TableRow = ({ id, img, name, price, salePrice, quantity, basket_product })
 }
 
 const Table = ({ products, couponRef, onCouponClick }) => {
-    console.log(products)
-
     return (
         <div className="table__responsive">
             <table className="table">
