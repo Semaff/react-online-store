@@ -24,4 +24,4 @@ The main goal in this project was to made Online-Store, using Redux state manage
 
 
 
-![Checkout](https://user-images.githubusercontent.com/95703321/177034485-37f20994-fab6-4904-a95b-0a524d11d888.jpg)
+![Checkout](https://user-images.githubusercontent.com/95703321/177034676-c97c4438-e305-4c3f-885f-9254b6e43032.jpg)
