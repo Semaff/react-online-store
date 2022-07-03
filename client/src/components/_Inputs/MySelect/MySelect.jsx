@@ -1,6 +1,6 @@
 import "./MySelect.scss";
 
-const MySelect = ({ name, options, labelText, isImportant, defaultValue, onChange }) => {
+const MySelect = ({ name, options, labelText, isImportant, defaultValue, value, onChange }) => {
     return (
         <div className="input__placeholder">
             {labelText && (
@@ -13,7 +13,7 @@ const MySelect = ({ name, options, labelText, isImportant, defaultValue, onChang
                 className="select"
                 name={name}
                 id={name}
-                defaultValue={defaultValue || "Choose..."}
+                value={value}
                 onChange={onChange}
             >
                 <option value="" disabled>{defaultValue || "Choose..."}</option>
