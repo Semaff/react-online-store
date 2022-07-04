@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { PRODUCT_ROUTE } from "../../router/routerConsts";
@@ -7,13 +8,21 @@ import "./Product.scss"
 
 const ProductCard = ({ isMini, id, img, name, rating, price, salePrice, quantity, isFavourite }) => {
     const dispatch = useDispatch();
+    const addedNotifyRef = useRef();
 
     const handleFavouriteClick = () => {
         dispatch(toggleFavouriteProduct(id));
     }
 
     const handleAddToCartClick = (productId, quantity) => {
-        dispatch(appendProduct({ productId, quantity }))
+        addedNotifyRef.current.style.opacity = "1";
+        addedNotifyRef.current.style.bottom = "110%";
+
+        dispatch(appendProduct({ productId, quantity }));
+        setTimeout(() => {
+            addedNotifyRef.current.style.opacity = "0";
+            addedNotifyRef.current.style.bottom = "100%";
+        }, 2000)
     }
 
     return (
@@ -53,6 +62,7 @@ const ProductCard = ({ isMini, id, img, name, rating, price, salePrice, quantity
                         onClick={() => handleAddToCartClick(id, 1)}
                     >
                         <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
+                        <div className="product__notify" ref={addedNotifyRef}>Product Added to Cart!</div>
                     </button>
 
                     <button

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ import "./Product.scss";
 
 const ProductList = ({ id, img, name, rating, description, colors, price, salePrice, quantity, isFavourite, onClick }) => {
     const [curColor, setCurColor] = useState(null);
+    const addedNotifyRef = useRef();
     const dispatch = useDispatch();
 
     const handleFavouriteClick = () => {
@@ -15,7 +17,14 @@ const ProductList = ({ id, img, name, rating, description, colors, price, salePr
     }
 
     const handleAddToCartClick = (productId, quantity) => {
-        dispatch(appendProduct({ productId, quantity }))
+        addedNotifyRef.current.style.opacity = "1";
+        addedNotifyRef.current.style.bottom = "110%";
+
+        dispatch(appendProduct({ productId, quantity }));
+        setTimeout(() => {
+            addedNotifyRef.current.style.opacity = "0";
+            addedNotifyRef.current.style.bottom = "100%";
+        }, 2000)
     }
 
     return (
@@ -73,6 +82,7 @@ const ProductList = ({ id, img, name, rating, description, colors, price, salePr
                         onClick={() => handleAddToCartClick(id, 1)}
                     >
                         <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
+                        <div className="product__notify" ref={addedNotifyRef}>Product Added to Cart!</div>
                     </button>
 
                     <button

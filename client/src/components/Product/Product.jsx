@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { PRODUCT_ROUTE } from "../../router/routerConsts"
@@ -24,6 +24,7 @@ const Product = ({
 }) => {
     const [curColor, setCurColor] = useState(null);
     const [productQuantity, setProductQuantity] = useState(1);
+    const addedNotifyRef = useRef();
     const dispatch = useDispatch();
 
     const handleFavouriteClick = () => {
@@ -31,7 +32,14 @@ const Product = ({
     }
 
     const handleAddToCartClick = (productId, quantity) => {
-        dispatch(appendProduct({ productId, quantity }))
+        addedNotifyRef.current.style.opacity = "1";
+        addedNotifyRef.current.style.bottom = "110%";
+
+        dispatch(appendProduct({ productId, quantity }));
+        setTimeout(() => {
+            addedNotifyRef.current.style.opacity = "0";
+            addedNotifyRef.current.style.bottom = "100%";
+        }, 2000)
     }
 
     let colorsContent = (
@@ -115,7 +123,9 @@ const Product = ({
                                 onClick={() => handleAddToCartClick(id, productQuantity)}
                             >
                                 <Cart /> {quantity === 0 ? "Sold" : "Add To Cart"}
+                                <div className="product__notify" ref={addedNotifyRef}>Product Added to Cart!</div>
                             </button>
+
                         </div>
                     </>
                 )}
@@ -133,6 +143,7 @@ const Product = ({
                                 onClick={() => handleAddToCartClick(id, productQuantity)}
                             >
                                 <Cart /> Add To Cart
+                                <div className="product__notify" ref={addedNotifyRef}>Product Added to Cart!</div>
                             </button>
 
                             <button

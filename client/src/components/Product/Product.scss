@@ -102,6 +102,27 @@
         gap: 1rem;
     }
 
+    .product__notify {
+        width: 100%;
+        font-size: 1.4rem;
+        font-family: "Poppins", sans-serif;
+        color: #000;
+
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(#000, 0.4);
+        border-radius: 25px;
+        padding: 0.5rem;
+
+        opacity: 0;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        z-index: 1;
+        transform: translateX(-50%);
+
+        transition: all 0.2s linear;
+    }
+
     @media screen and (max-width: 991px) {
         flex-wrap: wrap;
         justify-content: center;
