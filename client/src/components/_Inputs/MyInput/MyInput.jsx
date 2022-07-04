@@ -1,19 +1,21 @@
 import "./MyInput.scss";
 
-const MyInput = ({
-    name,
-    type,
-    placeholder,
-    labelText,
-    defaultValue,
-    isImportant,
-    isCardName,
-    min,
-    max,
-    value,
-    inputRef,
-    onChange
-}) => {
+const MyInput = (props) => {
+    const {
+        type,
+        name,
+        placeholder,
+        labelText,
+        defaultValue,
+        isImportant,
+        isCardName,
+        min,
+        max,
+        value,
+        inputRef,
+        onChange
+    } = props;
+
     return (
         <div className={`input__placeholder ${isCardName ? "--cardname" : ""}`}>
             {labelText && (
