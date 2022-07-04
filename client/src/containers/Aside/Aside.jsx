@@ -136,7 +136,7 @@ const Aside = () => {
                     {Object.keys(sizes)?.length > 0 && Object.entries(sizes).map((size, index) => (
                         <div className="checkbox__flexbox" key={index}>
                             <MyCheckBox
-                                defaultChecked={searchParams.get("size")?.split("%").includes(size[0])}
+                                checked={searchParams.get("size")?.split("%").includes(size[0])}
                                 onChange={() => changeSearchQueryArray("size", size[0])}
                                 name={`size-${size[0]}`}
                             />

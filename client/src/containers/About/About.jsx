@@ -14,7 +14,7 @@ const About = ({ isMini }) => {
                         ?
                         <Banner
                             isMini
-                            toType="2"
+                            toCategory="5"
                             subTitle="Shirt Collection"
                             priceText="up to 70% off"
                             btnText="Read More"
@@ -37,7 +37,7 @@ const About = ({ isMini }) => {
                         ?
                         <Banner
                             isMini
-                            toType="3"
+                            toCategory="1"
                             subTitle="Jeans Collection"
                             priceText="up to 70% off"
                             btnText="Read More"
