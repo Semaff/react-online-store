@@ -1,13 +1,12 @@
 import "./MyCheckBox.scss";
 
-const MyCheckBox = ({ name, labelText, defaultChecked, checked, onChange }) => {
+const MyCheckBox = ({ name, labelText, checked, onChange }) => {
     return (
         <div className="checkbox__flexbox">
             <input
                 type="checkbox"
                 className="checkbox"
-                defaultChecked={defaultChecked}
-                checked={checked}
+                checked={!!checked}
                 onChange={onChange}
                 id={name}
                 name={name}
