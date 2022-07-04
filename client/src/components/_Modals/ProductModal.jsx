@@ -5,8 +5,8 @@ import { fetchOneCategory, selectCategories, selectCategory } from '../../store/
 import MyInput from '../_Inputs/MyInput/MyInput';
 import MySelect from '../_Inputs/MySelect/MySelect';
 import MyTextArea from '../_Inputs/MyTextArea/MyTextArea';
-import "./Modal.scss";
 import MyCheckBox from '../_Inputs/MyCheckBox/MyCheckBox';
+import "./Modal.scss";
 
 const ProductModal = ({ show, setShow, view }) => {
     /* Select what we need from State */
@@ -38,19 +38,28 @@ const ProductModal = ({ show, setShow, view }) => {
     const [curSize, setCurSize] = useState("S");
 
     /* Current options in MySelect */
-    const [categoryOption, setCategoryOption] = useState("");
-    const [brandOption, setBrandOption] = useState("");
-    const [productOption, setProductOption] = useState("");
+    const [categoryOption, setCategoryOption] = useState("default");
+    const [brandOption, setBrandOption] = useState("default");
+    const [productOption, setProductOption] = useState("default");
 
-    // Fetch One Product by it's id
+    /* Fetch all Products to choose them in MySelect */
     useEffect(() => {
-        if (productOption) {
+        dispatch(fetchProducts("getall=true"));
+    }, [dispatch]);
+
+    /* Fetch choosen Category and Product */
+    useEffect(() => {
+        if (categoryOption !== "default") {
+            const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
+            dispatch(fetchOneCategory(categoryId));
+        }
+        if (productOption !== "default") {
             const productId = +productOption.match(/(?<=\(Id: ).+(?=\))/g);
             dispatch(fetchOneProduct(productId));
         }
-    }, [dispatch, productOption]);
+    }, [dispatch, categoryOption, productOption]);
 
-    // And then asign variables
+    /* And then asign variables */
     useEffect(() => {
         setProductColors(product.colors || []);
         setProductSizes(product.sizes || []);
@@ -61,27 +70,14 @@ const ProductModal = ({ show, setShow, view }) => {
         setQuantity(product.quantity || 1);
         setOnASale(product.onASale || false);
         setSalePrice(product.salePrice || 1);
-
-        setProductOption(product.name + `(Id: ${product.id})`);
     }, [product]);
-
-    /* Fetch all Products to choose them in MySelect */
-    useEffect(() => {
-        dispatch(fetchProducts("getall=true"));
-    }, [dispatch]);
-
-    /* Fetch choosen Category */
-    useEffect(() => {
-        if (categoryOption) {
-            const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
-            dispatch(fetchOneCategory(categoryId));
-        }
-    }, [dispatch, categoryOption]);
 
     useEffect(() => {
         if (Object.keys(category).length > 0) {
             setCategoryOption(category.name + ` (Id: ${category.id}) amount: ${category.amount}`);
-            setBrandOption(category.brands[0].name + ` (Id: ${category.brands[0].id})`)
+            if (category.brands.length > 0) {
+                setBrandOption(category.brands[0].name + ` (Id: ${category.brands[0].id})`);
+            }
         }
     }, [category]);
 
@@ -113,7 +109,17 @@ const ProductModal = ({ show, setShow, view }) => {
             dispatch(deleteProduct(productId));
         }
 
+        dispatch(fetchProducts("getall=true"));
         setShow(false);
+    }
+
+    const handleAddColor = () => {
+        const colorValue = colorRef.current.value
+        setProductColors([...productColors.filter(color => color !== colorValue), colorValue])
+    }
+
+    const handleAddSize = () => {
+        setProductSizes([...productSizes.filter(size => size !== curSize), curSize]);
     }
 
     if (!show) {
@@ -144,6 +150,7 @@ const ProductModal = ({ show, setShow, view }) => {
                         labelText="Products:"
                         name="products"
                         options={productsOptions}
+                        value={productOption}
                         onChange={e => setProductOption(e.target.value)}
                     />
                 )}
@@ -199,10 +206,7 @@ const ProductModal = ({ show, setShow, view }) => {
 
                     {/* Set Colors */}
                     <div className="modal__container">
-                        <button className='btn --poppins --small --black' onClick={e => {
-                            const colorValue = colorRef.current.value
-                            setProductColors([...productColors.filter(color => color !== colorValue), colorValue])
-                        }}>
+                        <button className='btn --poppins --small --black' onClick={handleAddColor}>
                             Add Color
                         </button>
 
@@ -222,9 +226,7 @@ const ProductModal = ({ show, setShow, view }) => {
 
                     {/* Set sizes */}
                     <div className="modal__container">
-                        <button className='btn --poppins --small --black' onClick={() => {
-                            setProductSizes([...productSizes.filter(size => size !== curSize), curSize]);
-                        }}>
+                        <button className='btn --poppins --small --black' onClick={handleAddSize}>
                             Add Size
                         </button>
 
@@ -254,6 +256,7 @@ const ProductModal = ({ show, setShow, view }) => {
                                     labelText="Category"
                                     isImportant
                                     options={categoriesOptions}
+                                    value={categoryOption}
                                     onChange={e => setCategoryOption(e.target.value)}
                                 />
 
@@ -261,6 +264,7 @@ const ProductModal = ({ show, setShow, view }) => {
                                     labelText="Brand"
                                     isImportant
                                     options={categoryBrandsOptions}
+                                    value={brandOption}
                                     onChange={e => setBrandOption(e.target.value)}
                                 />
                             </>
@@ -270,7 +274,7 @@ const ProductModal = ({ show, setShow, view }) => {
                                 <MyCheckBox
                                     labelText="On A Sale"
                                     onChange={e => setOnASale(e.target.checked)}
-                                    checked={product.onASale}
+                                    checked={onASale}
                                 />
 
                                 {onASale && (
