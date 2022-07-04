@@ -1,32 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MyInput from '../_Inputs/MyInput/MyInput';
 import MySelect from '../_Inputs/MySelect/MySelect';
 import MyTextArea from '../_Inputs/MyTextArea/MyTextArea';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCategory, deleteCategory, selectCategories, updateCategory } from '../../store/categoriesSlice';
+import { createCategory, deleteCategory, fetchCategories, selectCategories, updateCategory } from '../../store/categoriesSlice';
 import "./Modal.scss";
-import { useEffect } from 'react';
 
 const CategoryModal = ({ show, setShow, view }) => {
+    /* Select what we need from state */
     const categories = useSelector(selectCategories);
     const dispatch = useDispatch();
 
-    // Category Columns
+    /* Category Columns */
     const [categoryName, setCategoryName] = useState("");
     const [categoryDescription, setCategoryDescription] = useState("");
 
-    // Options for MySelect
+    /* Category Option for MySelect */
     const categoriesOptions = categories.map(category => category.name + ` (Id: ${category.id}) amount: ${category.amount}`);
-    const [option, setOption] = useState(categoriesOptions[0]);
+    const [categoryOption, setCategoryOption] = useState("default");
 
-    useEffect(() => {
-        setOption(categoriesOptions[0]);
-    }, [categoriesOptions]);
-
-    // Handle Submit (Create/Update/Delete Category)
+    /* Handle Submit (Create/Update/Delete Category) */
     const handleSubmit = () => {
-        const categoryId = +option.match(/(?<=\(Id: ).+(?=\))/g);
+        const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
 
         if (view === "create") {
             dispatch(createCategory({ name: categoryName, description: categoryDescription }));
@@ -36,6 +31,7 @@ const CategoryModal = ({ show, setShow, view }) => {
             dispatch(deleteCategory(categoryId));
         }
 
+        dispatch(fetchCategories());
         setCategoryName("");
         setShow(false);
     }
@@ -84,16 +80,19 @@ const CategoryModal = ({ show, setShow, view }) => {
                     </>
                 )}
 
+                {(view === "update" || view === "delete") && (
+                    <MySelect
+                        labelText="Choose category"
+                        name="category"
+                        isImportant
+                        options={categoriesOptions}
+                        value={categoryOption}
+                        onChange={(e) => setCategoryOption(e.target.value)}
+                    />
+                )}
+
                 {view === "update" && (
                     <>
-                        <MySelect
-                            labelText="Choose category"
-                            name="category"
-                            isImportant
-                            options={categoriesOptions}
-                            onChange={(e) => setOption(e.target.value)}
-                        />
-
                         <MyInput
                             labelText="Update name"
                             placeholder="Category name.."
@@ -111,16 +110,6 @@ const CategoryModal = ({ show, setShow, view }) => {
                         />
                     </>
                 )}
-
-                {view === "delete" && (
-                    <MySelect
-                        labelText="Delete category"
-                        name="category"
-                        options={categoriesOptions}
-                        onChange={(e) => setOption(e.target.value)}
-                    />
-                )}
-
 
                 <button className='btn  --poppins --black --small' onClick={() => handleSubmit()}>
                     {view === "create" && "Create"}

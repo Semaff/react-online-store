@@ -5,8 +5,7 @@ import MyTextArea from '../_Inputs/MyTextArea/MyTextArea';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import "./Modal.scss";
-import { createTestimonial, deleteTestimonial, selectTestimonials, updateTestimonial } from '../../store/testimonialsSlice';
-import { useEffect } from 'react';
+import { createTestimonial, deleteTestimonial, fetchTestimonials, selectTestimonials, updateTestimonial } from '../../store/testimonialsSlice';
 
 const TestimonialModal = ({ show, setShow, view }) => {
     /* Select all we need */
@@ -20,15 +19,13 @@ const TestimonialModal = ({ show, setShow, view }) => {
     const [testimonialContent, setTestimonialContent] = useState("");
 
     /* Options for MySelect */
-    const testimonialsOptions = testimonials.map(testim => testim.name + `(Id: ${testim.id})`);
-    const [option, setOption] = useState(testimonialsOptions[0]);
+    const testimonialsOptions = testimonials.map(testim => testim.name + ` (Id: ${testim.id})`);
+    const [testimonialOption, setTestimonialOption] = useState("default");
 
-    useEffect(() => {
-        setOption(testimonialsOptions[0]);
-    }, [testimonialsOptions]);
-
+    /* Handle submit (when we pressed the button) */
     const handleSubmit = () => {
-        const testimonialId = +option.match(/(?<=\(Id: ).+(?=\))/g);
+        const testimonialId = +setTestimonialOption.match(/(?<=\(Id: ).+(?=\))/g);
+
         const formData = new FormData();
         formData.append("name", testimonialName);
         formData.append("profession", testimonialProfession);
@@ -43,6 +40,7 @@ const TestimonialModal = ({ show, setShow, view }) => {
             dispatch(deleteTestimonial(testimonialId));
         }
 
+        dispatch(fetchTestimonials());
         setShow(false);
     }
 
@@ -69,7 +67,18 @@ const TestimonialModal = ({ show, setShow, view }) => {
                     />
                 </div>
 
-                {view === "create" && (
+                {(view === "update" || view === "delete") && (
+                    <MySelect
+                        labelText="Choose testimonial"
+                        name="testimonial"
+                        isImportant
+                        options={testimonialsOptions}
+                        value={testimonialOption}
+                        onChange={(e) => setTestimonialOption(e.target.value)}
+                    />
+                )}
+
+                {view !== "delete" && (
                     <>
                         <MyInput
                             labelText="Testimonial's image"
@@ -105,59 +114,6 @@ const TestimonialModal = ({ show, setShow, view }) => {
                         />
                     </>
                 )}
-
-                {view === "update" && (
-                    <>
-                        <MySelect
-                            labelText="Choose testimonial"
-                            name="testimonial"
-                            isImportant
-                            options={testimonialsOptions}
-                            onChange={(e) => setOption(e.target.value)}
-                        />
-
-                        <MyInput
-                            labelText="Update image"
-                            type="file"
-                            isImportant
-                            onChange={e => setImg(e.target.files[0])}
-                        />
-
-                        <MyInput
-                            labelText="Update name"
-                            placeholder="Testimonial name.."
-                            name="name"
-                            value={testimonialName}
-                            onChange={e => setTestimonialName(e.target.value)}
-                        />
-
-                        <MyInput
-                            labelText="Update profession"
-                            placeholder="Testimonial profession.."
-                            name="profession"
-                            value={testimonialProfession}
-                            onChange={e => setTestimonialProfession(e.target.value)}
-                        />
-
-                        <MyTextArea
-                            labelText="Content"
-                            name="content"
-                            placeholder="Content.."
-                            value={testimonialContent}
-                            onChange={e => setTestimonialContent(e.target.value)}
-                        />
-                    </>
-                )}
-
-                {view === "delete" && (
-                    <MySelect
-                        labelText="Delete category"
-                        name="category"
-                        options={testimonialsOptions}
-                        onChange={(e) => setOption(e.target.value)}
-                    />
-                )}
-
 
                 <button className='btn  --poppins --black --small' onClick={() => handleSubmit()}>
                     {view === "create" && "Create"}

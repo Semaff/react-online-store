@@ -7,43 +7,45 @@ import MySelect from '../_Inputs/MySelect/MySelect';
 import "./Modal.scss";
 
 const CategoryBrandModal = ({ show, setShow, view }) => {
+    /* Select what we need from State */
     const categories = useSelector(selectCategories);
+    const category = useSelector(selectCategory);
     const brands = useSelector(selectBrands);
     const dispatch = useDispatch();
 
-    // Categories options for MySelect
-    const categoriesOptions = categories.map(category => category.name + ` (Id: ${category.id}) amount: ${category.amount}`);
-    const [categoryOption, setCategoryOption] = useState("(Id: 1)");
+    /* Select unused Brands for specific Category */
+    const [unusedCategoryBrands, setUnusedCategoryBrands] = useState([]);
 
-    // Select unused and used Brands for specific Category
-    const category = useSelector(selectCategory);
-    const categoryBrands = category.brands;
-    const unusedCategoryBrands = [];
-    const usedCategoryBrands = [];
+    /* Options for MySelect */
+    const categoriesOptions = categories?.map(category => category.name + ` (Id: ${category.id}) amount: ${category.amount}`);
+    const unusedCategoryBrandsOptions = unusedCategoryBrands?.map(brand => brand.name + ` (Id: ${brand.id})`);
+    const usedCategoryBrandsOptions = category.brands?.map(brand => brand.name + ` (Id: ${brand.id})`);
+    const [categoryOption, setCategoryOption] = useState("default");
+    const [brandOption, setBrandOption] = useState("default");
 
-    if (Object.keys(category).length > 0) {
-        const categoryBrandIds = categoryBrands.map(categBrand => categBrand.category_brand.brandId);
-
-        for (let brand of brands) {
-            if (categoryBrandIds.includes(brand.id)) {
-                usedCategoryBrands.push(brand)
-            } else {
-                unusedCategoryBrands.push(brand)
-            }
-        }
-    }
-
-    const unusedCategoryBrandsOptions = unusedCategoryBrands.map(brand => brand.name + ` (Id: ${brand.id})`);
-    const usedCategoryBrandsOptions = usedCategoryBrands.map(brand => brand.name + ` (Id: ${brand.id})`);
-    const [brandOption, setBrandOption] = useState(null);
-
-    // Fetch Category by categoryId every time we change option
+    /* If Category/Brand changed, then we should update unusedCategoryBrands */
     useEffect(() => {
-        const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
-        dispatch(fetchOneCategory(categoryId))
-    }, [categoryOption, dispatch]);
+        if (Object.keys(category).length > 0) {
+            const categoryBrandIds = category.brands.map(categBrand => categBrand.category_brand.brandId);
+            const newUnusedCategBrands = [];
+            for (let brand of brands) {
+                if (!categoryBrandIds.includes(brand.id)) {
+                    newUnusedCategBrands.push(brand);
+                }
+            }
+            setUnusedCategoryBrands(newUnusedCategBrands)
+        }
+    }, [brands, category, dispatch]);
 
-    // Handle submit (Create / Delete Category's Brand)
+    /* Fetch Category by categoryId every time we change option */
+    useEffect(() => {
+        if (categoryOption !== "default") {
+            const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
+            dispatch(fetchOneCategory(categoryId));
+        };
+    }, [dispatch, categoryOption]);
+
+    /* Handle submit (Create / Delete Category's Brand) */
     const handleSubmit = () => {
         const brandId = +brandOption.match(/(?<=\(Id: ).+(?=\))/g);
         const categoryId = +categoryOption.match(/(?<=\(Id: ).+(?=\))/g);
@@ -54,6 +56,7 @@ const CategoryBrandModal = ({ show, setShow, view }) => {
             dispatch(deleteCategoryBrand({ brandId, categoryId }));
         }
 
+        dispatch(fetchOneCategory(categoryId));
         setShow(false);
     }
 
@@ -80,44 +83,35 @@ const CategoryBrandModal = ({ show, setShow, view }) => {
                     />
                 </div>
 
+                <MySelect
+                    labelText="Choose category"
+                    name="category"
+                    isImportant
+                    options={categoriesOptions}
+                    value={categoryOption}
+                    onChange={(e) => setCategoryOption(e.target.value)}
+                />
+
                 {view === "create" && (
-                    <>
-                        <MySelect
-                            labelText="Choose category"
-                            name="category"
-                            isImportant
-                            options={categoriesOptions}
-                            onChange={(e) => setCategoryOption(e.target.value)}
-                        />
-                        
-                        <MySelect
-                            labelText="Choose brand"
-                            name="unusedBrand"
-                            isImportant
-                            options={unusedCategoryBrandsOptions}
-                            onChange={(e) => setBrandOption(e.target.value)}
-                        />
-                    </>
+                    <MySelect
+                        labelText="Choose brand"
+                        name="unusedBrand"
+                        isImportant
+                        options={unusedCategoryBrandsOptions}
+                        value={brandOption}
+                        onChange={(e) => setBrandOption(e.target.value)}
+                    />
                 )}
 
                 {view === "delete" && (
-                    <>
-                        <MySelect
-                            labelText="Choose category"
-                            name="category"
-                            isImportant
-                            options={categoriesOptions}
-                            onChange={(e) => setCategoryOption(e.target.value)}
-                        />
-
-                        <MySelect
-                            labelText="Choose brand"
-                            name="usedBrand"
-                            isImportant
-                            options={usedCategoryBrandsOptions}
-                            onChange={(e) => setBrandOption(e.target.value)}
-                        />
-                    </>
+                    <MySelect
+                        labelText="Choose brand"
+                        name="usedBrand"
+                        isImportant
+                        options={usedCategoryBrandsOptions}
+                        value={brandOption}
+                        onChange={(e) => setBrandOption(e.target.value)}
+                    />
                 )}
 
                 <button className='btn  --poppins --black --small' onClick={() => handleSubmit()}>

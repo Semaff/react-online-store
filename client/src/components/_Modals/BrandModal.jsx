@@ -11,11 +11,11 @@ const BrandModal = ({ show, setShow, view }) => {
     const brandsOptions = brands.map(brand => brand.name + ` (Id: ${brand.id})`);
 
     const [brandName, setBrandName] = useState("");
-    const [option, setOption] = useState(brandsOptions[0] || "(Id: 1)");
+    const [brandOption, setBrandOption] = useState("default");
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
-        const brandId = +option.match(/(?<=\(Id: ).+(?=\))/g);
+        const brandId = +brandOption.match(/(?<=\(Id: ).+(?=\))/g);
 
         if (view === "create") {
             dispatch(createBrand({ name: brandName }));
@@ -63,35 +63,25 @@ const BrandModal = ({ show, setShow, view }) => {
                     />
                 )}
 
-                {view === "update" && (
-                    <>
-                        <MySelect
-                            labelText="Choose brand"
-                            name="brand"
-                            isImportant
-                            options={brandsOptions}
-                            onChange={(e) => setOption(e.target.value)}
-                        />
-
-                        <MyInput
-                            labelText="Update name"
-                            placeholder="Brand name.."
-                            name="name"
-                            value={brandName}
-                            onChange={e => setBrandName(e.target.value)}
-                        />
-                    </>
+                {(view === "update" || view === "delete") && (
+                    <MySelect
+                        labelText="Choose brand"
+                        name="brand"
+                        isImportant
+                        options={brandsOptions}
+                        value={brandOption}
+                        onChange={(e) => setBrandOption(e.target.value)}
+                    />
                 )}
 
-                {view === "delete" && (
-                    <>
-                        <MySelect
-                            labelText="Delete category"
-                            name="category"
-                            options={brandsOptions}
-                            onChange={(e) => setOption(e.target.value)}
-                        />
-                    </>
+                {view === "update" && (
+                    <MyInput
+                        labelText="Update name"
+                        placeholder="Brand name.."
+                        name="name"
+                        value={brandName}
+                        onChange={e => setBrandName(e.target.value)}
+                    />
                 )}
 
                 <button className='btn  --poppins --black --small' onClick={() => handleSubmit()}>
