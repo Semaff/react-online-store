@@ -24,10 +24,10 @@ const MyInput = (props) => {
                 </label>
             )}
             <input
+                className="input"
                 ref={inputRef}
                 value={value}
                 onChange={onChange}
-                className="input"
                 defaultValue={defaultValue}
                 min={min}
                 max={max}
