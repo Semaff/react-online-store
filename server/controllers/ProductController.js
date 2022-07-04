@@ -242,7 +242,9 @@ class ProductController {
 
             // Decrement Category amount
             const category = await Category.findByPk(categoryId);
-            category.decrement("amount", { by: 1 });
+            if(category) {
+                category.decrement("amount", { by: 1 });
+            }
 
             return res.json(product);
         } catch (err) {

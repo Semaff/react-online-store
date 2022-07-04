@@ -1,5 +1,5 @@
 const AppError = require("../error/AppError");
-const { Category, Brand, CategoryBrand } = require("../models/models");
+const { Category, Brand, CategoryBrand, Product } = require("../models/models");
 
 class CategoryController {
     async getAll(req, res, next) {
@@ -75,6 +75,7 @@ class CategoryController {
                 throw new Error('Category does not exist');
             }
 
+            await Product.destroy({ where: { categoryId: category.id } });
             await CategoryBrand.destroy({ where: { categoryId: category.id } });
             await category.destroy();
             return res.json(category);
