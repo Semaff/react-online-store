@@ -75,8 +75,8 @@ const BillingForm = ({ countryOptions, orderSettings, setOrderSettings, cityOpti
                 )}
 
                 <div className="input__flexbox">
-                    <MySelect name="country" options={countryOptions} labelText="Country" isImportant />
-                    <MySelect name="city" options={cityOptions} labelText="City" isImportant />
+                    <MySelect name="country" labelText="Country" options={countryOptions} isImportant />
+                    <MySelect name="city" labelText="City" options={cityOptions} isImportant />
 
                     <MyInput
                         name="index"
@@ -93,21 +93,21 @@ const BillingForm = ({ countryOptions, orderSettings, setOrderSettings, cityOpti
                 <MyCheckBox
                     name="shipIsBill"
                     labelText="Shipping address is the same as my billing address"
-                    defaultChecked={shipIsBillAddress}
+                    checked={shipIsBillAddress}
                     onChange={(e) => setShipIsBillAddress(e.target.checked)}
                 />
 
                 <MyCheckBox
                     name="shipTo"
                     labelText="Ship to a different address?"
-                    defaultChecked={shipToDifferentAddress}
+                    checked={shipToDifferentAddress}
                     onChange={e => setShipToDifferentAddress(e.target.checked)}
                 />
 
                 <MyCheckBox
                     name="saveInfo"
                     labelText="Save this information for next time"
-                    defaultChecked={saveInfo}
+                    checked={saveInfo}
                     onChange={e => setSaveInfo(e.target.checked)}
                 />
             </div>
