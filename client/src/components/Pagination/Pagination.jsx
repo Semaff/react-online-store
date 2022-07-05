@@ -1,19 +1,19 @@
 import { Arrow } from "../_SVG";
 import "./Pagination.scss";
 
-const Pagination = ({ totalProducts, searchParams, handlePageChange }) => {
+const Pagination = ({ totalElements, searchParams, handlePageChange }) => {
     const limit = searchParams.get("limit") || 12;
     const page = searchParams.get("page") || 1;
     const pages = [];
 
-    let totalProductsOnAPage;
-    if (limit * page >= totalProducts) {
-        totalProductsOnAPage = totalProducts;
+    let totalElementsOnAPage;
+    if (limit * page >= totalElements) {
+        totalElementsOnAPage = totalElements;
     } else {
-        totalProductsOnAPage = limit * page
+        totalElementsOnAPage = limit * page
     }
 
-    for (let i = 0; i < Math.ceil(totalProducts / limit); i++) {
+    for (let i = 0; i < Math.ceil(totalElements / limit); i++) {
         pages.push(+i + 1);
     }
 
@@ -21,7 +21,7 @@ const Pagination = ({ totalProducts, searchParams, handlePageChange }) => {
         <div className="pagination">
             <p className="pagination__info">
                 <span> Showing {(1 * limit * (page - 1)) || 1} to </span>
-                <span> {totalProductsOnAPage} of {totalProducts} </span>
+                <span> {totalElementsOnAPage} of {totalElements} </span>
                 <span> ({pages[pages.length - 1]} pages) </span>
             </p>
 
