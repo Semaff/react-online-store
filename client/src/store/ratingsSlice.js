@@ -79,7 +79,7 @@ export const fetchProductRating = createAsyncThunk("ratings/fetchProductRating",
 export const rateProduct = createAsyncThunk("ratings/rateProduct", async ({ productId, name, description, rate }, { dispatch }) => {
     try {
         const response = await authRequest.post("api/rating/" + productId + "/rate/" + rate, { name, description });
-        await dispatch(fetchProductRating(productId));
+        await dispatch(fetchProductRating({ id: productId }));
         await dispatch(fetchOneProduct(productId));
         return response.data;
     } catch (err) {
