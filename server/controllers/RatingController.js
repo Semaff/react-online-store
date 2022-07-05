@@ -50,8 +50,8 @@ class RatingController {
                 rating = await Rating.create({ userId: req.user.id, productId, rate, name, description });
             }
 
-            const votes = await Rating.count({ where: { productId: req.params.productId } });
-            const rates = await Rating.sum('rate', { where: { productId: req.params.productId } });
+            const votes = await Rating.count({ where: { productId: productId } });
+            const rates = await Rating.sum('rate', { where: { productId: productId } });
             await product.update({ rating: rates / votes });
             return res.json(rating);
         } catch (err) {

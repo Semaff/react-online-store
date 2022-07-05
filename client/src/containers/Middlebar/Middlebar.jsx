@@ -10,9 +10,7 @@ const Middlebar = () => {
     const basketProducts = useSelector(selectBasketProducts);
     const isLoggedIn = useSelector(selectUserLoggedIn);
     const user = useSelector(selectUser);
-
-    console.log(basketProducts)
-
+    
     return (
         <nav className="middlebar" aria-label="middlebar">
             <div className="container">
