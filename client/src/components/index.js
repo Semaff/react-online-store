@@ -27,6 +27,8 @@ import ProductList from "./Product/ProductList";
 import Testimonial from "./Testimonial/Testimonial";
 import Tabs from "./Tabs/Tabs";
 import Spinner from "./Spinner/Spinner";
+import Rating from "./Rating/Rating";
+import RatingForm from "./RatingForm/RatingForm";
 
 import Carousel from "./Carousel/Carousel";
 import Slider from "./Slider/Slider";
@@ -69,5 +71,8 @@ export {
     Pagination,
 
     BillingForm,
-    CardForm
+    CardForm,
+
+    Rating,
+    RatingForm
 }

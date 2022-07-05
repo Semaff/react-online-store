@@ -6,6 +6,7 @@ import testimonialsReducer from "./testimonialsSlice";
 import basketReducer from "./basketSlice";
 import orderReducer from "./orderSlice";
 import brandsReducer from "./brandsSlice";
+import ratingsReducer from "./ratingsSlice";
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         testimonials: testimonialsReducer,
         basket: basketReducer,
         order: orderReducer,
+        ratings: ratingsReducer,
     }
 });
 
