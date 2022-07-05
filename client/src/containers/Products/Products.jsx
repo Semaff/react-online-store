@@ -137,7 +137,7 @@ const Products = ({ products }) => {
             </div>
 
             <Pagination
-                totalProducts={products.count}
+                totalElements={products.count}
                 searchParams={searchParams}
                 handlePageChange={handlePageChange}
             />

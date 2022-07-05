@@ -12,6 +12,11 @@ const Shop = () => {
     const products = useSelector(selectProducts);
     const dispatch = useDispatch();
 
+    // Scroll to top onDidMount component
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     useEffect(() => {
         // Fetch All Products to get parameters with query
         dispatch(fetchParameters("&" + query.slice(1,)));

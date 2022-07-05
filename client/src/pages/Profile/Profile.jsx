@@ -4,10 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../store/userSlice";
 import { selectBasket } from "../../store/basketSlice";
 import "./Profile.scss";
+import { useEffect } from "react";
 
 const Profile = () => {
     const basket = useSelector(selectBasket);
     const dispatch = useDispatch();
+
+    // Scroll to top onDidMount component
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleLogout = () => {
         dispatch(userLogout());

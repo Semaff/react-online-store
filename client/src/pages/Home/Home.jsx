@@ -21,6 +21,11 @@ const Home = () => {
 
     const productsStatus = useSelector(selectProductsStatus);
 
+    // Scroll to top onDidMount component
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     useEffect(() => {
         // Fetch Products for slider with tabs
         if (query) {

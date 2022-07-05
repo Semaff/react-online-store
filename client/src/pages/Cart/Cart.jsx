@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Timeline, Total } from '../../containers';
 import { addedBasketCoupon, removedBasketCoupon, selectBasketCoupon, selectBasketProducts } from '../../store/basketSlice';
@@ -21,7 +22,12 @@ const Cart = () => {
     let couponActivated = false;
 
     const basketProducts = useSelector(selectBasketProducts);
-    const basketCoupon = useSelector(selectBasketCoupon)
+    const basketCoupon = useSelector(selectBasketCoupon);
+
+    // Scroll to top onDidMount component
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleCouponButttonClick = () => {
         couponActivated = checkCoupon(couponRef.current.value);
