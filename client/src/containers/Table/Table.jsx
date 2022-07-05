@@ -69,7 +69,7 @@ const TableRow = ({ id, img, name, price, salePrice, quantity, basket_product })
     )
 }
 
-const Table = ({ products, couponRef, onCouponClick }) => {
+const Table = ({ products, couponRef, onCouponClick, basketCoupon }) => {
     return (
         <div className="table__responsive">
             <table className="table">
@@ -108,6 +108,11 @@ const Table = ({ products, couponRef, onCouponClick }) => {
                 <button className="btn --black --poppins" onClick={onCouponClick}>
                     Apply coupon
                 </button>
+
+                {basketCoupon && basketCoupon.status === true
+                    ? <div className='cart__coupon'>Coupon Added!</div>
+                    : <div className='cart__coupon  --error'>Coupon is wrong!</div>
+                }
             </div>
         </div>
     )

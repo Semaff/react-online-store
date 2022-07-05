@@ -4,6 +4,16 @@
     justify-content: space-around;
     gap: 2rem;
 
+    &__coupon {
+        font-size: 1.4rem;
+        font-family: 'Poppins', sans-serif;
+        color: green;
+
+        &.--error {
+            color: red;
+        }
+    }
+
     @media screen and (max-width: 1200px) {
         flex-wrap: wrap;
         gap: 5rem;

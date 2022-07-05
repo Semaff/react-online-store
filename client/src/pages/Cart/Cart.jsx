@@ -19,7 +19,6 @@ const checkCoupon = (coupon) => {
 const Cart = () => {
     const couponRef = useRef();
     const dispatch = useDispatch();
-    let couponActivated = false;
 
     const basketProducts = useSelector(selectBasketProducts);
     const basketCoupon = useSelector(selectBasketCoupon);
@@ -30,11 +29,12 @@ const Cart = () => {
     }, []);
 
     const handleCouponButttonClick = () => {
-        couponActivated = checkCoupon(couponRef.current.value);
+        const couponActivated = checkCoupon(couponRef.current.value)
+
         if (couponActivated.status) {
-            dispatch(addedBasketCoupon(couponActivated.discount))
+            dispatch(addedBasketCoupon(couponActivated));
         } else {
-            dispatch(removedBasketCoupon(couponActivated.discount))
+            dispatch(removedBasketCoupon(couponActivated));
         }
     }
 
@@ -47,7 +47,12 @@ const Cart = () => {
             <section className="section  --fullPadding">
                 <div className="container">
                     <div className="cart">
-                        <Table products={basketProducts} couponRef={couponRef} onCouponClick={handleCouponButttonClick} />
+                        <Table
+                            products={basketProducts}
+                            couponRef={couponRef}
+                            onCouponClick={handleCouponButttonClick}
+                            basketCoupon={basketCoupon}
+                        />
                         <Total coupon={basketCoupon} total={total} />
                     </div>
                 </div>
