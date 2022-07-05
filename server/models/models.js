@@ -37,7 +37,7 @@ const Product = sequelize.define("product", {
     colors: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false }, // #ffffff, #000000, ..
     quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
 
-    rating: { type: DataTypes.INTEGER, defaultValue: 0 },
+    rating: { type: DataTypes.FLOAT, defaultValue: 0 },
     img: { type: DataTypes.STRING, allowNull: false }
 });
 
@@ -55,6 +55,8 @@ const Brand = sequelize.define('brand', {
 
 const Rating = sequelize.define('rating', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING },
     rate: { type: DataTypes.INTEGER, allowNull: false },
 });
 
