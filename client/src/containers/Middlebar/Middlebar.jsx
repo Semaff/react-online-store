@@ -31,9 +31,12 @@ const Middlebar = () => {
                         <Link to={!isLoggedIn ? SIGNIN_ROUTE : PROFILE_ROUTE}>
                             <Profile />
                         </Link>
-                        <Link to={CART_ROUTE}>
-                            <Cart />
-                        </Link>
+
+                        {isLoggedIn && (
+                            <Link to={CART_ROUTE}>
+                                <Cart />
+                            </Link>
+                        )}
 
                         {user?.role === "ADMIN" && (
                             <Link to={ADMIN_ROUTE}>
