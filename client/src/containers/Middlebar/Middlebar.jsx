@@ -3,11 +3,15 @@ import { Cart, Database, Phone, Profile } from "../../components/_SVG";
 import { ADMIN_ROUTE, CART_ROUTE, HOME_ROUTE, PROFILE_ROUTE, SIGNIN_ROUTE } from "../../router/routerConsts";
 import { useSelector } from "react-redux"
 import { selectUser, selectUserLoggedIn } from "../../store/userSlice";
+import { selectBasketProducts } from "../../store/basketSlice";
 import "./Middlebar.scss";
 
 const Middlebar = () => {
+    const basketProducts = useSelector(selectBasketProducts);
     const isLoggedIn = useSelector(selectUserLoggedIn);
     const user = useSelector(selectUser);
+
+    console.log(basketProducts)
 
     return (
         <nav className="middlebar" aria-label="middlebar">
@@ -33,8 +37,14 @@ const Middlebar = () => {
                         </Link>
 
                         {isLoggedIn && (
-                            <Link to={CART_ROUTE}>
-                                <Cart />
+                            <Link to={CART_ROUTE} style={{ textDecoration: "none" }}>
+                                <div className="middlebar__cart">
+                                    <Cart />
+
+                                    {basketProducts && basketProducts.length > 0 && (
+                                        <span>{basketProducts.length}</span>
+                                    )}
+                                </div>
                             </Link>
                         )}
 

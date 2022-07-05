@@ -128,3 +128,24 @@
         }
     }
 }
+
+.middlebar__cart {
+    display: flex;
+    align-items: flex-start;
+
+    span {
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+
+        background-color: orange;
+        padding: 0.4rem;
+        border-radius: 50%;
+
+        flex-shrink: 0;
+        width: 15px;
+        height: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
