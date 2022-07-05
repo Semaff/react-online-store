@@ -30,21 +30,25 @@ const ProductPage = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    /* Fetch Product and it's Rating */
     useEffect(() => {
         dispatch(fetchOneProduct(id));
         dispatch(fetchProductRating({ id }));
     }, [dispatch, id]);
 
+    /* Change page of Ratings */
     useEffect(() => {
         if (searchParams.has("page")) {
             dispatch(fetchProductRating({ id, params: `page=${searchParams.get("page")}` }));
         }
     }, [dispatch, searchParams]);
 
+    /* Fetch products with Product's categoryId */
     useEffect(() => {
         dispatch(fetchProducts(`categoryId=${product.categoryId}`));
     }, [dispatch, product]);
 
+    /* Handle Page change (change search params) */
     const handlePageChange = (totalPages, pageIndex) => {
         if (pageIndex <= 0) {
             searchParams.set("page", 1);
@@ -68,7 +72,7 @@ const ProductPage = () => {
 
             <section className="section">
                 <div className="container">
-                    <h2 className="section__subtitle  --left">Reviews</h2>
+                    <h2 className="section__subtitle  --left">Reviews ({productRating.votes})</h2>
 
                     {Object.keys(productRating).length > 0 && productRating.ratings.rows.length > 0
                         ?
