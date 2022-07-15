@@ -108,7 +108,7 @@ class ProductController {
             const img = req.files.img;
             const [, ext] = img.mimetype.split('/');
             let fileName = uuid.v4() + "." + ext;
-            img.mv(path.resolve(__dirname, "..", "static", fileName));
+            img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
 
             // Parse colors and sizes
             const arrayOfColors = colors.split(", ");
@@ -158,7 +158,7 @@ class ProductController {
             if (img) {
                 const [, ext] = img.mimetype.split('/');
                 fileName = uuid.v4() + "." + ext;
-                img.mv(path.resolve(__dirname, "..", "static", fileName));
+                img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
             }
 
             // Parse colors and sizes

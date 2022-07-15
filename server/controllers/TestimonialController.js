@@ -34,7 +34,7 @@ class TestimonialController {
             const img = req.files?.img;
             const [, ext] = img.mimetype.split('/');
             let fileName = uuid.v4() + "." + ext;
-            img.mv(path.resolve(__dirname, "..", "static", fileName));
+            img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
 
             // Create Testimonial
             const testimonial = await Testimonial.create({ img: fileName, name, profession, content });
@@ -62,7 +62,7 @@ class TestimonialController {
             if (img) {
                 const [, ext] = img.mimetype.split('/');
                 fileName = uuid.v4() + "." + ext;
-                img.mv(path.resolve(__dirname, "..", "static", fileName));
+                img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
             }
             let newImg = fileName || testimonial.img;
 

@@ -11,7 +11,7 @@ const errorHandler = require('./middlewares/errorHandlerMiddleware');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-// Middlewares
+/* Middlewares */
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'static')));
@@ -19,6 +19,13 @@ app.use(fileUpload({}));
 app.use("/api", router);
 
 app.use(errorHandler);
+
+/*
+ Start Server
+*/
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/static/client/index.html");
+});
 
 const startServer = async () => {
     try {
