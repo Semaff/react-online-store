@@ -9,7 +9,7 @@ import { signin, signup } from '../../store/userSlice';
 import "./Auth.scss";
 
 const Auth = () => {
-    const isSigninPage = window.location.pathname === "/signin";
+    const isSigninPage = window.location.hash === "#/signin";
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();

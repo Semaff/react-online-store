@@ -31,7 +31,7 @@ const Total = ({ withForm, products, coupon, total, handlePlaceOrder }) => {
 
                 <div className="total__row">
                     <b className="total__price">Total (USD)</b>
-                    <span>${total + shipping - coupon}</span>
+                    <span>${total + shipping - (coupon || 0)}</span>
                 </div>
             </>
         )

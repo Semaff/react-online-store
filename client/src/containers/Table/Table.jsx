@@ -39,7 +39,7 @@ const TableRow = ({ id, img, name, price, salePrice, quantity, basket_product })
             <td>
                 <img
                     className='table__img'
-                    src={process.env.REACT_APP_API_URL + img || "https://placehold.jp/500x500.png"}
+                    src={(window.location.origin + "/db-images/" + img) || "https://placehold.jp/500x500.png"}
                     alt={name}
                 />
             </td>

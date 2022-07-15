@@ -1,5 +1,5 @@
 import { Footer, Middlebar, Navbar, Topbar } from './containers';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { useEffect } from 'react';
 import { checkAuth, selectUserStatus } from './store/userSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +27,7 @@ function App() {
     }
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Topbar />
             <Middlebar />
             <Navbar />
@@ -35,7 +35,7 @@ function App() {
             <AppRouter />
 
             <Footer />
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 

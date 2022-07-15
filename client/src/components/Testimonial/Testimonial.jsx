@@ -5,7 +5,7 @@ const Testimonial = ({ img, name, profession, content }) => {
         <div className="testimonial">
             <img
                 className="testimonial__img"
-                src={`${process.env.REACT_APP_API_URL + img}` || "https://placehold.jp/200x200.png"}
+                src={(window.location.origin + "/db-images/" + img) || "https://placehold.jp/200x200.png"}
                 alt="testimoImg"
             />
 

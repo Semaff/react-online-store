@@ -106,7 +106,7 @@ const ProductPage = () => {
                     <h2 className="section__title">You might also like</h2>
 
                     <Slider>
-                        {Object.keys(products).length > 0 && products.rows.map(product => (
+                        {Object.keys(products).length > 0 && products.rows.filter(el => +el.id !== +id).map(product => (
                             <ProductCard key={product.id} {...product} />
                         ))}
                     </Slider>

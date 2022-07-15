@@ -58,7 +58,7 @@ const Checkout = () => {
                             withForm
                             products={basketProducts}
                             total={total}
-                            coupon={basketCoupon.discount}
+                            coupon={basketCoupon?.discount}
                             handlePlaceOrder={handlePlaceOrder}
                         />
                     </div>

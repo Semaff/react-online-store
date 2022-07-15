@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const guestRequest = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: window.location.origin
 });
 
 const authRequest = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: window.location.origin
 });
 
 const authInterceptor = config => {
