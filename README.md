@@ -6,7 +6,9 @@ E - express
 R - react
 N - node.js
 
-The main goal in this project was to made Online-Store, using Redux state management.
+The main goal in this project was to made Online-Store, using Redux state management (RTK).
+
+Try it yourself: https://semaff-online-store.herokuapp.com/
 
 ![Home](https://user-images.githubusercontent.com/95703321/177034462-a8abf3ae-4281-40b2-9576-3eeef7ede5ea.jpg)
 
