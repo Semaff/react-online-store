@@ -140,6 +140,8 @@
     }
 
     @media screen and (max-width: 450px) {
+        flex-shrink: 0;
+
         .product__btns {
             flex-wrap: wrap;
         }
@@ -227,6 +229,8 @@
         width: 28rem;
         min-width: unset;
         max-width: unset;
+        padding: 1.5rem;
+        flex-shrink: 0;
     }
 }
 

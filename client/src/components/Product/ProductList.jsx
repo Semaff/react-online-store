@@ -1,37 +1,41 @@
 import { useRef } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { PRODUCT_ROUTE } from "../../router/routerConsts";
 import { appendProduct, toggleFavouriteProduct } from "../../store/basketSlice";
+import { selectUserLoggedIn } from "../../store/userSlice";
 import { Cart, Eye, Like } from "../_SVG";
 import "./Product.scss";
 
 const ProductList = ({ id, img, name, rating, description, colors, price, salePrice, quantity, isFavourite, onClick }) => {
+    const isLoggedIn = useSelector(selectUserLoggedIn)
     const [curColor, setCurColor] = useState(null);
     const addedNotifyRef = useRef();
     const dispatch = useDispatch();
 
     const handleFavouriteClick = () => {
-        dispatch(toggleFavouriteProduct(id));
+        if (isLoggedIn) dispatch(toggleFavouriteProduct(id));
     }
 
     const handleAddToCartClick = (productId, quantity) => {
-        addedNotifyRef.current.style.opacity = "1";
-        addedNotifyRef.current.style.bottom = "110%";
+        if (isLoggedIn) {
+            addedNotifyRef.current.style.opacity = "1";
+            addedNotifyRef.current.style.bottom = "110%";
 
-        dispatch(appendProduct({ productId, quantity }));
-        setTimeout(() => {
-            addedNotifyRef.current.style.opacity = "0";
-            addedNotifyRef.current.style.bottom = "100%";
-        }, 2000)
+            dispatch(appendProduct({ productId, quantity }));
+            setTimeout(() => {
+                addedNotifyRef.current.style.opacity = "0";
+                addedNotifyRef.current.style.bottom = "100%";
+            }, 2000)
+        }
     }
 
     return (
         <div className="product --list">
             <Link style={{ flexShrink: 0 }} to={PRODUCT_ROUTE + "/" + id}>
                 <img
-                    src={(process.env.REACT_APP_API_URL + img) || "https://placehold.jp/1000x1000.png"}
+                    src={(window.location.origin + "/db-images/" + img) || "https://placehold.jp/1000x1000.png"}
                     alt="1"
                     className="product__img"
                 />
