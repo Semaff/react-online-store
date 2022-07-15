@@ -21,7 +21,7 @@ const Navbar = () => {
                         <Link to={SHOP_ROUTE + "?categoryId=5"} className="nav__link">Shirt</Link>
                     </li>
                     <li className="nav__item">
-                        <Link to={SHOP_ROUTE + "?categoryId=1"} className="nav__link">Jeans</Link>
+                        <Link to={SHOP_ROUTE + "?categoryId=14"} className="nav__link">Jeans</Link>
                     </li>
                     <li className="nav__item">
                         <Link to={SHOP_ROUTE + "?categoryId=3"} className="nav__link">Dress</Link>
