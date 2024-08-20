@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const guestRequest = axios.create({
-    baseURL: window.location.origin
+    baseURL: "http://localhost:5000"
 });
 
 const authRequest = axios.create({
-    baseURL: window.location.origin
+    baseURL: "http://localhost:5000"
 });
 
 const authInterceptor = config => {
