@@ -1,54 +1,54 @@
 .tabs {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 
-    // For pseudo elements
-    width: fit-content;
-    margin: 0 auto;
+  // For pseudo elements
+  width: fit-content;
+  margin: 0 auto;
 
-    &::after,
-    &::before {
-        content: "";
-        display: block;
-        width: 100%;
-        max-width: 8rem;
-        height: 1px;
-        background-color: #e5e5e5;
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 8rem;
+    height: 1px;
+    background-color: #e5e5e5;
 
-        position: absolute;
-        top: 50%;
-        z-index: 1;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
 
-        transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    right: 100%;
+  }
+
+  &::before {
+    left: 100%;
+  }
+
+  @media screen and (max-width: 450px) {
+    .tab {
+      padding: 1rem 0.6rem;
     }
-
-    &::after {
-        right: 100%;
-    }
-
-    &::before {
-        left: 100%;
-    }
-
-    @media screen and (max-width: 450px) {
-        .tab {
-            padding: 1rem 0.6rem;
-        }
-    }
+  }
 }
 
 .tab {
-    cursor: pointer;
-    background: none;
-    border: 1px solid #e5e5e5;
-    padding: 1rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: 1px solid #e5e5e5;
+  padding: 1rem 1.5rem;
 
-    font-size: 1.4rem;
-    font-weight: 500;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }

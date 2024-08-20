@@ -1,53 +1,53 @@
 .slider {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin: 2rem 0;
 }
 
 .slider__inner {
-    position: relative;
-    min-height: 50rem;
+  position: relative;
+  min-height: 50rem;
 
-    display: flex;
-    align-items: flex-start;
-    gap: 5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 5rem;
 
-    overflow: hidden;
-    scroll-behavior: smooth;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 .slider__btns {
-    position: relative;
+  position: relative;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    
-    // For pseudo elements
-    width: fit-content;
-    margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 
-    &::after,
-    &::before {
-        position: absolute;
-        top: 30%;
-        z-index: 1;
+  // For pseudo elements
+  width: fit-content;
+  margin: 0 auto;
 
-        content: "";
-        display: block;
-        width: 100%;
-        max-width: 6rem;
-        height: 1px;
-        background-color: #e8e8e8;
-    }
+  &::after,
+  &::before {
+    position: absolute;
+    top: 30%;
+    z-index: 1;
 
-    &::after {
-        left: 98%;
-    }
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 6rem;
+    height: 1px;
+    background-color: #e8e8e8;
+  }
 
-    &::before {
-        right: 98%;
-    }
+  &::after {
+    left: 98%;
+  }
+
+  &::before {
+    right: 98%;
+  }
 }

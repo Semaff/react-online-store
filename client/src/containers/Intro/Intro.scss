@@ -1,46 +1,46 @@
 .intro {
-    height: 80rem;
-    padding: 0 1.5rem;
-    text-align: center;
+  height: 80rem;
+  padding: 0 1.5rem;
+  text-align: center;
 
-    background: center no-repeat;
-    background-size: cover;
+  background: center no-repeat;
+  background-size: cover;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    @media screen and (max-width: 450px) {
-        height: 60rem;
-        
-        .intro__title {
-            font-size: 5.6rem;
-        }
+  @media screen and (max-width: 450px) {
+    height: 60rem;
 
-        .intro__suptitle {
-            font-size: 4rem;
-        }
+    .intro__title {
+      font-size: 5.6rem;
     }
+
+    .intro__suptitle {
+      font-size: 4rem;
+    }
+  }
 }
 
 .intro__suptitle {
-    font-size: 5rem;
-    letter-spacing: 0.025em;
-    font-style: italic;
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    color: #ffcc01;
+  font-size: 5rem;
+  letter-spacing: 0.025em;
+  font-style: italic;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  color: #ffcc01;
 
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .intro__title {
-    font-size: 7.6rem;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.025em;
-    font-weight: 700;
-    color: #fff;
+  font-size: 7.6rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.025em;
+  font-weight: 700;
+  color: #fff;
 
-    margin-bottom: 5rem;
+  margin-bottom: 5rem;
 }

@@ -2,200 +2,200 @@
   Btn
 */
 .btn {
-    cursor: pointer;
-    position: relative;
-    border: none;
-    background: #fff;
-    border-radius: 5rem;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: #fff;
+  border-radius: 5rem;
 
-    font-size: 14px;
-    text-decoration: none;
-    color: #000;
-    font-family: "Roboto", sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+  font-size: 14px;
+  text-decoration: none;
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 
-    padding: 15px 35px;
-    flex-shrink: 0;
+  padding: 15px 35px;
+  flex-shrink: 0;
 
-    transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 
-    &.active {
-        background: #000;
-        fill: #fff;
-        color: #fff;
+  &.active {
+    background: #000;
+    fill: #fff;
+    color: #fff;
+  }
+
+  &:hover {
+    background: darken(#fff, 5%);
+  }
+
+  &.--black {
+    background: #000;
+    fill: #fff;
+    color: #fff;
+
+    &.--lowOpacity {
+      background: rgba(#000, 0.7);
+    }
+
+    &:disabled {
+      background: #ff9d27;
+      color: #666666;
+      fill: #666666;
+
+      &:hover {
+        background: #ff9d27;
+      }
     }
 
     &:hover {
-        background: darken(#fff, 5%);
+      background-color: lighten(#000, 5%);
     }
+  }
 
-    &.--black {
-        background: #000;
-        fill: #fff;
-        color: #fff;
+  &.--poppins {
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    text-transform: none;
+  }
 
-        &.--lowOpacity {
-            background: rgba(#000, 0.7);
-        }
+  &.--small {
+    padding: 1rem 2rem;
+  }
 
-        &:disabled {
-            background: #ff9d27;
-            color: #666666;
-            fill: #666666;
+  &.--rounded {
+    width: 41px;
+    height: 41px;
 
-            &:hover {
-                background: #ff9d27;
-            }
-        }
+    border-radius: 50%;
+    padding: 1.2rem;
 
-        &:hover {
-            background-color: lighten(#000, 5%);
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.--grey {
+    background-color: #f5f5f5;
+
+    &:hover {
+      background: darken(#f5f5f5, 5%);
     }
+  }
 
-    &.--poppins {
-        font-size: 16px;
-        font-family: "Poppins", sans-serif;
-        font-weight: 400;
-        text-transform: none;
+  &.--pseudo-elem {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: 100%;
+      z-index: 1;
+
+      content: "";
+      display: block;
+      width: 100%;
+      max-width: 4rem;
+      height: 1px;
+      background-color: #e8e8e8;
     }
+  }
 
-    &.--small {
-        padding: 1rem 2rem;
+  &.--border {
+    border: 1px solid #e8e8e8;
+  }
+
+  &.--reversed {
+    transform: rotate(180deg);
+  }
+
+  &.--slider {
+    padding: 0.8rem;
+
+    svg {
+      width: 20px;
+      height: 20px;
     }
+  }
 
-    &.--rounded {
-        width: 41px;
-        height: 41px;
+  &.pink {
+    background-color: #ff8da1;
+    fill: red;
 
-        border-radius: 50%;
-        padding: 1.2rem;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    &:hover {
+      background-color: darken(pink, 20%);
     }
-
-    &.--grey {
-        background-color: #f5f5f5;
-
-        &:hover {
-            background: darken(#f5f5f5, 5%);
-        }
-    }
-
-    &.--pseudo-elem {
-        position: relative;
-
-        &::before {
-            position: absolute;
-            left: 100%;
-            z-index: 1;
-
-            content: "";
-            display: block;
-            width: 100%;
-            max-width: 4rem;
-            height: 1px;
-            background-color: #e8e8e8;
-        }
-    }
-
-    &.--border {
-        border: 1px solid #e8e8e8;
-    }
-
-    &.--reversed {
-        transform: rotate(180deg);
-    }
-
-    &.--slider {
-        padding: 0.8rem;
-
-        svg {
-            width: 20px;
-            height: 20px;
-        }
-    }
-
-    &.pink {
-        background-color: #ff8da1;
-        fill: red;
-
-        &:hover {
-            background-color: darken(pink, 20%);            
-        }
-    }
+  }
 }
 
 /*
   Dot
 */
 .dot {
-    cursor: pointer;
-    appearance: none;
-    margin: 0;
-    padding: 0;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    background-color: #fff;
+  cursor: pointer;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background-color: #fff;
 
-    transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 
-    &:checked {
-        background-color: #000;
-    }
+  &:checked {
+    background-color: #000;
+  }
 }
 
 /*
   Toggle (plus - minus)
 */
 .toggle {
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 15px;
-    height: 15px;
-    position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 15px;
+  height: 15px;
+  position: relative;
 
+  &::after,
+  &::before {
+    content: "";
+
+    display: block;
+    background-color: #000;
+    transition: all 0.1s ease-in-out;
+    opacity: 1;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+
+  &::after {
+    width: 3px;
+    height: 15px;
+  }
+
+  &::before {
+    width: 15px;
+    height: 3px;
+  }
+
+  &.active {
     &::after,
     &::before {
-        content: "";
-
-        display: block;
-        background-color: #000;
-        transition: all 0.1s ease-in-out;
-        opacity: 1;
-
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        z-index: 1;
-        transform: translate(-50%, -50%) rotate(-90deg);
+      transform: translate(-50%, -50%) rotate(0deg);
     }
 
     &::after {
-        width: 3px;
-        height: 15px;
+      opacity: 0;
     }
-
-    &::before {
-        width: 15px;
-        height: 3px;
-    }
-
-    &.active {
-        &::after,
-        &::before {
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-
-        &::after {
-            opacity: 0;
-        }
-    }
+  }
 }

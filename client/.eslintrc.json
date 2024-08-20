@@ -1,0 +1,82 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 13,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["react", "react-hooks", "eslint-plugin-prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-return-assign": ["error", "except-parens"],
+    "no-restricted-globals": "error",
+    "no-empty": "error",
+    "no-param-reassign": ["off"],
+
+    "prettier/prettier": "warn",
+    "no-unused-vars": "warn",
+    "arrow-parens": ["warn", "always"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    "max-len": [
+      "warn",
+      {
+        "code": 120,
+        "comments": 120,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+
+    "class-methods-use-this": "off",
+    "no-alert": "off",
+    "no-void": "off",
+    "no-shadow": "off",
+    "no-nested-ternary": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
+    "default-param-last": "off",
+
+    "react/react-in-jsx-scope": "off",
+    "react/no-unescaped-entities": ["warn", { "forbid": [">", "<", "{", "}"] }],
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+
+    "react/jsx-key": "error",
+    "react/jsx-fragments": ["warn", "element"],
+    "react/self-closing-comp": ["warn", { "component": true, "html": true }],
+
+    "react/jsx-wrap-multilines": ["warn", { "declaration": false, "assignment": false }],
+    "react/jsx-uses-vars": "warn",
+    "react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
+
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off"
+  }
+}

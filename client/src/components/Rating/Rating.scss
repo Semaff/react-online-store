@@ -1,37 +1,37 @@
 .rating {
-    padding: 2rem;
+  padding: 2rem;
 
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-    width: 100%;
-    margin: 1rem auto;
+  width: 100%;
+  margin: 1rem auto;
 
-    border: 1px solid #e1e1e1;
+  border: 1px solid #e1e1e1;
 }
 
 .rating__name {
-    font-size: 1.8rem;
-    font-family: "Playfair Display", sans-serif;
-    letter-spacing: 0.025em;
-    color: #444;
+  font-size: 1.8rem;
+  font-family: "Playfair Display", sans-serif;
+  letter-spacing: 0.025em;
+  color: #444;
 }
 
 .rating__desc {
-    p {
-        font-size: 1.4rem;
-        font-family: "Poppins", sans-serif;
-        line-height: 1.5;
-        letter-spacing: 0.025em;
-        color: #444;
-    }
-}
-
-.rating__rate {
-    font-size: 1.6rem;
+  p {
+    font-size: 1.4rem;
     font-family: "Poppins", sans-serif;
     line-height: 1.5;
     letter-spacing: 0.025em;
-    color: #000;
+    color: #444;
+  }
+}
+
+.rating__rate {
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  color: #000;
 }

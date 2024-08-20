@@ -2,66 +2,66 @@
   Total
 */
 .total {
-    width: 30%;
-    background-color: #f5f5f5;
-    padding: 4rem;
+  width: 30%;
+  background-color: #f5f5f5;
+  padding: 4rem;
 
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 
-    @media screen and (max-width: 1200px) {
-        width: 70%;
-    }
+  @media screen and (max-width: 1200px) {
+    width: 70%;
+  }
 
-    @media screen and (max-width: 676px) {
-        width: 100%;
-        padding: 3rem;
-        gap: 2rem;
-    }
+  @media screen and (max-width: 676px) {
+    width: 100%;
+    padding: 3rem;
+    gap: 2rem;
+  }
 }
 
 .total__header {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .total__footer {
-    padding-top: 2rem;
-    border-top: 1px solid #e1e1e1;
+  padding-top: 2rem;
+  border-top: 1px solid #e1e1e1;
 }
 
 .total__title {
-    font-size: 2rem;
-    letter-spacing: 0.04em;
-    font-family: "Playfair Display", sans-serif;
-    font-weight: 700;
-    color: #222;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 700;
+  color: #222;
 }
 
 .total__row {
-    text-align: right;
-    display: flex;
-    align-items: center;
+  text-align: right;
+  display: flex;
+  align-items: center;
 
-    span,
-    b {
-        display: block;
-        font-size: 1.3rem;
-        letter-spacing: 0.04em;
-        font-family: "Poppins", sans-serif;
-        color: #444;
-    }
+  span,
+  b {
+    display: block;
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    font-family: "Poppins", sans-serif;
+    color: #444;
+  }
 
-    span {
-        margin-left: auto;
-    }
+  span {
+    margin-left: auto;
+  }
 
-    .total__promo {
-        color: #27a844;
-    }
-    
-    .total__price {
-        font-weight: 700;
-    }
+  .total__promo {
+    color: #27a844;
+  }
+
+  .total__price {
+    font-weight: 700;
+  }
 }

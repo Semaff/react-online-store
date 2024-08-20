@@ -1,7 +1,7 @@
 import Arrow from "./Arrow";
 import Cart from "./Cart";
-import Eye from "./Eye"
-import Like from "./Like"
+import Eye from "./Eye";
+import Like from "./Like";
 import Mail from "./Mail";
 import Phone from "./Phone";
 import Profile from "./Profile";
@@ -15,19 +15,19 @@ import List from "./List";
 import Lines from "./Lines";
 
 export {
-    Arrow,
-    Cart,
-    Eye,
-    Like,
-    Mail,
-    Phone,
-    Profile,
-    Database,
-    Search,
-    Tag,
-    Map,
-    Remove,
-    Grid,
-    List,
-    Lines
-}
+  Arrow,
+  Cart,
+  Eye,
+  Like,
+  Mail,
+  Phone,
+  Profile,
+  Database,
+  Search,
+  Tag,
+  Map,
+  Remove,
+  Grid,
+  List,
+  Lines,
+};

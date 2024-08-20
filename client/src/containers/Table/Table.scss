@@ -2,102 +2,102 @@
   Table
 */
 .table__responsive {
-    width: 70%;
-    display: block;
-    overflow: auto;
+  width: 70%;
+  display: block;
+  overflow: auto;
 
-    @media screen and (max-width: 1200px) {
-        width: 100%;
+  @media screen and (max-width: 1200px) {
+    width: 100%;
 
-        .table__btns {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 1rem;
-        }
+    .table__btns {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
     }
+  }
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 
-    td {
-        text-align: center;
-        padding: 2rem;
-    }
+  td {
+    text-align: center;
+    padding: 2rem;
+  }
 }
 
 .table__header {
-    border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .table__title {
-    font-size: 1.4rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    padding-bottom: 1rem;
-    color: #444;
+  font-size: 1.4rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  padding-bottom: 1rem;
+  color: #444;
 }
 
 .table__remove {
-    cursor: pointer;
-    background: none;
-    border: 0;
+  cursor: pointer;
+  background: none;
+  border: 0;
 }
 
 .table__img {
-    width: 7rem;
-    height: 9rem;
+  width: 7rem;
+  height: 9rem;
 }
 
 .table__name {
-    font-size: 1.6rem;
-    font-family: "Playfair Display", sans-serif;
-    letter-spacing: 0.04em;
-    color: #222;
+  font-size: 1.6rem;
+  font-family: "Playfair Display", sans-serif;
+  letter-spacing: 0.04em;
+  color: #222;
 }
 
 .table__quantity {
-    padding: 1rem 0.4rem 1rem 2rem;
-    border: 1px solid #e1e1e1;
-    width: 6rem;
-    height: 4rem;
+  padding: 1rem 0.4rem 1rem 2rem;
+  border: 1px solid #e1e1e1;
+  width: 6rem;
+  height: 4rem;
 }
 
 .table__price {
-    font-size: 1.6rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    color: #222;
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #222;
 }
 
 /*
   Btns
 */
 .table__btns {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .table__input {
-    padding: 1.5rem;
-    border: 1px solid #e1e1e1;
-    border-radius: 5rem;
+  padding: 1.5rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 5rem;
 
-    width: 100%;
-    max-width: 28rem;
+  width: 100%;
+  max-width: 28rem;
 
-    font-family: "Poppins", sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.04em;
-    color: #000;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: #000;
 
-    &::placeholder {
-        font-family: inherit;
-        font-size: inherit;
-        color: #666666;
-    }
+  &::placeholder {
+    font-family: inherit;
+    font-size: inherit;
+    color: #666666;
+  }
 }

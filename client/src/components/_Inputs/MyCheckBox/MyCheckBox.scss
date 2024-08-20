@@ -2,36 +2,36 @@
   Checkbox
 */
 .checkbox {
-    cursor: pointer;
-    appearance: none;
-    position: relative;
-    flex-shrink: 0;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  flex-shrink: 0;
 
-    background-color: #e5e5e5;
-    border-radius: 5px;
-    width: 15px;
-    height: 15px;
+  background-color: #e5e5e5;
+  border-radius: 5px;
+  width: 15px;
+  height: 15px;
 
-    &:checked {
-        &::after {
-            content: "";
-            display: block;
+  &:checked {
+    &::after {
+      content: "";
+      display: block;
 
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
 
-            border: solid #000;
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-        }
+      border: solid #000;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
     }
+  }
 }
 
 .checkbox__flexbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

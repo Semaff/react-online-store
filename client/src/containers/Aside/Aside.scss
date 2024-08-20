@@ -2,150 +2,150 @@
   Aside
 */
 .aside {
-    width: 22%;
+  width: 22%;
 
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  @media screen and (max-width: 1200px) {
     flex-direction: column;
-    gap: 3rem;
-
-    @media screen and (max-width: 1200px) {
-        flex-direction: column;
-        width: 100%;
-    }
+    width: 100%;
+  }
 }
 
 .aside__section {
-    padding: 3rem;
-    border: 1px solid #e5e5e5;
+  padding: 3rem;
+  border: 1px solid #e5e5e5;
 }
 
 .aside__title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    h4 {
-        font-size: 1.8rem;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: 0.02em;
-        color: #222222;
-        font-weight: 500;
-    }
+  h4 {
+    font-size: 1.8rem;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.02em;
+    color: #222222;
+    font-weight: 500;
+  }
 }
 
 .aside__block {
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 3rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 3rem;
 
-    & + & {
-        padding: 3rem 0;
-    }
+  & + & {
+    padding: 3rem 0;
+  }
 
-    &:last-child {
-        border: none;
-        padding: 0;
-        padding-top: 3rem;
-    }
+  &:last-child {
+    border: none;
+    padding: 0;
+    padding-top: 3rem;
+  }
 }
 
 .aside__content {
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.1s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.1s ease-in-out;
 }
 
 .aside__colors {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 .aside__color {
-    cursor: pointer;
-    background: none;
-    border: none;
+  cursor: pointer;
+  background: none;
+  border: none;
 
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-    font-size: 1.3rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    color: #666666;
-    text-decoration: none;
+  font-size: 1.3rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #666666;
+  text-decoration: none;
 
-    &:hover,
-    &.active {
-        color: #000;
-    }
+  &:hover,
+  &.active {
+    color: #000;
+  }
 }
 
 .aside__products {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 /*
   Banner
 */
 .aside__banner {
-    display: block;
-    position: relative;
-    text-decoration: none;
+  display: block;
+  position: relative;
+  text-decoration: none;
 
+  img {
+    width: 100%;
+    height: 46rem;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 1200px) {
     img {
-        width: 100%;
-        height: 46rem;
-        object-fit: cover;
+      display: none;
     }
-
-    @media screen and (max-width: 1200px) {
-        img {
-            display: none;
-        }
-    }
+  }
 }
 
 .aside__banner-text {
-    position: absolute;
-    bottom: 2%;
-    left: 50%;
-    transform: translate(-50%, -2%);
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%, -2%);
 
-    text-align: center;
+  text-align: center;
 
-    width: 90%;
-    padding: 1.5rem;
-    background-color: #fff;
+  width: 90%;
+  padding: 1.5rem;
+  background-color: #fff;
 
-    b,
-    span {
-        display: block;
-        letter-spacing: 0.025em;
-        line-height: 1.2;
-        font-family: "Poppins", sans-serif;
-        color: #000;
-    }
+  b,
+  span {
+    display: block;
+    letter-spacing: 0.025em;
+    line-height: 1.2;
+    font-family: "Poppins", sans-serif;
+    color: #000;
+  }
 
-    b {
-        font-size: 2.8rem;
-        font-weight: 700;
-    }
+  b {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
 
-    span {
-        font-size: 2.5rem;
-    }
+  span {
+    font-size: 2.5rem;
+  }
 
-    @media screen and (max-width: 1200px) {
-        position: static;
-        transform: none;
-        width: 100%;
-        border: 1px solid #e5e5e5;
-    }
+  @media screen and (max-width: 1200px) {
+    position: static;
+    transform: none;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+  }
 }

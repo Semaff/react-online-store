@@ -2,26 +2,26 @@
   Radio
 */
 .radio {
-    cursor: pointer;
-    flex-shrink: 0;
-    appearance: none;
-    margin: 0;
-    padding: 0;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #dee1e6;
+  cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #dee1e6;
 
-    transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 
-    &:checked {
-        background-color: #000;
-        border: 3px solid #dee1e6;
-    }
+  &:checked {
+    background-color: #000;
+    border: 3px solid #dee1e6;
+  }
 }
 
 .radio__flexbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

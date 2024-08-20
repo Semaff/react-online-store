@@ -3,24 +3,24 @@
 *,
 *::after,
 *::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-    font-size: 10px;
+  scroll-behavior: smooth;
+  font-size: 10px;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-        "Droid Sans", "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 h1,
@@ -30,160 +30,160 @@ h4,
 h5,
 h6,
 p {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .container {
-    width: 100%;
-    max-width: 163rem;
-    padding: 0 15px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 163rem;
+  padding: 0 15px;
+  margin: 0 auto;
 
-    &.--shrinked {
-        max-width: 132rem;
-    }
+  &.--shrinked {
+    max-width: 132rem;
+  }
 }
 
 .--fs0 {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 /*
   Section
 */
 .section {
-    padding-top: 7rem;
+  padding-top: 7rem;
 
-    &.--padding0 {
-        padding: 0;
-    }
+  &.--padding0 {
+    padding: 0;
+  }
 
-    &.--fullPadding {
-        padding: 7rem 0;
-    }
+  &.--fullPadding {
+    padding: 7rem 0;
+  }
 
-    &.--addMargin {
-        margin-top: 7rem;
-    }
+  &.--addMargin {
+    margin-top: 7rem;
+  }
 
-    &.--extraPadding {
-        padding: 13rem 0;
-    }
+  &.--extraPadding {
+    padding: 13rem 0;
+  }
 
-    &.--lowOpacity {
-        opacity: 0.8;
-    }
+  &.--lowOpacity {
+    opacity: 0.8;
+  }
 }
 
 .section__title {
-    text-align: center;
-    font-size: 4rem;
-    letter-spacing: 0.025em;
-    color: #000;
-    font-weight: 700;
-    font-family: "Playfair Display", sans-serif;
+  text-align: center;
+  font-size: 4rem;
+  letter-spacing: 0.025em;
+  color: #000;
+  font-weight: 700;
+  font-family: "Playfair Display", sans-serif;
 
-    &::after {
-        content: "";
-        display: block;
-        width: 100%;
-        max-width: 5rem;
-        height: 2px;
-        background-color: #000;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 5rem;
+    height: 2px;
+    background-color: #000;
 
-        margin: 2rem auto 3rem;
-    }
+    margin: 2rem auto 3rem;
+  }
 }
 
 .section__subtitle {
-    text-align: center;
-    font-size: 2.4rem;
-    font-family: "Poppins", sans-serif;
-    color: #000;
-    letter-spacing: 0.025em;
-    font-weight: 500;
+  text-align: center;
+  font-size: 2.4rem;
+  font-family: "Poppins", sans-serif;
+  color: #000;
+  letter-spacing: 0.025em;
+  font-weight: 500;
 
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e1e1e1;
 
-    &.--left {
-        text-align: left;
-    }
+  &.--left {
+    text-align: left;
+  }
 }
 
 .section__none {
-    margin: 5rem 0;
-    
-    text-align: center;
-    font-size: 1.8rem;
-    font-family: "Poppins", sans-serif;
-    color: #000;
-    letter-spacing: 0.025em;
-    font-weight: 400;
+  margin: 5rem 0;
+
+  text-align: center;
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+  color: #000;
+  letter-spacing: 0.025em;
+  font-weight: 400;
 }
 
 /*
   Color
 */
 .color {
-    cursor: pointer;
-    display: inline-block;
-    border: 1px solid #e5e5e5;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid #e5e5e5;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
 
-    &.active {
-        box-shadow: 0 0 10px rgba(#000, 0.4);
-    }
+  &.active {
+    box-shadow: 0 0 10px rgba(#000, 0.4);
+  }
 }
 
 /*
   Label
 */
 .label {
-    font-size: 1.3rem;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.04em;
-    color: #666666;
+  font-size: 1.3rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.04em;
+  color: #666666;
 
-    &.--important {
-        &::after {
-            content: "*";
-            color: red;
-            margin-left: 0.5rem;
-        }
+  &.--important {
+    &::after {
+      content: "*";
+      color: red;
+      margin-left: 0.5rem;
     }
+  }
 
-    &.--black {
-        font-size: 1.4rem;
-        color: #444444;
-    }
+  &.--black {
+    font-size: 1.4rem;
+    color: #444444;
+  }
 }
 
 /*
   Loading
 */
 .loading {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
 
-    background-color: rgba(#000, 0.4);
+  background-color: rgba(#000, 0.4);
 }
 
 /*
   Error
 */
 .error {
-    text-align: center;
-    font-size: 1.2rem;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.025em;
-    color: red;
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.025em;
+  color: red;
 }
