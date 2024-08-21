@@ -1,12 +1,13 @@
-require('dotenv').config();
-const sequelize = require('./db');
-const models = require("./models/models")
+require("dotenv").config();
+require("./models/models");
+
+const sequelize = require("./db");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
-const router = require('./routes/routes');
-const errorHandler = require('./middlewares/errorHandlerMiddleware');
+const router = require("./routes/routes");
+const errorHandler = require("./middlewares/errorHandlerMiddleware");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -14,27 +15,25 @@ const app = express();
 /* Middlewares */
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, 'static')));
+app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use("/api", router);
 
 app.use(errorHandler);
 
-/*
- Start Server
-*/
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/static/client/index.html");
+/* Start */
+app.get("/", (_, res) => {
+  res.sendFile(__dirname + "/static/client/index.html");
 });
 
-const startServer = async () => {
-    try {
-        await sequelize.authenticate();
-        await sequelize.sync();
-        app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-    } catch (err) {
-        console.log(err);
-    }
+async function start() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    app.listen(PORT, () => console.error(`Server started on port ${PORT}`));
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-startServer();
+start();

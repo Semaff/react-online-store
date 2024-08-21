@@ -12,8 +12,8 @@ router.get("/getall", CategoryController.getAll); // get list of all types
 router.get("/getone/:id", CategoryController.getOne); // get one type
 
 router.post("/create", checkAuth, checkRole, CategoryController.create); // create a new type
-router.put('/update/:id', checkAuth, checkRole, CategoryController.update); // update a type
-router.delete('/delete/:id', checkAuth, checkRole, CategoryController.delete); // delete a type
+router.put("/update/:id", checkAuth, checkRole, CategoryController.update); // update a type
+router.delete("/delete/:id", checkAuth, checkRole, CategoryController.delete); // delete a type
 
 /*
   Type-Brands
@@ -21,7 +21,17 @@ router.delete('/delete/:id', checkAuth, checkRole, CategoryController.delete); /
 router.get("/:categoryId/brand/getall", CategoryBrandController.getAll);
 router.get("/:categoryId/brand/getone/:brandId", CategoryBrandController.getOne);
 
-router.post("/:categoryId/brand/create/:brandId", checkAuth, checkRole, CategoryBrandController.create);
-router.delete("/:categoryId/brand/delete/:brandId", checkAuth, checkRole, CategoryBrandController.delete);
+router.post(
+  "/:categoryId/brand/create/:brandId",
+  checkAuth,
+  checkRole,
+  CategoryBrandController.create,
+);
+router.delete(
+  "/:categoryId/brand/delete/:brandId",
+  checkAuth,
+  checkRole,
+  CategoryBrandController.delete,
+);
 
 module.exports = router;

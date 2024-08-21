@@ -6,7 +6,7 @@
 /server/.env
 /client/.env
 
-/_PSD
-/_Screenshots
+/_psd
+/_screens
 
 /server/static

@@ -1,5 +1,5 @@
-const Router = require('express');
-const basketController = require('../controllers/BasketController');
+const Router = require("express");
+const basketController = require("../controllers/BasketController");
 const checkAuth = require("../middlewares/authMiddleware");
 const router = new Router();
 

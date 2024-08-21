@@ -2,239 +2,249 @@ const { Basket, Product, BasketProduct, BasketFavourite } = require("../models/m
 const AppError = require("../error/AppError");
 
 class BasketController {
-    async getOne(req, res, next) {
-        try {
-            const { id: userId } = req.user;
+  async getOne(req, res, next) {
+    try {
+      const { id: userId } = req.user;
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message));
-        }
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async toggleFavourite(req, res, next) {
-        try {
-            const { id: userId } = req.user;
-            const { productId } = req.params;
+  async toggleFavourite(req, res, next) {
+    try {
+      const { id: userId } = req.user;
+      const { productId } = req.params;
 
-            // Find Product by productId and check it's quantity
-            const product = await Product.findByPk(productId);
-            if (!product) {
-                throw new Error("Product was not found")
-            }
+      // Find Product by productId and check it's quantity
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        throw new Error("Product was not found");
+      }
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Delete or create favourite BasketFavourite
-            const basketFavourite = await BasketFavourite.findOne({ where: { basketId: basket.id, productId } });
-            if (basketFavourite) {
-                await basketFavourite.destroy();
-            } else {
-                await BasketFavourite.create({ basketId: basket.id, productId });
-            }
+      // Delete or create favourite BasketFavourite
+      const basketFavourite = await BasketFavourite.findOne({
+        where: { basketId: basket.id, productId },
+      });
+      if (basketFavourite) {
+        await basketFavourite.destroy();
+      } else {
+        await BasketFavourite.create({ basketId: basket.id, productId });
+      }
 
-            await basket.reload();
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message))
-        }
+      await basket.reload();
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async append(req, res, next) {
-        try {
-            const { id: userId } = req.user;
-            const { productId, quantity } = req.params;
+  async append(req, res, next) {
+    try {
+      const { id: userId } = req.user;
+      const { productId, quantity } = req.params;
 
-            // Find Product by productId and check it's quantity
-            const product = await Product.findByPk(productId);
-            if (!product) {
-                throw new Error("Product was not found")
-            }
-            if (product.quantity < quantity || quantity <= 0) {
-                throw new Error("This amount of product is unavailable")
-            }
+      // Find Product by productId and check it's quantity
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        throw new Error("Product was not found");
+      }
+      if (product.quantity < quantity || quantity <= 0) {
+        throw new Error("This amount of product is unavailable");
+      }
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Increment or Update basketProduct
-            const basketProduct = await BasketProduct.findOne({ where: { basketId: basket.id, productId } });
-            if (basketProduct) {
-                await basketProduct.increment("quantity", { by: quantity });
-            } else {
-                await BasketProduct.create({ basketId: basket.id, productId, quantity });
-            }
-            await product.update({ quantity: product.quantity - quantity });
+      // Increment or Update basketProduct
+      const basketProduct = await BasketProduct.findOne({
+        where: { basketId: basket.id, productId },
+      });
+      if (basketProduct) {
+        await basketProduct.increment("quantity", { by: quantity });
+      } else {
+        await BasketProduct.create({ basketId: basket.id, productId, quantity });
+      }
+      await product.update({ quantity: product.quantity - quantity });
 
-            await basket.reload();
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message))
-        }
+      await basket.reload();
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async increment(req, res, next) {
-        try {
-            const { id: userId } = req.user;
-            const { productId, quantity } = req.params;
+  async increment(req, res, next) {
+    try {
+      const { id: userId } = req.user;
+      const { productId, quantity } = req.params;
 
-            // Find Product by productId and check it's quantity
-            const product = await Product.findByPk(productId);
-            if (!product) {
-                throw new Error("Product was not found")
-            }
-            if (product.quantity < quantity || quantity <= 0) {
-                throw new Error("This amount of product is unavailable")
-            }
+      // Find Product by productId and check it's quantity
+      const product = await Product.findByPk(productId);
+      if (!product) {
+        throw new Error("Product was not found");
+      }
+      if (product.quantity < quantity || quantity <= 0) {
+        throw new Error("This amount of product is unavailable");
+      }
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Increment BasketProduct
-            const basketProduct = await BasketProduct.findOne({ where: { basketId: basket.id, productId } });
-            if (basketProduct) {
-                await basketProduct.increment('quantity', { by: quantity });
-            } else {
-                await BasketProduct.create({ basketId: basket.id, productId, quantity });
-            }
-            await product.update({ quantity: product.quantity - quantity });
+      // Increment BasketProduct
+      const basketProduct = await BasketProduct.findOne({
+        where: { basketId: basket.id, productId },
+      });
+      if (basketProduct) {
+        await basketProduct.increment("quantity", { by: quantity });
+      } else {
+        await BasketProduct.create({ basketId: basket.id, productId, quantity });
+      }
+      await product.update({ quantity: product.quantity - quantity });
 
-            await basket.reload();
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message));
-        }
+      await basket.reload();
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async decrement(req, res, next) {
-        try {
-            const { id: userId } = req.user;
-            const { productId, quantity } = req.params;
+  async decrement(req, res, next) {
+    try {
+      const { id: userId } = req.user;
+      const { productId, quantity } = req.params;
 
-            // Find Product by productId
-            const product = await Product.findByPk(productId);
-            if (quantity <= 0) {
-                throw new Error("Wrong amount of quantity")
-            }
+      // Find Product by productId
+      const product = await Product.findByPk(productId);
+      if (quantity <= 0) {
+        throw new Error("Wrong amount of quantity");
+      }
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Decrement BasketProduct or destroy it
-            const basketProduct = await BasketProduct.findOne({ where: { basketId: basket.id, productId } });
-            if (basketProduct) {
-                if (basketProduct.quantity > quantity) {
-                    await product.update({ quantity: +product.quantity + +quantity });
-                    await basketProduct.decrement('quantity', { by: quantity });
-                } else {
-                    await product.update({ quantity: +product.quantity + +basketProduct.quantity });
-                    await basketProduct.destroy();
-                }
-                await basket.reload();
-            }
-
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message));
+      // Decrement BasketProduct or destroy it
+      const basketProduct = await BasketProduct.findOne({
+        where: { basketId: basket.id, productId },
+      });
+      if (basketProduct) {
+        if (basketProduct.quantity > quantity) {
+          await product.update({ quantity: +product.quantity + +quantity });
+          await basketProduct.decrement("quantity", { by: quantity });
+        } else {
+          await product.update({ quantity: +product.quantity + +basketProduct.quantity });
+          await basketProduct.destroy();
         }
+        await basket.reload();
+      }
+
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async remove(req, res, next) {
-        try {
-            const { id: userId } = req.user;
-            const { productId } = req.params;
+  async remove(req, res, next) {
+    try {
+      const { id: userId } = req.user;
+      const { productId } = req.params;
 
-            // Find Product by productId
-            const product = await Product.findByPk(productId);
+      // Find Product by productId
+      const product = await Product.findByPk(productId);
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Delete BasketProduct
-            const basketProduct = await BasketProduct.findOne({ where: { basketId: basket.id, productId } });
-            if (basketProduct) {
-                await product.update({ quantity: +product.quantity + +basketProduct.quantity });
-                await basketProduct.destroy();
-                await basket.reload();
-            }
+      // Delete BasketProduct
+      const basketProduct = await BasketProduct.findOne({
+        where: { basketId: basket.id, productId },
+      });
+      if (basketProduct) {
+        await product.update({ quantity: +product.quantity + +basketProduct.quantity });
+        await basketProduct.destroy();
+        await basket.reload();
+      }
 
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message));
-        }
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 
-    async clear(req, res, next) {
-        try {
-            const { id: userId } = req.user;
+  async clear(req, res, next) {
+    try {
+      const { id: userId } = req.user;
 
-            // Find Basket by userId with inner Products
-            const basket = await Basket.findOne({
-                where: { userId },
-                include: [
-                    { model: Product, order: ["createdAt", "ASC"], as: "products" },
-                    { model: Product, order: ["createdAt", "ASC"], as: "favourites" }
-                ],
-            });
+      // Find Basket by userId with inner Products
+      const basket = await Basket.findOne({
+        where: { userId },
+        include: [
+          { model: Product, order: ["createdAt", "ASC"], as: "products" },
+          { model: Product, order: ["createdAt", "ASC"], as: "favourites" },
+        ],
+      });
 
-            // Turn back quantities to products
-            const basketProducts = await BasketProduct.findAll({ where: { basketId: basket.id } });
-            basketProducts.forEach(async (basketProduct) => {
-                let product = await Product.findByPk(basketProduct.productId);
-                await product.update({ quantity: +product.quantity + +basketProduct.quantity });
-            });
+      // Turn back quantities to products
+      const basketProducts = await BasketProduct.findAll({ where: { basketId: basket.id } });
+      basketProducts.forEach(async (basketProduct) => {
+        let product = await Product.findByPk(basketProduct.productId);
+        await product.update({ quantity: +product.quantity + +basketProduct.quantity });
+      });
 
-            // Clear basket
-            if (basket) {
-                await BasketProduct.destroy({ where: { basketId: basket.id } });
-                await basket.reload();
-            }
+      // Clear basket
+      if (basket) {
+        await BasketProduct.destroy({ where: { basketId: basket.id } });
+        await basket.reload();
+      }
 
-            return res.json(basket);
-        } catch (err) {
-            next(AppError.badRequest(err.message));
-        }
+      return res.json(basket);
+    } catch (err) {
+      next(AppError.badRequest(err.message));
     }
+  }
 }
 
 module.exports = new BasketController();
