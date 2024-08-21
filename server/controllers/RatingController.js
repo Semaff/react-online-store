@@ -1,5 +1,6 @@
-const AppError = require("../error/AppError");
-const { Product, Rating } = require("../models/models");
+const { Product, Rating } = require("../models");
+
+const { AppError } = require("../errors");
 
 class RatingController {
   async getOne(req, res, next) {
@@ -7,6 +8,7 @@ class RatingController {
       let { limit, page } = req.query;
 
       const product = await Product.findByPk(req.params.productId);
+
       if (!product) {
         throw new Error("Product was not found");
       }
@@ -16,6 +18,7 @@ class RatingController {
       let offset = page * limit - limit;
 
       const votes = await Rating.count({ where: { productId: req.params.productId } });
+
       const ratings = await Rating.findAndCountAll({
         offset,
         limit,
@@ -41,11 +44,13 @@ class RatingController {
       const { name, description } = req.body;
 
       const product = await Product.findByPk(productId);
+
       if (!product) {
         throw new Error("Product was not found");
       }
 
       let rating = await Rating.findOne({ where: { userId: req.user.id, productId } });
+
       if (rating) {
         throw new Error("You are already voted for this product!");
       } else {
@@ -54,7 +59,9 @@ class RatingController {
 
       const votes = await Rating.count({ where: { productId: productId } });
       const rates = await Rating.sum("rate", { where: { productId: productId } });
+
       await product.update({ rating: rates / votes });
+
       return res.json(rating);
     } catch (err) {
       next(AppError.badRequest(err.message));

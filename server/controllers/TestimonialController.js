@@ -1,10 +1,11 @@
-const { Testimonial } = require("../models/models");
-const AppError = require("../error/AppError");
-const uuid = require("uuid");
-const path = require("path");
+const { Testimonial } = require("../models");
+
+const { AppError } = require("../errors");
+
+const parseImg = require("../utils/parseImg");
 
 class TestimonialController {
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     try {
       const testimonials = await Testimonial.findAll();
       return res.json(testimonials);
@@ -16,6 +17,7 @@ class TestimonialController {
   async getOne(req, res, next) {
     try {
       const testimonial = await Testimonial.findByPk(req.params.id);
+
       if (!testimonial) {
         throw new Error("Testimonial does not found!");
       }
@@ -30,14 +32,10 @@ class TestimonialController {
     try {
       const { name, profession, content } = req.body;
 
-      // Parse Img
-      const img = req.files?.img;
-      const [, ext] = img.mimetype.split("/");
-      let fileName = uuid.v4() + "." + ext;
-      img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
+      const fileName = await parseImg(req.files?.img);
 
-      // Create Testimonial
       const testimonial = await Testimonial.create({ img: fileName, name, profession, content });
+
       return res.json(testimonial);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -47,26 +45,21 @@ class TestimonialController {
   async update(req, res, next) {
     try {
       const testimonial = await Testimonial.findByPk(req.params.id);
+
       if (!testimonial) {
-        throw new Error("Testimonial does not found!");
+        throw new Error("Testimonial wasn't found!");
       }
 
-      // Update or not columns
+      const fileName = await parseImg(req.files?.img);
+
       const name = req.body.name || testimonial.name;
       const profession = req.body.profession || testimonial.profession;
       const content = req.body.content || testimonial.content;
 
-      // Parse Img
-      const img = req.files?.img;
-      let fileName;
-      if (img) {
-        const [, ext] = img.mimetype.split("/");
-        fileName = uuid.v4() + "." + ext;
-        img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
-      }
-      let newImg = fileName || testimonial.img;
+      const img = fileName || testimonial.img;
 
-      await testimonial.update({ name, profession, content, img: newImg });
+      await testimonial.update({ name, profession, content, img });
+
       return res.json(testimonial);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -76,11 +69,13 @@ class TestimonialController {
   async delete(req, res, next) {
     try {
       const testimonial = await Testimonial.findByPk(req.params.id);
+
       if (!testimonial) {
         throw new Error("Testimonial does not found");
       }
 
       await testimonial.destroy();
+
       return res.json(testimonial);
     } catch (err) {
       next(AppError.badRequest(err.message));

@@ -1,8 +1,10 @@
-const AppError = require("../error/AppError");
-const { Product, Category } = require("../models/models");
-const uuid = require("uuid");
-const path = require("path");
 const { Op } = require("sequelize");
+
+const { Product, Category } = require("../models");
+
+const { AppError } = require("../errors");
+
+const parseImg = require("../utils/parseImg");
 
 async function findAllProducts({
   brandId,
@@ -70,7 +72,7 @@ class ProductController {
       let { brandId, categoryId, gender, size, color, limit, page, order, getall, price } =
         req.query;
 
-      // Check what offset we need to send
+      /* Check what offset we need to send */
       let offset;
       if (getall === "true") {
         limit = undefined;
@@ -82,9 +84,7 @@ class ProductController {
         offset = page * limit - limit;
       }
 
-      /*
-              Check what filters are used
-            */
+      /* Check what filters are used */
       const products = await findAllProducts({
         brandId,
         categoryId,
@@ -96,6 +96,7 @@ class ProductController {
         order,
         price,
       });
+
       return res.json(products);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -108,8 +109,8 @@ class ProductController {
         throw new Error("Wrong id!");
       }
 
-      // Find Product by productId
       const product = await Product.findByPk(req.params.id);
+
       if (!product) {
         throw new Error("Product was not found");
       }
@@ -134,17 +135,11 @@ class ProductController {
         categoryId = null,
       } = req.body;
 
-      // Parse Img
-      const img = req.files.img;
-      const [, ext] = img.mimetype.split("/");
-      let fileName = uuid.v4() + "." + ext;
-      img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
+      const fileName = await parseImg(req.files.img);
 
-      // Parse colors and sizes
       const arrayOfColors = colors.split(", ");
       const arrayOfSizes = sizes.split(", ");
 
-      // Create product
       const product = await Product.create({
         name,
         price: +price,
@@ -158,7 +153,7 @@ class ProductController {
         categoryId,
       });
 
-      // Increment Category amount
+      /* Increment Category Amount */
       if (categoryId) {
         const category = await Category.findByPk(categoryId);
         category.increment("amount", { by: 1 });
@@ -176,36 +171,31 @@ class ProductController {
         throw new Error("Wrong id!");
       }
 
-      // Find Product by productId and check for existence
       const product = await Product.findByPk(req.params.id);
+
       if (!product) {
         throw new Error("Product was not found");
       }
 
-      // Parse Img
-      const img = req.files?.img;
-      let fileName;
-      if (img) {
-        const [, ext] = img.mimetype.split("/");
-        fileName = uuid.v4() + "." + ext;
-        img.mv(path.resolve(__dirname, "..", "static", "db-images", fileName));
-      }
+      const fileName = await parseImg(req.files?.img);
 
-      // Parse colors and sizes
+      /* Colors/Sizes */
       let arrayOfColors;
       let arrayOfSizes;
+
       if (req.body.colors) {
         arrayOfColors = req.body.colors.split(", ");
       } else {
         arrayOfColors = product.colors;
       }
+
       if (req.body.sizes) {
         arrayOfSizes = req.body.sizes.split(", ");
       } else {
         arrayOfSizes = product.sizes;
       }
 
-      // Update or not information about product
+      /* Update Information */
       const name = req.body.name || product.name;
       const price = req.body.price || product.price;
       const description = req.body.description || product.description;
@@ -217,7 +207,7 @@ class ProductController {
 
       const newImg = fileName || product.img;
 
-      // Parse Sale price
+      /* Sale Price */
       let onASale;
       let salePrice;
       if (req.body.onASale === "false") {
@@ -231,7 +221,6 @@ class ProductController {
         salePrice = product.salePrice;
       }
 
-      // Update product
       await product.update({
         name,
         price,
@@ -259,19 +248,19 @@ class ProductController {
         throw new Error("Wrong id");
       }
 
-      // Find Product by productId
       const product = await Product.findByPk(req.params.id);
+
       if (!product) {
         throw new Error("Product was not found");
       }
 
       const categoryId = product.categoryId;
 
-      // Destroy Product
       await product.destroy();
 
-      // Decrement Category amount
+      /* Decrement Category amount */
       const category = await Category.findByPk(categoryId);
+
       if (category) {
         category.decrement("amount", { by: 1 });
       }

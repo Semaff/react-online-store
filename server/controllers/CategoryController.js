@@ -1,12 +1,14 @@
-const AppError = require("../error/AppError");
-const { Category, Brand, CategoryBrand, Product } = require("../models/models");
+const { Category, Brand, CategoryBrand, Product } = require("../models");
+
+const { AppError } = require("../errors");
 
 class CategoryController {
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     try {
       const categories = await Category.findAll({
         include: [{ model: Brand }],
       });
+
       return res.json(categories);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -19,6 +21,7 @@ class CategoryController {
         where: { id: req.params.id },
         include: [{ model: Brand }],
       });
+
       if (!category) {
         throw new Error("Category does not exist");
       }
@@ -34,6 +37,7 @@ class CategoryController {
       if (!req.body.name) {
         throw new Error("Can't create Category without name");
       }
+
       if (!req.body.description) {
         throw new Error("Can't create Category without description");
       }
@@ -42,6 +46,7 @@ class CategoryController {
         name: req.body.name,
         description: req.body.description,
       });
+
       return res.json(category);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -54,13 +59,16 @@ class CategoryController {
         where: { id: req.params.id },
         include: [{ model: Brand }],
       });
+
       if (!category) {
         throw new Error("Category does not exist!");
       }
 
       const name = req.body.name || category.name;
       const description = req.body.description || category.description;
+
       await category.update({ name, description });
+
       return res.json(category);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -73,13 +81,16 @@ class CategoryController {
         where: { id: req.params.id },
         include: [{ model: Brand }],
       });
+
       if (!category) {
         throw new Error("Category does not exist");
       }
 
       await Product.destroy({ where: { categoryId: category.id } });
       await CategoryBrand.destroy({ where: { categoryId: category.id } });
+
       await category.destroy();
+
       return res.json(category);
     } catch (err) {
       next(AppError.badRequest(err.message));

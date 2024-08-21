@@ -1,11 +1,14 @@
-const AppError = require("../error/AppError");
-const { CategoryBrand } = require("../models/models");
+const { CategoryBrand } = require("../models");
+
+const { AppError } = require("../errors");
 
 class CategoryBrandController {
   async getAll(req, res, next) {
     try {
       const { categoryId } = req.params;
+
       const categoryBrands = await CategoryBrand.findAll({ where: { categoryId } });
+
       return res.json(categoryBrands);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -15,7 +18,9 @@ class CategoryBrandController {
   async getOne(req, res, next) {
     try {
       const { categoryId, brandId } = req.params;
+
       const categoryBrand = await CategoryBrand.findOne({ where: { categoryId, brandId } });
+
       return res.json(categoryBrand);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -25,7 +30,9 @@ class CategoryBrandController {
   async create(req, res, next) {
     try {
       const { categoryId, brandId } = req.params;
+
       const categoryBrand = await CategoryBrand.create({ categoryId, brandId });
+
       return res.json(categoryBrand);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -35,12 +42,15 @@ class CategoryBrandController {
   async delete(req, res, next) {
     try {
       const { categoryId, brandId } = req.params;
+
       const categoryBrand = await CategoryBrand.findOne({ where: { categoryId, brandId } });
+
       if (!categoryBrand) {
         throw new Error("Brand in this category does not exist");
       }
 
       await categoryBrand.destroy();
+
       return res.json(categoryBrand);
     } catch (err) {
       next(AppError.badRequest(err.message));

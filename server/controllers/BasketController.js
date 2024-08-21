@@ -1,5 +1,6 @@
 const { Basket, Product, BasketProduct, BasketFavorite } = require("../models");
-const AppError = require("../error/AppError");
+
+const { AppError } = require("../errors");
 
 const findBasket = async (userId) => {
   return await Basket.findOne({

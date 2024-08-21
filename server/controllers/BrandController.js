@@ -1,8 +1,9 @@
-const { Brand, CategoryBrand, Product } = require("../models/models");
-const AppError = require("../error/AppError");
+const { Brand, CategoryBrand, Product } = require("../models");
+
+const { AppError } = require("../errors");
 
 class BrandController {
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     try {
       const brands = await Brand.findAll();
       return res.json(brands);
@@ -14,8 +15,9 @@ class BrandController {
   async getOne(req, res, next) {
     try {
       const brand = await Brand.findByPk(req.params.id);
+
       if (!brand) {
-        throw new Error("Brand does not found!");
+        throw new Error("Brand wasn't found!");
       }
 
       return res.json(brand);
@@ -31,6 +33,7 @@ class BrandController {
       }
 
       const brand = await Brand.create({ name: req.body.name });
+
       return res.json(brand);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -40,12 +43,15 @@ class BrandController {
   async update(req, res, next) {
     try {
       const brand = await Brand.findByPk(req.params.id);
+
       if (!brand) {
         throw new Error("Brand does not found!");
       }
 
       const name = req.body.name || brand.name;
+
       await brand.update({ name });
+
       return res.json(brand);
     } catch (err) {
       next(AppError.badRequest(err.message));
@@ -55,13 +61,16 @@ class BrandController {
   async delete(req, res, next) {
     try {
       const brand = await Brand.findByPk(req.params.id);
+
       if (!brand) {
         throw new Error("Brand does not found");
       }
 
       await Product.destroy({ where: { brandId: brand.id } });
       await CategoryBrand.destroy({ where: { brandId: brand.id } });
+
       await brand.destroy();
+
       return res.json(brand);
     } catch (err) {
       next(AppError.badRequest(err.message));
