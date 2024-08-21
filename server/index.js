@@ -1,13 +1,17 @@
 require("dotenv").config();
-require("./models/models");
 
-const sequelize = require("./db");
+require("./models");
+
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
-const router = require("./routes/routes");
-const errorHandler = require("./middlewares/errorHandlerMiddleware");
+
+const sequelize = require("./db");
+
+const router = require("./routes");
+
+const { errorMiddleware } = require("./middlewares");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -19,7 +23,7 @@ app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use("/api", router);
 
-app.use(errorHandler);
+app.use(errorMiddleware);
 
 /* Start */
 app.get("/", (_, res) => {

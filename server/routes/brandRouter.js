@@ -1,14 +1,16 @@
 const Router = require("express");
-const brandController = require("../controllers/BrandController");
-const checkAuth = require("../middlewares/authMiddleware");
-const checkRole = require("../middlewares/checkRoleMiddleware");
+
+const { BrandController } = require("../controllers");
+
+const { authMiddleware, roleMiddleware } = require("../middlewares");
+
 const router = new Router();
 
-router.get("/getall", brandController.getAll); // get list of all brands
-router.get("/getone/:id", brandController.getOne); // get one brand
+router.get("/getall", BrandController.getAll);
+router.get("/getone/:id", BrandController.getOne);
 
-router.post("/create", checkAuth, checkRole, brandController.create); // create a new brand
-router.put("/update/:id", checkAuth, checkRole, brandController.update); // update a brand
-router.delete("/delete/:id", checkAuth, checkRole, brandController.delete); // delete a brand
+router.post("/create", authMiddleware, roleMiddleware, BrandController.create);
+router.put("/update/:id", authMiddleware, roleMiddleware, BrandController.update);
+router.delete("/delete/:id", authMiddleware, roleMiddleware, BrandController.delete);
 
 module.exports = router;

@@ -1,14 +1,16 @@
 const Router = require("express");
-const checkAuth = require("../middlewares/authMiddleware");
-const productController = require("../controllers/ProductController");
-const checkRole = require("../middlewares/checkRoleMiddleware");
+
+const { ProductController } = require("../controllers");
+
+const { authMiddleware, roleMiddleware } = require("../middlewares");
+
 const router = new Router();
 
-router.get("/getall", productController.getAll);
-router.get("/getone/:id", productController.getOne);
+router.get("/getall", ProductController.getAll);
+router.get("/getone/:id", ProductController.getOne);
 
-router.post("/create", checkAuth, checkRole, productController.create);
-router.put("/update/:id", checkAuth, checkRole, productController.update);
-router.delete("/delete/:id", checkAuth, checkRole, productController.delete);
+router.post("/create", authMiddleware, roleMiddleware, ProductController.create);
+router.put("/update/:id", authMiddleware, roleMiddleware, ProductController.update);
+router.delete("/delete/:id", authMiddleware, roleMiddleware, ProductController.delete);
 
 module.exports = router;

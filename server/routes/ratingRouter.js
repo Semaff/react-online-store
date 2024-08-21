@@ -1,9 +1,12 @@
 const Router = require("express");
-const checkAuth = require("../middlewares/authMiddleware");
-const router = new Router();
-const ratingController = require("../controllers/RatingController");
 
-router.get("/:productId", ratingController.getOne);
-router.post("/:productId/rate/:rate([1-5])", checkAuth, ratingController.create);
+const { RatingController } = require("../controllers");
+
+const { authMiddleware } = require("../middlewares");
+
+const router = new Router();
+
+router.get("/:productId", RatingController.getOne);
+router.post("/:productId/rate/:rate([1-5])", authMiddleware, RatingController.create);
 
 module.exports = router;

@@ -1,36 +1,34 @@
 const Router = require("express");
-const CategoryBrandController = require("../controllers/CategoryBrandController");
-const CategoryController = require("../controllers/CategoryController");
-const checkAuth = require("../middlewares/authMiddleware");
-const checkRole = require("../middlewares/checkRoleMiddleware");
+
+const { CategoryBrandController, CategoryController } = require("../controllers");
+
+const { authMiddleware, roleMiddleware } = require("../middlewares");
+
 const router = new Router();
 
-/*
-  Categories
-*/
-router.get("/getall", CategoryController.getAll); // get list of all types
-router.get("/getone/:id", CategoryController.getOne); // get one type
+/* Categories */
+router.get("/getall", CategoryController.getAll);
+router.get("/getone/:id", CategoryController.getOne);
 
-router.post("/create", checkAuth, checkRole, CategoryController.create); // create a new type
-router.put("/update/:id", checkAuth, checkRole, CategoryController.update); // update a type
-router.delete("/delete/:id", checkAuth, checkRole, CategoryController.delete); // delete a type
+router.post("/create", authMiddleware, roleMiddleware, CategoryController.create);
+router.put("/update/:id", authMiddleware, roleMiddleware, CategoryController.update);
+router.delete("/delete/:id", authMiddleware, roleMiddleware, CategoryController.delete);
 
-/*
-  Type-Brands
-*/
+/* Type-Brands */
 router.get("/:categoryId/brand/getall", CategoryBrandController.getAll);
 router.get("/:categoryId/brand/getone/:brandId", CategoryBrandController.getOne);
 
 router.post(
   "/:categoryId/brand/create/:brandId",
-  checkAuth,
-  checkRole,
+  authMiddleware,
+  roleMiddleware,
   CategoryBrandController.create,
 );
+
 router.delete(
   "/:categoryId/brand/delete/:brandId",
-  checkAuth,
-  checkRole,
+  authMiddleware,
+  roleMiddleware,
   CategoryBrandController.delete,
 );
 

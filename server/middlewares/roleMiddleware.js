@@ -1,6 +1,6 @@
-const AppError = require("../error/AppError");
+const { AppError } = require("../errors");
 
-function checkRole(req, res, next) {
+function roleMiddleware(req, _, next) {
   try {
     if (req.user.role !== "ADMIN") {
       throw new Error("No access");
@@ -12,4 +12,4 @@ function checkRole(req, res, next) {
   }
 }
 
-module.exports = checkRole;
+module.exports = roleMiddleware;
