@@ -6,16 +6,15 @@ const { authMiddleware } = require("../middlewares");
 
 const router = new Router();
 
-router.get("/getone", authMiddleware, BasketController.getOne);
+router.get("/", authMiddleware, BasketController.get);
 
 /* Favorite products */
-router.put("/favorite/:productId", authMiddleware, BasketController.toggleFavorite);
+router.put("/favorite/:productId", authMiddleware, BasketController.toggleFavoriteProduct);
 
 /* Normal products */
-router.put("/append/:productId/:quantity", authMiddleware, BasketController.append);
-router.put("/increment/:productId/:quantity", authMiddleware, BasketController.increment);
-router.put("/decrement/:productId/:quantity", authMiddleware, BasketController.decrement);
-router.put("/remove/:productId", authMiddleware, BasketController.remove);
+router.put("/add/:productId/:quantity?", authMiddleware, BasketController.addProduct);
+router.put("/remove/:productId/:quantity?", authMiddleware, BasketController.removeProduct);
+
 router.put("/clear", authMiddleware, BasketController.clear);
 
 module.exports = router;

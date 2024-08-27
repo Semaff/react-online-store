@@ -1,6 +1,7 @@
 const { AppError } = require("../errors");
 
-const errorMiddleware = (err, _, res) => {
+/* Using DI so we should include all 4 args */
+const errorMiddleware = (err, _, res, __) => {
   if (err instanceof AppError) {
     console.log(err.message);
     return res.status(err.status).json({ message: err.message });
